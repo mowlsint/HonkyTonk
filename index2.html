@@ -17,7 +17,11 @@
 <section class="panel" id="mpPanel">
 <h2>02a · Magic Paws → Honky Tonk</h2>
 <p class="small"><b>Direktimport ohne KI und ohne White Lightning.</b> Meldungen prüfen, auswählen und ins bestehende Reportformat übernehmen. Originalsprache bleibt erhalten; keine automatische Übersetzung oder Analyse.</p>
-<p class="small">1. <a href="https://github.com/mowlsint/MagicPaws/tree/main/reports/rawdata" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Magic-Paws-Rohdaten öffnen (GitHub-Anmeldung)</a><br>2. HTML-Bericht oder <code>latest_honkytonk_feed.json</code> herunterladen und hier auswählen. Die bisherige <code>latest_MAGIC_PAWS_24h_rawdata_report.json</code> enthält nur Metadaten. PDF ist kein Importformat.</p>
+<p class="small">1. Mit GitHub-Token direkt die aktuelle private <code>latest_honkytonk_feed.json</code> laden oder 2. HTML-Bericht/JSON herunterladen und hier auswählen. Die bisherige <code>latest_MAGIC_PAWS_24h_rawdata_report.json</code> enthält nur Metadaten. PDF ist kein Importformat.</p>
+<div class="row"><div><label for="mpToken">GitHub-Token für MagicPaws</label><input id="mpToken" type="password" autocomplete="off" placeholder="Fine-grained PAT: MagicPaws contents:read"></div><div><label for="mpBranch">MagicPaws-Branch</label><input id="mpBranch" value="main"></div></div>
+<label><input id="mpRememberToken" type="checkbox" style="width:auto;margin-right:6px"> Token nur in diesem Browser merken</label>
+<button id="mpFetchLatest" class="cyan">Aktuelle Magic-Paws-JSON laden</button><button id="mpForgetToken" class="ghost">Token vergessen</button>
+<p class="small"><a href="https://github.com/mowlsint/MagicPaws/tree/main/reports/rawdata" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Magic-Paws-Rohdatenordner öffnen</a>. Der Token wird nicht in HonkyTonk gespeichert oder veröffentlicht; nur bei gesetztem Häkchen landet er lokal in diesem Browser.</p>
 <input id="mpFiles" type="file" multiple accept=".html,.htm,.json">
 <details><summary>HTML / JSON direkt einfügen</summary><textarea id="mpPaste" placeholder="HTML-Quelltext oder Magic-Paws events[] JSON"></textarea><button id="mpParse">Vorschau erstellen</button></details>
 <div class="row"><div><label for="mpHours">Importzeitraum</label><select id="mpHours"><option value="24">24 Stunden</option><option value="36">36 Stunden</option><option value="48">48 Stunden</option><option value="168">7 Tage</option><option value="192">8 Tage</option><option value="all">Alle gelieferten Ereignisse</option></select></div><div><label for="mpEnd">Endzeitpunkt UTC</label><input id="mpEnd" type="datetime-local" step="60"></div></div>
@@ -783,10 +787,13 @@ function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.ge
 ['reportDate','period','region','audience','mapMode','outputLanguage','webResearchEnabled','mandatoryMaritimeSources','cyberDroneDeepSearch','russiaChinaEconomicSecurity','negativeCoverageNotes'].forEach(id=>{let el=document.getElementById(id);if(el)el.addEventListener('input',()=>{updatePrompt();renderReport()})});let archiveInput=document.getElementById('archiveMarkdownInput');if(archiveInput)archiveInput.addEventListener('change',loadArchivedMarkdownFiles);updatePrompt();renderImports();renderEditor();renderReport();
 </script>
 <script>
-/* Honky Tonk index2: isolated, deterministic Magic Paws adapter. No network or LLM calls. */
+/* Honky Tonk index2: isolated, deterministic Magic Paws adapter. No automatic network or LLM calls. */
 (() => {
   'use strict';
   const STORAGE = 'mowlsint.honkytonk.index2.draft.v1';
+  const TOKEN_STORAGE = 'mowlsint.honkytonk.index2.github_token.v1';
+  const LATEST_FEED_PATH = 'reports/rawdata/latest_honkytonk_feed.json';
+  const MAGICPAWS_REPO = 'mowlsint/MagicPaws';
   const LIMIT = 10 * 1024 * 1024;
   const MAX_EVENTS = 2000;
   const $ = id => document.getElementById(id);
@@ -939,6 +946,52 @@ function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.ge
     status(`${state.batches.length} Datei(en) · ${good} gültig · ${outside} außerhalb · ${invalid} ungültig · ${duplicates} Dubletten. ${Number.isFinite(age)&&age>30?'Achtung: neuester Export älter als 30 Stunden. ':''}${end?'':'Endzeitpunkt fehlt! '}Nur gelieferte Daten, keine zusätzliche Recherche. Kartierung ist keine Ortsverifikation.`);
     $('mpApply').disabled = state.busy || !state.rows.some(r=>!r.error&&!r.duplicate&&r.selected&&inWindow(r));
   }
+  function tokenValue() {
+    return safeText($('mpToken')?.value).trim();
+  }
+  function rememberToken() {
+    try {
+      if ($('mpRememberToken')?.checked && tokenValue()) localStorage.setItem(TOKEN_STORAGE, tokenValue());
+      else localStorage.removeItem(TOKEN_STORAGE);
+    } catch {}
+  }
+  function loadRememberedToken() {
+    try {
+      const token = localStorage.getItem(TOKEN_STORAGE) || '';
+      if (token && $('mpToken')) {
+        $('mpToken').value = token;
+        $('mpRememberToken').checked = true;
+      }
+    } catch {}
+  }
+  async function fetchLatestFeed() {
+    if (state.busy) return;
+    const token = tokenValue();
+    if (!token) { status('GitHub-Token fehlt. Benötigt wird ein Fine-grained Token mit Contents: read für mowlsint/MagicPaws.', true); return; }
+    rememberToken();
+    const branch = encodeURIComponent(safeText($('mpBranch')?.value).trim() || 'main');
+    const url = 'https://api.github.com/repos/' + MAGICPAWS_REPO + '/contents/' + LATEST_FEED_PATH + '?ref=' + branch;
+    $('mpApply').disabled = true; if ($('mpFetchLatest')) $('mpFetchLatest').disabled = true;
+    try {
+      status('Lade private Magic-Paws-JSON aus GitHub ...');
+      const res = await fetch(url, { headers: { 'Accept':'application/vnd.github+json', 'Authorization':'Bearer ' + token, 'X-GitHub-Api-Version':'2022-11-28' }, cache:'no-store' });
+      if (res.status === 404) throw new Error('Feed noch nicht gefunden. Vermutlich ist nach dem Merge noch kein erfolgreicher Magic-Paws-Rohdatenlauf gelaufen.');
+      if (res.status === 401 || res.status === 403) throw new Error('GitHub lehnt den Zugriff ab. Token, Repo-Rechte und Fine-grained Contents: read prüfen.');
+      if (!res.ok) throw new Error('GitHub meldet HTTP ' + res.status + '.');
+      const payload = await res.json();
+      if (!payload || typeof payload.content !== 'string') throw new Error('GitHub-Antwort enthält keinen Dateiinhalt.');
+      const raw = atob(payload.content.replace(/\s+/g, ''));
+      const bytes = Uint8Array.from(raw, c => c.charCodeAt(0));
+      const text = new TextDecoder('utf-8', { fatal:false }).decode(bytes);
+      if (await stageInputs([{ name: LATEST_FEED_PATH, size: bytes.byteLength, text: async () => text }])) {
+        status('Aktuelle Magic-Paws-JSON geladen. Bitte Vorschau prüfen und ausgewählte Meldungen anhängen.');
+      }
+    } catch (e) {
+      state.busy = false; $('mpApply').disabled = false; status('GitHub-Import abgebrochen: ' + e.message, true);
+    } finally {
+      if ($('mpFetchLatest')) $('mpFetchLatest').disabled = false;
+    }
+  }
   async function stageInputs(files) {
     if (state.busy) return; state.busy = true; $('mpApply').disabled = true;
     try {
@@ -959,8 +1012,8 @@ function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.ge
       state.batches = batches; state.rows = rows;
       const latest = Math.max(...batches.map(b=>new Date(b.generated).getTime()));
       if (Number.isFinite(latest)) $('mpEnd').value = new Date(Math.ceil(latest/60000)*60000).toISOString().slice(0,16);
-    } catch(e) { state.busy = false; status('Import abgebrochen; bestehender Report bleibt unverändert: '+e.message,true); return; }
-    state.busy = false; preview();
+    } catch(e) { state.busy = false; if ($('mpFetchLatest')) $('mpFetchLatest').disabled = false; status('Import abgebrochen; bestehender Report bleibt unverändert: '+e.message,true); return false; }
+    state.busy = false; if ($('mpFetchLatest')) $('mpFetchLatest').disabled = false; preview(); return true;
   }
   function apply() {
     if (state.busy) return;
@@ -1077,6 +1130,11 @@ function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.ge
       if(r.severity==='unbekannt'){const sel=card.querySelectorAll('select')[1];const opt=new Option('unbekannt','unbekannt',true,true);sel.add(opt);}
     });
   };
+  loadRememberedToken();
+  $('mpFetchLatest').addEventListener('click',fetchLatestFeed);
+  $('mpForgetToken').addEventListener('click',()=>{try{localStorage.removeItem(TOKEN_STORAGE);}catch{} if($('mpToken'))$('mpToken').value=''; if($('mpRememberToken'))$('mpRememberToken').checked=false; status('GitHub-Token aus diesem Browser entfernt.');});
+  $('mpRememberToken').addEventListener('change',rememberToken);
+  $('mpToken').addEventListener('change',rememberToken);
   $('mpFiles').addEventListener('change',e=>{if(e.target.files.length)stageInputs([...e.target.files]);});
   $('mpParse').addEventListener('click',()=>stageInputs([{name:'Eingefügter Rohbericht',text:async()=>$('mpPaste').value,size:new Blob([$('mpPaste').value]).size}]));
   for(const id of ['mpHours','mpEnd'])$(id).addEventListener('change',preview);
@@ -1092,7 +1150,7 @@ function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.ge
   window.addEventListener('pagehide',save);
   $('mpEnd').value=new Date().toISOString().slice(0,16);
   // Public testing hooks have no credentials and never request external data.
-  window.MagicPawsImport={parseInput,makeReport,category,places,canonical,dateUTC,stageInputs,apply,restoreText,draft,state};
+  window.MagicPawsImport={parseInput,makeReport,category,places,canonical,dateUTC,stageInputs,fetchLatestFeed,apply,restoreText,draft,state};
   renderReport();renderEditor();
 })();
 
