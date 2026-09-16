@@ -34,8 +34,8 @@ const feed=events=>JSON.stringify({schema:'magicpaws-honkytonk-feed-1',generated
 const file=text=>({name:'synthetic.json',text:async()=>text,size:Buffer.byteLength(text)});
 
 test('all inline scripts have valid syntax and old interface remains present',()=>{
-  for(const id of ['fileInput','reportEditor','archiveMarkdownInput','outputLanguage','mapMode','mpPanel','mpPreview']) assert.match(html,new RegExp('id="'+id+'"'));
-  assert.match(html,/function printReport\(/);assert.match(html,/function downloadHTMLReport\(/);
+  for(const id of ['fileInput','reportEditor','archiveMarkdownInput','outputLanguage','mapMode','mpPanel','mpPreview','mpToken','mpFetchLatest']) assert.match(html,new RegExp('id="'+id+'"'));
+  assert.match(html,/function printReport\(/);assert.match(html,/function downloadHTMLReport\(/);assert.match(html,/async function fetchLatestFeed\(/);assert.doesNotMatch(html,/ghp_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/);
 });
 test('routine containers, tankers, fishing and pipelines are not crime or hybrid proof',()=>{
   const {api}=harness();for(const title of ['Container ship arrives','Oil tanker delivers cargo','Trawler visits port','Pipeline project tender'])assert.equal(api.category(event({title,text:''})).value,'other');
