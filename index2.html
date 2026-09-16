@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MOwlSINT Daily Honky-Tonk v9</title>
+<style>
+:root{--bg:#071018;--panel:#0e1823;--line:#304154;--muted:#9fb1c5;--text:#dfe8f4;--green:#84f58b;--amber:#f5c86b;--cyan:#73e7ee;--paper:#f3efe4;--ink:#111820;--shadow:0 14px 34px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Courier New",Courier,monospace;line-height:1.42}header{padding:12px 20px;border-bottom:2px solid var(--line);background:linear-gradient(180deg,#101b27,#071018);position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:flex-start;gap:18px}.head-text h1{margin:0;color:var(--green);font-size:1.32rem;letter-spacing:.04em}.head-text p{margin:5px 0 0;color:var(--muted);font-size:.88rem}.app-logo{width:154px;height:154px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px;flex:0 0 auto}main{max-width:none;width:100%;margin:0;padding:16px;display:grid;grid-template-columns:455px minmax(0,1fr);gap:16px}.left{display:flex;flex-direction:column;gap:14px}.panel,.report-wrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.panel{padding:14px}.panel h2{margin:0 0 10px;color:var(--amber);font-size:1rem;text-transform:uppercase}.panel h3{margin:12px 0 8px;color:var(--cyan);font-size:.9rem}label{display:block;margin:9px 0 5px;color:var(--muted);font-size:.82rem;text-transform:uppercase}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;background:#09121b;color:var(--text);font:inherit;padding:9px 10px}textarea{min-height:92px;resize:vertical}.promptbox{height:330px;white-space:pre-wrap}input[type=file]{border-style:dashed;color:var(--muted)}button{border:1px solid var(--line);border-radius:8px;padding:9px 12px;font:inherit;cursor:pointer;background:#152231;color:var(--text);margin:4px 4px 4px 0}button:hover{filter:brightness(1.08)}.ok{background:#15331e;color:#b8ffc4;border-color:#2e7143}.warn{background:#33270c;color:#ffe1a4;border-color:#75571e}.danger{background:#371619;color:#ffb8b8;border-color:#7d3333}.ghost{background:#0b141e}.purple{background:#28163b;color:#e8ceff;border-color:#66428e}.cyan{background:#102b30;color:#befcff;border-color:#2e7880}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.small{font-size:.79rem;color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 7px;color:var(--cyan);font-size:.73rem;background:#0a141e}.scrollbox,.editor{max-height:300px;overflow:auto;border:1px solid #1f2d3d;border-radius:8px;background:#08111a;padding:8px}.editor{max-height:620px;min-height:360px}.editor.expanded{position:fixed;left:24px;right:24px;top:96px;bottom:24px;z-index:99;max-height:none;min-height:0;background:#202832;border:2px solid var(--cyan);box-shadow:0 20px 60px rgba(0,0,0,.65)}.editor-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;position:relative;z-index:140}.editor-toggle{position:relative;z-index:150;min-width:134px;text-align:center;white-space:nowrap;line-height:1.2;flex:0 0 auto}.editor-tools h2{margin:0!important}.item{padding:8px;border-bottom:1px solid #1f2d3d;font-size:.83rem}.item:last-child{border-bottom:0}.item b{color:#fff8e8}.item span{display:block;color:var(--muted);margin-top:3px}.editor-card{border:1px solid #263748;border-radius:8px;padding:9px;margin-bottom:10px;background:#0d1823}.toolbar{padding:12px 14px;border-bottom:1px solid var(--line);background:#0d1823;display:flex;flex-wrap:wrap;gap:6px}.report-inner{background:var(--paper);color:var(--ink);padding:28px 40px 38px;min-height:1200px;width:100%}.report-title{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;border-bottom:2px solid #222;padding-bottom:10px;margin-bottom:14px}.report-title h1{margin:0;font-size:1.6rem;letter-spacing:.02em}.sub{font-size:.86rem;color:#3c4855;margin-top:6px}.report-head-right{display:flex;align-items:flex-end;gap:14px}.report-meta{text-align:right;font-size:.82rem;color:#4c5865}.report-logo{width:138px;height:138px;border:1px solid #222;background:#fff;padding:4px;flex:0 0 auto}.report-logo img{width:100%;height:100%;object-fit:contain;display:block}.summarybox,.mapbox,.stat{border:1px solid #87919b;background:#ece7dc}.summarybox{padding:12px;margin:12px 0 16px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 16px}.stat{padding:10px}.stat b{display:block;font-size:1.15rem}.stat span{font-size:.76rem;color:#4c5865}.mapbox{padding:10px;margin:0 0 18px;break-inside:avoid}.mapbox h2{margin:0 0 8px;font-size:1rem}.realmap{position:relative;width:100%;aspect-ratio:1200/520;height:auto;border:1px solid #707985;background:#cbd9e2;overflow:visible;margin-bottom:16px;break-inside:avoid;page-break-inside:avoid}.realmap img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:1}.marker{position:absolute;transform:translate(-50%,-50%);z-index:3}.pin{width:13px;height:13px;border-radius:50%;border:1px solid #111;box-shadow:0 0 0 2px rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:bold;color:#fff;line-height:1;text-shadow:0 1px 2px #000;-webkit-print-color-adjust:exact;print-color-adjust:exact}.mlabel{position:absolute;white-space:nowrap;background:rgba(255,255,255,.94);border:1px solid #333;padding:1px 4px;font-size:10px;color:#111;box-shadow:1px 1px 3px rgba(0,0,0,.18);line-height:1.15;z-index:4;display:none}.leader{position:absolute;height:1px;background:#111;transform-origin:0 0;z-index:2;opacity:.72;display:none}.map-location-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:4px 12px;margin-top:8px;font-size:.74rem;color:#111}.map-location-list div{border-bottom:1px dotted #999;padding:2px 0}.map-location-list b{display:inline-block;min-width:22px}.map-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#334;background:linear-gradient(135deg,#d9e6ef,#eef3f7);z-index:0}.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:.74rem}.leg{display:inline-flex;align-items:center;gap:4px}.dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid #222;-webkit-print-color-adjust:exact;print-color-adjust:exact}.legend,.pin,.dot,.meldung{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }.cat-section{break-inside:auto;page-break-inside:auto}.cat-section h2{break-after:avoid;page-break-after:avoid;margin-top:18px}.cat-section .meldung:first-of-type{break-before:avoid;page-break-before:avoid}.mapnote{font-size:.76rem;color:#56616d;margin-top:7px}.meldung{border:1px solid #7d8793;border-left:6px solid #666;padding:12px;margin:12px 0;background:#faf8f1;break-inside:avoid}.meldung.hybrid{border-left-color:#784fc0}.meldung.shadow{border-left-color:#111}.meldung.drugs{border-left-color:#b33131}.meldung.iuu{border-left-color:#166b43}.meldung.cyber{border-left-color:#1f66a5}.meldung.safety{border-left-color:#b36b14}.meldung.environment{border-left-color:#247d84}.meldung h3{margin:0 0 7px;font-size:1rem}.meldung p{margin:6px 0}.src{font-size:.82rem;color:#37414c;word-break:break-word}.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.tag{border:1px solid #7d8793;padding:2px 6px;font-size:.72rem;background:#f0ece2}.ki-input-panel{border:2px solid #8a6a00!important;box-shadow:0 0 0 1px rgba(245,200,107,.18),var(--shadow)!important}.ki-input-panel h2{color:#f5c86b!important}.json-output-box{min-height:360px;background:#061018!important;border:2px solid #2e7880!important;white-space:pre;font-size:.78rem;line-height:1.35}.json-status-ok{color:#b8ffc4}.json-status-warn{color:#ffe1a4}.json-status-bad{color:#ffb8b8}#aiOutput{border:3px solid #8a6a00!important;background:#0b1218!important;box-shadow:inset 0 0 0 1px rgba(255,232,160,.08)}#aiOutput:focus{outline:none!important;border-color:#c49119!important;box-shadow:0 0 0 3px rgba(245,200,107,.22),inset 0 0 0 1px rgba(255,232,160,.10)!important}.editor.expanded .editor-card,.editor.expanded .item{background:#18212b}.toolbar-label{display:inline-flex;align-items:center;gap:7px;margin:4px 8px 4px 0;color:var(--muted);font-size:.82rem;text-transform:uppercase}.toolbar-label select{width:auto;min-width:120px;padding:7px 9px;background:#09121b;color:var(--text);border:1px solid var(--line);border-radius:8px}.header-actions{margin-left:auto;display:flex;align-items:center;gap:8px}.archive-load-btn{background:#33270c;color:#ffe1a4;border-color:#8a6a00;white-space:nowrap;min-width:210px}.archive-load-btn:hover{filter:brightness(1.12)}.archive-hidden-input{display:none!important}@media(max-width:1100px){main{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.realmap{height:360px}}@media print{body{background:#fff;color:#000}header,.left,.toolbar{display:none!important}main{display:block;max-width:none;width:100%;margin:0;padding:0}.report-wrap{border:0;box-shadow:none;width:100%;overflow:visible}.report-inner{padding:8mm;background:#fff;width:100%;max-width:none;overflow:visible}.summarybox,.mapbox,.stat,.meldung{background:#fff}.mapbox{page-break-inside:avoid!important;break-inside:avoid!important;overflow:visible!important;margin-bottom:8mm}.realmap{height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:1200/520!important;overflow:visible!important;page-break-inside:avoid!important;break-inside:avoid!important;margin-bottom:12mm}.realmap img{object-fit:fill!important;background:#dce8ef}.mlabel{font-size:9px!important;padding:1px 3px!important}.pin{width:11px!important;height:11px!important;font-size:6px!important;border-width:1px!important;box-shadow:0 0 0 1px rgba(255,255,255,.95)!important}.map-location-list{font-size:8.5px!important;grid-template-columns:repeat(3,1fr)!important;gap:2px 8px!important}.report-logo{width:118px;height:118px}.cat-section{break-before:page;page-break-before:always}.cat-section:first-of-type{break-before:auto;page-break-before:auto}.cat-section h2{break-after:avoid!important;page-break-after:avoid!important}.cat-section .meldung:first-of-type{break-before:avoid!important;page-break-before:avoid!important}}
+</style>
+</head>
+<body>
+<header><img class="app-logo" src="honkytonk_mini.png" alt="MOwlSINT Daily Honky-Tonk Logo"><div class="head-text"><h1>MOwlSINT Daily Honky-Tonk v9 · index2</h1><p>Daily maritime OSINT workflow · MOwlSINT White Lightning → Prompt harmonization → mapping → PDF/MD/TXT</p></div><div class="header-actions"><button class="archive-load-btn" onclick="openArchiveMarkdownPicker()" title="Archivierte Markdown-Reports laden und im Report Editor nachbearbeiten">Archivierte MD laden</button><input id="archiveMarkdownInput" class="archive-hidden-input" type="file" multiple accept=".md,.markdown,.txt"></div></header>
+<main>
+<div class="left">
+<section class="panel"><h2>01 · Report Settings</h2><div class="row"><div><label>Report-Datum</label><input id="reportDate" type="date"></div><div><label>Zeitraum</label><select id="period"><option>letzte 24 Stunden</option><option selected>letzte 36 Stunden</option><option>letzte 48 Stunden</option><option>Wochenübersicht letzte 8 Tage</option><option>letzte 7 Tage</option><option>frei / aus Import</option></select></div></div><label>Region / Fokus</label><input id="region" value="Nordsee, Ostsee, Ärmelkanal, Atlantikzugänge, Mittelmeer, Schwarzmeerraum, globale maritime Brennpunkte"><div class="row"><div><label>Adressat / Modus</label><select id="audience"><option>OSINT-Analyst</option><option>Behördenlage / LvU-tauglich</option></select></div><div><label>Kartenscope</label><select id="mapMode"><option value="auto">Auto</option><option value="europe">Europa</option><option value="world">Welt</option></select></div></div><div class="chips"><span class="chip">Hybrid</span><span class="chip">Schattenflotte</span><span class="chip">Rauschgift</span><span class="chip">IUU</span><span class="chip">Cyber/KRITIS</span><span class="chip">Safety</span></div><p class="small">Logo: honkytonk.png im selben Ordner; PDF-Report nutzt dieselbe Datei.</p></section>
+<section class="panel" id="mpPanel">
+<h2>02a · Magic Paws → Honky Tonk</h2>
+<p class="small"><b>Direktimport ohne KI und ohne White Lightning.</b> Meldungen prüfen, auswählen und ins bestehende Reportformat übernehmen. Originalsprache bleibt erhalten; keine automatische Übersetzung oder Analyse.</p>
+<p class="small">1. <a href="https://github.com/mowlsint/MagicPaws/tree/main/reports/rawdata" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Magic-Paws-Rohdaten öffnen (GitHub-Anmeldung)</a><br>2. HTML-Bericht oder <code>latest_honkytonk_feed.json</code> herunterladen und hier auswählen. Die bisherige <code>latest_MAGIC_PAWS_24h_rawdata_report.json</code> enthält nur Metadaten. PDF ist kein Importformat.</p>
+<input id="mpFiles" type="file" multiple accept=".html,.htm,.json">
+<details><summary>HTML / JSON direkt einfügen</summary><textarea id="mpPaste" placeholder="HTML-Quelltext oder Magic-Paws events[] JSON"></textarea><button id="mpParse">Vorschau erstellen</button></details>
+<div class="row"><div><label for="mpHours">Importzeitraum</label><select id="mpHours"><option value="24">24 Stunden</option><option value="36">36 Stunden</option><option value="48">48 Stunden</option><option value="168">7 Tage</option><option value="192">8 Tage</option><option value="all">Alle gelieferten Ereignisse</option></select></div><div><label for="mpEnd">Endzeitpunkt UTC</label><input id="mpEnd" type="datetime-local" step="60"></div></div>
+<p class="small">Endzeit wird beim Einlesen auf den neuesten Export gesetzt. Ein längeres Fenster ergänzt keine fehlenden Daten; dafür mehrere Tagesberichte laden. Ereigniszeit kann in Magic Paws auf Veröffentlichungs-/Erfassungszeit beruhen.</p>
+<div id="mpStatus" class="small" role="status" aria-live="polite">Bereit. Dateien werden nur in diesem Browser verarbeitet, nicht hochgeladen.</div>
+<button id="mpAll" class="ghost">Alle gültigen auswählen</button><button id="mpNone" class="ghost">Auswahl leeren</button>
+<div id="mpPreview" class="scrollbox" style="max-height:420px"><span class="small">Noch keine Daten eingelesen.</span></div>
+<button id="mpApply" class="ok" disabled>Auswahl an Report anhängen</button>
+<details><summary>Entwurf sichern / fortsetzen</summary><p class="small">Die neue Version benutzt einen eigenen Speicherbereich. Browser-Speicherung ist freiwillig und auf diesem Browserprofil lesbar. Entwurfsdateien können private Rohdaten enthalten – nicht öffentlich hochladen.</p><label><input id="mpAutosave" type="checkbox" style="width:auto"> Entwurf in diesem Browser automatisch speichern</label><button id="mpRestore">Gespeicherten Entwurf laden</button><button id="mpForget" class="danger">Browsersicherung löschen</button><button id="mpDraft">Vollständigen Entwurf als JSON sichern</button><input id="mpDraftFile" type="file" accept=".json"><p class="small">Dieser Entwurf bewahrt Rohtext, Quellen und Geo-Prüfvermerke. MD/TXT/HTML bleiben lesbare Reportexporte.</p></details>
+</section>
+
+<section class="panel"><h2>02 · MOwlSINT White Lightning</h2><p class="small"><b>Rohdatendestillerie ohne KI-Zusammenfassung.</b> Entfernt Mailheader/Footer, quoted-printable-Müll, Warnbanner und Syndication-Dubletten. Zerlegt Talkwalker-, DataMinr-/Mail-, Daily-Honkytonk- und Voodoo-Whiskers-JSON-Exporte in kompakte Importblöcke.</p><input id="fileInput" type="file" multiple accept=".txt,.csv,.json,.html,.htm,.md,.eml,.msg"><label><input id="whiteLightningEnabled" type="checkbox" checked style="width:auto;margin-right:6px"> White Lightning beim Import verwenden</label><div class="row3"><div><label>Modus</label><select id="wlMode"><option value="conservative">konservativ</option><option value="normal" selected>normal</option><option value="aggressive">aggressiv</option></select></div><div><label>Max. Blöcke</label><input id="wlMaxBlocks" type="number" min="5" max="250" value="60"></div><div><label>Max. Zeichen/Block</label><input id="wlMaxChars" type="number" min="250" max="2500" step="50" value="900"></div></div><label>Oder Rohtext / Alert-Mail / CSV einfügen</label><textarea id="rawInput" placeholder="Crawler-/Talkwalker-Alert, CSV, HTML-Mailtext oder Trefferliste hier einfügen ..."></textarea><button onclick="ingestRaw()">Rohtext übernehmen</button><button class="ghost" onclick="clearImports()">Import leeren</button><div id="wlStatus" class="small" style="margin-top:6px;color:#f5c86b">White Lightning bereit.</div><h3>Importierte Rohdaten</h3><div id="importList" class="scrollbox"><span class="small">Noch keine Treffer importiert.</span></div></section>
+<section class="panel"><h2>03 · Harmonisierungsprompt</h2><p class="small"><b>Rechercheauftrag für webfähige KI.</b> Die App bereitet Rohdaten und Prompt vor; die eigentliche Websuche erfolgt anschließend durch das Modell, in das du den Prompt kopierst.</p><div class="chips"><span class="chip">UKMTO</span><span class="chip">Marineschifffahrtleitung</span><span class="chip">Maritime Executive</span><span class="chip">gCaptain</span><span class="chip">Vesseltracker</span><span class="chip">Cyber/Drohnen</span><span class="chip">Russland/China</span></div><label><input id="webResearchEnabled" type="checkbox" checked style="width:auto;margin-right:6px" onchange="updatePrompt()"> Crawler + verpflichtende eigene Webrecherche</label><label><input id="mandatoryMaritimeSources" type="checkbox" checked style="width:auto;margin-right:6px" onchange="updatePrompt()"> UKMTO, Marineschifffahrtleitung, Maritime Executive, gCaptain und Vesseltracker verpflichtend prüfen</label><label><input id="cyberDroneDeepSearch" type="checkbox" checked style="width:auto;margin-right:6px" onchange="updatePrompt()"> Cyber-/IT-/OT- und hybrides Drohnen-/Spionagelagebild vertieft prüfen</label><label><input id="russiaChinaEconomicSecurity" type="checkbox" checked style="width:auto;margin-right:6px" onchange="updatePrompt()"> Russland-/China-Lagebild: Wirtschaftsspionage, Einfluss, maritime Handels-/Lieferketten prüfen</label><label><input id="negativeCoverageNotes" type="checkbox" checked style="width:auto;margin-right:6px" onchange="updatePrompt()"> Negativmeldungen im search_coverage-Block verlangen, wenn Pflichtbereiche ohne Treffer bleiben</label><button class="purple" onclick="copyPromptWithImports()">Prompt + Rohdaten kopieren</button><button class="ghost" onclick="downloadPromptWithImports()">Prompt + Rohdaten als TXT</button><label>Prompt-Vorschau</label><textarea id="promptBox" class="promptbox" readonly></textarea></section>
+<section class="panel ki-input-panel"><h2>04 · Harmonisiertes KI-Ergebnis</h2><label>KI-Ausgabe einfügen</label><textarea id="aiOutput" oninput="mirrorAiJsonOutput()" placeholder="Hier die harmonisierte KI-JSON-Ausgabe einfügen. Akzeptiert reines JSON oder einen kopierbaren json-Codeblock mit einem JSON-Objekt aus meta, items und discarded."></textarea><button class="ok" onclick="importHarmonizedOutput()">Harmonisierte Ausgabe in Report übernehmen</button><div id="importStatus" class="small" style="margin-top:6px;color:#f5c86b"></div><div class="row"><button class="cyan" onclick="validateAndFormatJsonOutput()">JSON prüfen / formatieren</button><button class="ghost" onclick="copyJsonOutputBox()">JSON-Fenster kopieren</button></div><button class="ghost" onclick="generateReportJsonBox()">Report-JSON erzeugen</button><button class="ghost" onclick="mirrorAiJsonOutput()">KI-Rohtext ins JSON-Fenster</button><label>Kopierbares JSON-Fenster / Roh-JSON</label><textarea id="jsonOutputBox" class="json-output-box" readonly onfocus="this.select()" placeholder="Hier erscheint die KI-Ausgabe automatisch als kopierbarer Rohtext. Nach JSON-Prüfung wird sie formatiert. Auch ungültiges JSON bleibt hier sichtbar und kopierbar."></textarea><div id="jsonStatus" class="small" style="margin-top:6px;color:#f5c86b"></div><button onclick="addManualMeldung()">Manuelle Meldung hinzufügen</button><button class="ghost" onclick="sortReports()">Meldungen sortieren</button><button class="danger" onclick="clearReports()">Report leeren</button><p class="small">Workflow: Crawler/Talkwalker/Mail hochladen → Prompt mit Rohdaten kopieren → in KI harmonisieren → harmonisierte KI-Ausgabe hier einfügen → Report/PDF erzeugen.</p></section>
+<section class="panel"><div class="editor-tools"><h2>05 · Report Editor</h2><button id="editorToggleBtn" class="ghost editor-toggle" onclick="toggleEditorSize()">Editor groß</button></div>
+<div class="editor-card" style="margin-bottom:12px">
+  <h3>Manueller Lagebeitrag → JSON / Report</h3>
+  <div class="row">
+    <div><label>Datum</label><input id="manualDate" type="date"></div>
+    <div><label>Kategorie</label><select id="manualCategory"><option value="hybrid">Hybride Aktivität / Phase Zero</option><option value="shadow">Schattenflotte / Sanktionen</option><option value="drugs">Rauschgiftschmuggel / Maritime Crime</option><option value="iuu">IUU / illegale Fischerei</option><option value="cyber">Cyber / Hafen / KRITIS</option><option value="safety">Störung der Schifffahrt / Safety</option><option value="environment">Umwelt / Pollution</option><option value="other">Sonstige maritime Auffälligkeit</option></select></div>
+  </div>
+  <div class="row">
+    <div><label>Gewichtung</label><select id="manualSeverity"><option>mittel</option><option>hoch</option><option>niedrig</option></select></div>
+    <div><label>Unterkategorie</label><input id="manualSubcategory" placeholder="z. B. GNSS/AIS/RF-Anomalien"></div>
+  </div>
+  <label>Überschrift</label><input id="manualHeadline" placeholder="Kurze, lagebildtaugliche Überschrift">
+  <label>Kurzmeldung</label><textarea id="manualSummary" placeholder="80–180 Zeichen oder kurzer Lagekern"></textarea>
+  <label>Einordnung</label><textarea id="manualAssessment" placeholder="Warum relevant? Was folgt daraus? Was ist noch zu prüfen?"></textarea>
+  <div class="row3">
+    <div><label>Region</label><input id="manualRegion" placeholder="z. B. Ostsee"></div>
+    <div><label>Korridor / Seegebiet</label><input id="manualCorridor" placeholder="z. B. Fehmarnbelt"></div>
+    <div><label>Hafen</label><input id="manualPort" placeholder="z. B. Hamburg"></div>
+  </div>
+  <div class="row3">
+    <div><label>Schiff</label><input id="manualShip" placeholder="Name"></div>
+    <div><label>IMO</label><input id="manualImo" placeholder="IMO"></div>
+    <div><label>MMSI</label><input id="manualMmsi" placeholder="MMSI"></div>
+  </div>
+  <label>TTP / Modus Operandi</label><input id="manualTtp" placeholder="AIS-Lücke, Loitering, Rip-on/Rip-off, STS, ...">
+  <label>Orte / Regionen für Karte, kommasepariert</label><input id="manualPlaces" placeholder="Fehmarnbelt, Kadetrinne, Hamburg">
+  <label>Quellen, getrennt per Zeile</label><textarea id="manualSources" placeholder="eigene AIS-Auswertung&#10;Hafenlagebild&#10;https://..."></textarea>
+  <label>Freitext-Lagebeitrag optional</label><textarea id="manualFreeText" placeholder="Alternativ oder ergänzend: freier Lagebeitrag. Leere Felder werden daraus grob abgeleitet."></textarea>
+  <button class="ok" onclick="addManualFromForm()">Manuellen Lagebeitrag übernehmen</button>
+  <button class="ghost" onclick="clearManualForm()">Felder leeren</button>
+  <button class="ghost" onclick="copyManualJsonPreview()">JSON-Vorschau kopieren</button>
+  <div id="manualStatus" class="small" style="margin-top:6px;color:#f5c86b"></div>
+</div>
+<div id="reportEditor" class="editor"><span class="small">Noch keine Meldungen.</span></div></section>
+</div>
+<div class="report-wrap"><div class="toolbar"><label class="toolbar-label">Ausgabe-Sprache <select id="outputLanguage" onchange="renderReport()"><option value="de" selected>Deutsch</option><option value="en">English</option></select></label><button class="cyan" onclick="renderReport()">Report aktualisieren</button><button class="warn" onclick="printReport()" title="Druckt über eine saubere Druckansicht mit eigener Seitenzahl. Im Druckdialog Kopf- und Fußzeilen ausschalten, damit kein lokaler Dateipfad erscheint.">PDF drucken / speichern</button><button class="ghost" onclick="downloadMarkdown()">Markdown herunterladen</button><button class="ghost" onclick="downloadText()">TXT herunterladen</button><button class="ghost" onclick="downloadHTMLReport()">HTML-Report herunterladen</button><button class="ghost" onclick="copyMarkdown()">Markdown kopieren</button></div><div id="reportView" class="report-inner"></div></div>
+</main>
+<script>
+const LOGO='honkytonk.png';
+const CATS={hybrid:{label:'Hybride Aktivität / Phase Zero',cls:'hybrid',color:'#784fc0'},shadow:{label:'Schattenflotte / Sanktionen',cls:'shadow',color:'#111111'},drugs:{label:'Rauschgiftschmuggel / Maritime Crime',cls:'drugs',color:'#b33131'},iuu:{label:'IUU / illegale Fischerei',cls:'iuu',color:'#166b43'},cyber:{label:'Cyber / Hafen / KRITIS',cls:'cyber',color:'#1f66a5'},safety:{label:'Störung der Schifffahrt / Safety',cls:'safety',color:'#b36b14'},environment:{label:'Umwelt / Pollution',cls:'environment',color:'#247d84'},other:{label:'Sonstige maritime Auffälligkeit',cls:'other',color:'#666666'}};
+const CATS_EN={hybrid:'Hybrid Activity / Phase Zero',shadow:'Shadow Fleet / Sanctions',drugs:'Drug Trafficking / Maritime Crime',iuu:'IUU / Illegal Fishing',cyber:'Cyber / Port / Critical Infrastructure',safety:'Shipping Disruption / Safety',environment:'Environment / Pollution',other:'Other Maritime Finding'};
+const OUT_I18N={
+  de:{lang:'de',title:'MOwlSINT Daily Honky-Tonk Report',subtitle:'AI-supported OSINT Report',period:'Zeitraum',region:'Region/Fokus',audience:'Adressat/Modus',lagekern:'Lagekern',no_reports:'Noch keine Meldungen vorhanden.',summary:(st,imp)=>`Aus ${imp} importierten Rohdaten wurden ${st.total} harmonisierte Meldungen übernommen. Hohe Gewichtung: ${st.high}. Hybrid/KRITIS/Schattenflotte: ${st.hybrid}. Maritime Crime/IUU: ${st.crime}. Kartierte Orte: ${st.mapped}.`,stats:['Meldungen','hoch gewichtet','Hybrid/KRITIS','Crime/IUU','kartierte Orte'],assessment:'Einordnung',subcategory:'Unterkategorie',region_corridor_port:'Region/Korridor/Hafen',ship:'Schiff',fields:'Prüffelder',sources:'Quellen',source_missing:'Quelle ergänzen',evidence_severity:'Evidenz/Gewichtung',check_title:'Prüfhinweis',check:'Der Report basiert auf harmonisierter KI-Ausgabe. Für belastbare Lageprodukte Primärquellen, Datum, Ort, Schiffsangaben und Evidenzstufen erneut prüfen.',map_title:'Lagekarte',map_empty:'Keine kartierbaren Orte erkannt.',map_fallback:'Kartengrundlage lädt nicht. Marker bleiben im Datensatz vorhanden.<br>Für PDF bitte mit Internetverbindung erneut drucken.',map_note:'Kartengrundlage: maritime Online-Basemap. Marker werden auf die tatsächlich sichtbare Kartenfläche statt auf den gesamten Bildrahmen gelegt; seitliche/obere Leerflächen der Basemap werden dabei berücksichtigt. Marker werden nur für places mit Koordinaten, role event_location/corridor/origin/destination und precision nicht unknown geplottet.',map_note_skipped:n=>`${n} Kontext-/unklare Orte nicht geplottet. `,map_note_numbers:'Die Nummern auf der Karte entsprechen der Ortsliste unterhalb der Karte.',md_map_note:'Prüfhinweis: Die Lagekarte und das Logo erscheinen im HTML/PDF-Report, nicht im Markdown.',page:'Seite'},
+  en:{lang:'en',title:'MOwlSINT Daily Honky-Tonk Report',subtitle:'AI-supported OSINT Report',period:'Time window',region:'Region / Focus',audience:'Audience / Mode',lagekern:'Executive Lage Core',no_reports:'No reports available yet.',summary:(st,imp)=>`${st.total} harmonized items were generated from ${imp} imported raw records. High severity: ${st.high}. Hybrid/Critical Infrastructure/Shadow Fleet: ${st.hybrid}. Maritime Crime/IUU: ${st.crime}. Mapped places: ${st.mapped}.`,stats:['Items','high severity','Hybrid/Critical Infrastructure','Crime/IUU','mapped places'],assessment:'Assessment',subcategory:'Subcategory',region_corridor_port:'Region/Corridor/Port',ship:'Vessel',fields:'Further checks',sources:'Sources',source_missing:'Add source',evidence_severity:'Evidence/Severity',check_title:'Verification note',check:'The report is based on harmonized AI output. For validated intelligence products, re-check primary sources, dates, locations, vessel identifiers and evidence ratings.',map_title:'Situation map',map_empty:'No mappable places detected.',map_fallback:'Basemap did not load. Marker data remains available.<br>For PDF output, print again with an internet connection.',map_note:'Basemap: maritime online basemap. Markers are placed on the actually visible map area rather than on the whole image frame; side/top letterboxing is accounted for. Only places with coordinates, role event_location/corridor/origin/destination and precision not unknown are plotted.',map_note_skipped:n=>`${n} context/uncertain places not plotted. `,map_note_numbers:'Map numbers correspond to the place list below the map.',md_map_note:'Verification note: The map and logo are included in the HTML/PDF report, not in Markdown.',page:'Page'}
+};
+function outputLang(){return document.getElementById('outputLanguage')?.value||'de'}
+function outLabels(){return OUT_I18N[outputLang()]||OUT_I18N.de}
+function catLabel(cat,lang=outputLang()){return lang==='en'?(CATS_EN[cat]||'Other Maritime Finding'):(CATS[cat]?.label||'Sonstige')}
+function sevLabel(s,lang=outputLang()){let t=String(s||'').toLowerCase();if(lang!=='en')return s||'';return t==='hoch'?'high':t==='mittel'?'medium':t==='niedrig'?'low':s||''}
+function outVal(r,base,lang=outputLang()){if(!r)return'';if(lang==='en')return clean(r[base+'_en']||r[base+'En']||r[base+'_english']||r[base])||'';return clean(r[base+'_de']||r[base+'De']||r[base+'_german']||r[base])||''}
+function outListVal(r,base,lang=outputLang()){let v=outVal(r,base,lang);if(Array.isArray(v))return v.join('; ');return v}
+
+let imports=[],reports=[];
+const GAZ=[['Hamburg',53.55,9.99],['Bremerhaven',53.54,8.58],['Wilhelmshaven',53.52,8.11],['Rotterdam',51.92,4.48],['Antwerpen',51.22,4.40],['Antwerp',51.22,4.40],['Zeebrugge',51.33,3.20],['Vlissingen',51.44,3.57],['Le Havre',49.49,0.11],['Dunkerque',51.03,2.38],['Algeciras',36.13,-5.45],['Valencia',39.47,-0.38],['Barcelona',41.39,2.17],['Vigo',42.24,-8.72],['Sines',37.96,-8.87],['Las Palmas',28.12,-15.43],['Felixstowe',51.96,1.35],['London Gateway',51.50,0.50],['Skagerrak',57.8,9.0],['Kattegat',57.2,11.2],['Öresund',55.9,12.7],['Fehmarnbelt',54.6,11.2],['Kadetrinne',54.7,12.5],['Nordsee',56.2,3.2],['North Sea',56.2,3.2],['Ostsee',57.0,18.0],['Baltic Sea',57.0,18.0],['Ärmelkanal',50.2,-1.5],['English Channel',50.2,-1.5],['Straße von Gibraltar',35.95,-5.65],['Strait of Gibraltar',35.95,-5.65],['Gibraltar',36.14,-5.35],['Bosporus',41.1,29.0],['Dardanellen',40.2,26.4],['Schwarzes Meer',43.3,34.5],['Black Sea',43.3,34.5],['Santos',-23.96,-46.33],['Montevideo',-34.90,-56.20],['Buenos Aires',-34.60,-58.38],['Guayaquil',-2.18,-79.88],['Callao',-12.06,-77.15],['Buenaventura',3.88,-77.03],['Cartagena',10.39,-75.48],['Colon',9.36,-79.90],['Colón',9.36,-79.90],['Panama',8.98,-79.52],['Panama Canal',9.08,-79.68],['Karibik',17,-73],['Caribbean',17,-73],['Mittelamerika',14.5,-87],['Central America',14.5,-87],['Brasilien',-10,-53],['Brazil',-10,-53],['Ecuador',-1.83,-78.18],['Peru',-9.2,-75],['Kolumbien',4.5,-74],['Colombia',4.5,-74],['Westafrika',9,-8],['West Africa',9,-8],['Dakar',14.69,-17.45],['Bissau',11.86,-15.58],['Conakry',9.64,-13.58],['Freetown',8.49,-13.23],['Monrovia',6.31,-10.80],['Abidjan',5.35,-4.01],['Tema',5.67,-0.01],['Lagos',6.46,3.39],['Cape Verde',15.1,-23.6],['Kap Verde',15.1,-23.6],['Mauretanien',20.2,-10.3],['Mauritania',20.2,-10.3],['Marokko',31.8,-7.1],['Morocco',31.8,-7.1],['Suez',30.0,32.55],['Bab el-Mandeb',12.58,43.33],['Hormus',26.57,56.25],['Straße von Hormus',26.57,56.25],['Golf von Guinea',1,3],['Red Sea',20,38],['Rotes Meer',20,38],['Tuapse',44.105,39.074],['Odesa',46.4825,30.7233],['Odessa',46.4825,30.7233],['UAODS',46.4825,30.7233],['Nordatlantik',52.0,-25.0],['North Atlantic',52.0,-25.0],['High North',70.0,5.0],['Hoher Norden',70.0,5.0],['Northwood',51.611,-0.423],['Strait of Dover',51.0,1.5],['Dover Strait',51.0,1.5],['Straße von Dover',51.0,1.5],['UK EEZ',56.0,-3.0],['Murmansk',68.9585,33.0827],['RUMMK',68.9585,33.0827],['Yamal LNG',71.27,72.07],['Arctic LNG-2',69.72,73.95],['Crete',35.2401,24.8093],['Kreta',35.2401,24.8093],['Peloponnes-Vorfeld',36.3,22.4],['Eastern Mediterranean',34.5,29.0],['Östliches Mittelmeer',34.5,29.0],['Gulf of Oman',24.9,58.5],['Golf von Oman',24.9,58.5],['Persian Gulf',26.8,51.5],['Persischer Golf',26.8,51.5],['Strait of Hormuz',26.57,56.25],['Lithuania',55.17,23.88],['Litauen',55.17,23.88],['Dänische Meerengen',55.7,11.5],['Danish Straits',55.7,11.5],['Dover',51.125,1.312],['Calais',50.951,1.858]].map(x=>({name:x[0],lat:x[1],lon:x[2]}));
+function todayISO(){let d=new Date();let y=d.getFullYear();let m=String(d.getMonth()+1).padStart(2,'0');let day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`}document.getElementById('reportDate').value=todayISO();
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function clean(s){return String(s||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()}function uniq(a){return[...new Set(a.filter(Boolean))]}function fmtDate(s){if(!s)return'';let t=String(s),m=t.match(/(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})/);if(m)return`${m[3].padStart(2,'0')}.${m[2].padStart(2,'0')}.${m[1]}`;m=t.match(/(\d{1,2})[./-](\d{1,2})[./-](20\d{2})/);if(m)return`${m[1].padStart(2,'0')}.${m[2].padStart(2,'0')}.${m[3]}`;return t.slice(0,10)}function isoFromAny(s){if(!s)return'';let m=String(s).match(/(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})/);if(m)return`${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;m=String(s).match(/(\d{1,2})[./-](\d{1,2})[./-](20\d{2})/);if(m)return`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;return''}function stamp(){return document.getElementById('reportDate').value||todayISO()}function reportBaseName(){let lang=document.getElementById('outputLanguage')?.value||'de';return stamp().replaceAll('-','')+'_MOwlSINT_DailyHonkytonk'+(lang==='en'?'_EN':'')}function urlsFrom(s){return uniq((String(s||'').match(/https?:\/\/[^\s<>)"']+/g)||[]).map(u=>u.replace(/[.,;]+$/,''))).slice(0,4)}function shortSummary(s){s=clean(s);let p=s.split(/(?<=[.!?])\s+/);let f=p[0]||s;if(f.length<80&&p[1])f=(f+' '+p[1]).trim();return f.length>210?f.slice(0,207)+'…':f}function titleFromText(s){s=clean(s);let l=s.split(/\n|\. /)[0].trim().replace(/^alert:?/i,'').trim();return l.length>95?l.slice(0,92)+'…':(l||'Maritime Auffälligkeit')}function download(n,c,t='text/plain'){let b=new Blob([c],{type:t}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function logoTag(){return `<div class="report-logo"><img src="${LOGO}" alt="MOwlSINT Daily Honky-Tonk Logo"></div>`}
+function toggleEditorSize(){let ed=document.getElementById('reportEditor');let on=ed.classList.toggle('expanded');let btn=document.getElementById('editorToggleBtn');if(btn)btn.textContent=on?'Editor normal':'Editor groß'}
+function categoryFor(t){t=(t||'').toLowerCase();if(/cocaine|kokain|drug|narcotic|smuggl|rauschgift|container/.test(t))return'drugs';if(/illegal fishing|iuu|fishing|trawler|fishery|fischerei|eez/.test(t))return'iuu';if(/shadow fleet|sanction|sanktions|dark fleet|oil tanker|insurance|sts transfer|flag hopping/.test(t))return'shadow';if(/cyber|hack|ransomware|terminal|gnss|jamming|spoofing|kritisch|cable|pipeline|wind farm|konverter/.test(t))return'cyber';if(/collision|grounding|fire|blocked|havarie|kollision|brand|rudder|störung/.test(t))return'safety';if(/pollution|oil spill|marpol|umwelt|verschmutz/.test(t))return'environment';if(/hybrid|sabotage|spy|research vessel|military|navy|drone|phase zero|grey zone/.test(t))return'hybrid';return'other'}function severityFor(t){t=(t||'').toLowerCase();if(/fatal|explosion|sabotage|attack|tonnes|major|critical|cable cut|pipeline|armed|detention|arrest/.test(t))return'hoch';if(/seized|detained|collision|grounding|jamming|spoofing|sanction|smuggling|pollution|illegal/.test(t))return'mittel';return'niedrig'}function normalizeCat(v){let t=String(v||'').toLowerCase();if(t.includes('schatten')||t.includes('sanktion')||t.includes('shadow'))return'shadow';if(t.includes('rausch')||t.includes('drogen')||t.includes('drug')||t.includes('kokain')||t.includes('crime'))return'drugs';if(t.includes('iuu')||t.includes('fisch'))return'iuu';if(t.includes('cyber')||t.includes('kriti')||t.includes('hafen')||t.includes('gnss'))return'cyber';if(t.includes('störung')||t.includes('safety')||t.includes('havarie')||t.includes('kollision'))return'safety';if(t.includes('umwelt')||t.includes('pollution')||t.includes('öl')||t.includes('marpol'))return'environment';if(t.includes('hybrid')||t.includes('phase')||t.includes('sabotage')||t.includes('drohne')||t.includes('research'))return'hybrid';return'other'}function normalizeSeverity(v){let t=String(v||'').toLowerCase();if(t.includes('hoch')||t.includes('high'))return'hoch';if(t.includes('niedrig')||t.includes('low'))return'niedrig';return'mittel'}
+function parseCSV(text){let rows=[],cur='',row=[],q=false;for(let i=0;i<text.length;i++){let c=text[i],n=text[i+1];if(c==='"'&&n==='"'){cur+='"';i++;continue}if(c==='"'){q=!q;continue}if((c===','||c===';'||c==='\t')&&!q){row.push(cur);cur='';continue}if((c==='\n'||c==='\r')&&!q){if(cur||row.length){row.push(cur);rows.push(row);row=[];cur=''}continue}cur+=c}if(cur||row.length){row.push(cur);rows.push(row)}if(rows.length<2)return[];let head=rows[0].map(h=>h.toLowerCase().trim()),idx=names=>head.findIndex(h=>names.some(n=>h.includes(n))),ti=idx(['title','titel','headline','überschrift']),si=idx(['snippet','description','summary','text']),ui=idx(['url','link']),di=idx(['date','datum','published']),so=idx(['source','quelle','publisher']);return rows.slice(1).map(r=>({title:clean(r[ti]||r[0]||''),snippet:clean(r[si]||r[1]||''),url:clean(r[ui]||''),date:clean(r[di]||''),source:clean(r[so]||''),raw:r.join(' | '),source_type:'csv'})).filter(x=>x.title||x.snippet||x.url) }
+function wlEnabled(){let el=document.getElementById('whiteLightningEnabled');return !el||!!el.checked}
+function wlSettings(){let mode=document.getElementById('wlMode')?.value||'normal';let maxBlocks=parseInt(document.getElementById('wlMaxBlocks')?.value||'60',10);let maxChars=parseInt(document.getElementById('wlMaxChars')?.value||'900',10);return{enabled:wlEnabled(),mode,maxBlocks:Number.isFinite(maxBlocks)?maxBlocks:60,maxChars:Number.isFinite(maxChars)?maxChars:900}}
+function wlStatus(msg){let el=document.getElementById('wlStatus');if(el)el.textContent=msg||'White Lightning bereit.'}
+function wlCut(s,n){s=clean(s);return s.length>n?s.slice(0,Math.max(0,n-1))+'…':s}
+function wlDecodeQP(input){let s=String(input||'').replace(/=\r?\n/g,'');let out='',bytes=[];let flush=()=>{if(bytes.length){try{out+=new TextDecoder('utf-8').decode(new Uint8Array(bytes))}catch(e){out+=bytes.map(b=>String.fromCharCode(b)).join('')}bytes=[]}};for(let i=0;i<s.length;i++){let c=s[i],h=s.slice(i+1,i+3);if(c==='='&&/^[0-9A-Fa-f]{2}$/.test(h)){bytes.push(parseInt(h,16));i+=2;continue}flush();out+=c}flush();return out}
+function wlHtmlToText(s){let NL=String.fromCharCode(10);return String(s||'').replace(/<br\s*\/?>/gi,NL).replace(/<\/p>/gi,NL).replace(/<\/div>/gi,NL).replace(/<\/li>/gi,NL).replace(/<li[^>]*>/gi,'- ').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')}
+function wlPreclean(text){let NL=String.fromCharCode(10);let s=wlDecodeQP(text).replace(/\r/g,NL);s=wlHtmlToText(s);s=s.replace(/[ \t]+/g,' ').replace(/\n[ \t]+/g,'\n');return s}
+function wlPrecleanLight(text){let NL=String.fromCharCode(10);let s=wlDecodeQP(text).replace(/\r/g,NL);s=s.replace(/[ \t]+/g,' ').replace(/\n[ \t]+/g,'\n');return s}
+function wlStripBoilerplate(text){let NL=String.fromCharCode(10);let out=[];let skip=0;for(let line of String(text||'').split(NL)){let t=line.trim(),low=t.toLowerCase();if(!t){out.push('');continue}if(low.startsWith('achtung!! diese e-mail')){skip=4;continue}if(skip>0){skip--;continue}if(/^(delivered-to|return-path|received|x-received|arc-|authentication-results|received-spf|dkim-signature|date:|message-id:|mime-version:|content-type:|content-transfer-encoding:|x-priority|feedback-id|x-ses-outgoing|thread-topic|thread-index):/i.test(t))continue;if(/^(alert löschen|alerts verwalten|alert erstellen|finden sie uns auf|unsubscribe|manage alerts)/i.test(t))continue;if(/^(https?:\/\/(www\.)?(facebook|linkedin|plus\.google|twitter)\.com\/talkwalker)/i.test(t))continue;if(/[ ]{2,}/.test(t))continue;out.push(line)}return out.join(NL).replace(/\n{3,}/g,'\n\n').trim()}
+function wlDomain(u){try{return new URL(u).hostname.replace(/^www\./,'').toLowerCase()}catch(e){return''}}
+function wlNormalizeUrl(u){try{let x=new URL(String(u||'').trim());['utm_source','utm_medium','utm_campaign','utm_term','utm_content','fbclid','gclid','cmpid'].forEach(k=>x.searchParams.delete(k));x.hash='';return x.toString().replace(/[?#]$/,'').replace(/\/$/,'')}catch(e){return clean(u).replace(/[\])}>,.;]+$/,'')}}
+function wlSourceScore(item){let raw=[item.url,item.source,item.title,item.snippet,item.raw].join(' ').toLowerCase();let d=wlDomain(item.url);if(/\b(gov|government|mil|navy|coast guard|kustbevakningen|ukmto|emsa|europa\.eu|interpol|europol|un\.org|imo\.org|bsi\.bund|enisa|ncsc|cert|csirt)\b/.test(raw)||/\.gov\b|\.mil\b|\.int\b/.test(d))return 95;if(/reuters|associated press|\bapnews\b|afp|bbc|guardian|financial times|politico|tass|postimees/.test(raw))return 85;if(/seatrade|splash247|lloyd|tradewinds|gcaptain|shipandbunker|maritime-executive|ports europe|marineinsight|marinetraffic|vesselfinder/.test(raw))return 75;if(/blogspot|wordpress|forum|reddit|twitter\.com|x\.com|facebook|youtube|tiktok|telegram/.test(raw))return 25;if(/news\.net|statenews|herald|times|star|post|mirror/.test(d))return 45;return 55}
+function wlReason(item){let raw=[item.title,item.snippet,item.raw].join(' ').toLowerCase();let r=[];if(/ukmto|coast guard|kustbevakningen|navy|ministry|defense|government|gov|police|zoll|customs|bsi|enisa|ncsc|cert|csirt/.test(raw))r.push('official_or_authoritative_source');if(/ship|vessel|tanker|bulker|port|hafen|terminal|imo|mmsi|ais|gnss|maritime|coast|strait|sea|meer|offshore/.test(raw))r.push('maritime_keyword');if(/shadow fleet|sanktion|sanction|dark fleet|false flag|insurance|sts/.test(raw))r.push('shadow_fleet');if(/cyber|ransomware|hack|it|ot|terminal operating|port community|bsi|enisa|ncsc|cert|csirt|vulnerability|cve/.test(raw))r.push('cyber_relevance');if(/drone|uav|usv|uuv|missile|attack|sabotage|hybrid|phase zero|cable|pipeline|critical infrastructure|kritis/.test(raw))r.push('hybrid_or_kritis');if(/cocaine|kokain|smuggling|drug|narcotic|container|customs|zoll/.test(raw))r.push('blue_crime');return r.length?r:['raw_import_candidate']}
+function wlFingerprint(item){let u=wlNormalizeUrl(item.url||'');if(u){let d=wlDomain(u);let path='';try{path=new URL(u).pathname.replace(/\d{6,}/g,'#').toLowerCase()}catch(e){};if(path&&/\/news\/[#0-9]+\//.test(path))return 'syndication|'+path.slice(0,90);if(path&&/armenia-zelenskyy-uk-pm-starmer|ukraine-hits-key-russian-oil|shadow-fleet/.test(path)&&/news\.net|statenews|herald|times|star|post|mirror|sun/.test(d))return 'syndication|'+path.slice(0,90);if(path&&path!=='/')return d+'|'+path.slice(0,90)}let txt=clean((item.title||'')+' '+(item.snippet||item.raw||'')).toLowerCase();txt=txt.replace(/https?:\/\/\S+/g,'').replace(/[^a-z0-9äöüßа-яё]+/gi,' ').split(/\s+/).filter(w=>w.length>3&&!/^(this|that|with|from|said|says|have|will|been|were|eine|einer|einem|dass|und|oder|aber|the|and|for|von|mit|auf|die|der|das)$/.test(w)).slice(0,18).join(' ');return txt||String(Math.random())}
+function wlDate(s){let t=String(s||'');let m=t.match(/(20\d{2})[-\/.](\d{1,2})[-\/.](\d{1,2})/);if(m)return`${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;m=t.match(/(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{2,4})/);if(m){let y=m[3].length===2?'20'+m[3]:m[3];return`${y}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`}let months={jan:'01',january:'01',feb:'02',february:'02',mar:'03',march:'03',apr:'04',april:'04',may:'05',jun:'06',june:'06',jul:'07',july:'07',aug:'08',august:'08',sep:'09',sept:'09',september:'09',oct:'10',october:'10',nov:'11',november:'11',dec:'12',december:'12'};m=t.toLowerCase().match(/([a-z]+)\s+(\d{1,2}),\s*(20\d{2})/);if(m&&months[m[1]])return`${m[3]}-${months[m[1]]}-${m[2].padStart(2,'0')}`;return isoFromAny(t)||''}
+function wlIsTalkwalker(text,file){let s=String(text||'');return /Talkwalker Alerts|News - \d+ Neue Ergebnisse|===\s*(News|Twitter|Blogs|Diskussionen)/i.test(s)||/talkwalker/i.test(file||'')}
+function wlParseTalkwalker(text,file){let NL=String.fromCharCode(10);let s=wlStripBoilerplate(wlPrecleanLight(text));let re=/<(https?:\/\/[^>\s]+)>\s*([\s\S]*?)(\d{2}\.\d{2}\.\d{2}\s+\d{2}:\d{2})\s*\|\s*([^|\n]+)\s*\|\s*([^\n]+)/g;let out=[],m;while((m=re.exec(s))){let url=wlNormalizeUrl(m[1]);let body=clean(m[2]);let title=body.split(/\n|\.\s/).map(clean).find(Boolean)||wlDomain(url)||'Talkwalker Treffer';out.push({title:wlCut(title,130),snippet:wlCut(body,900),url,date:wlDate(m[3]),source:clean(m[5]||wlDomain(url)),file,raw:`Talkwalker Treffer\nDatum: ${m[3]}\nLand: ${clean(m[4])}\nQuelle: ${clean(m[5])}\nURL: ${url}\nSnippet: ${wlCut(body,1200)}`,source_type:'talkwalker'})}if(out.length)return out;return wlBasicBlocks(s,file,'talkwalker')}
+function wlIsDailyMarkdown(text,file){let s=String(text||'');return /MOwlSINT Daily Honky-Tonk Report|Executive Lage Core|## Hybrid Activity|## Shadow Fleet|## Cyber \/ Port/i.test(s)||/DailyHonkytonk/i.test(file||'')}
+function wlParseDailyMarkdown(text,file){let NL=String.fromCharCode(10);let s=wlPreclean(text);let parts=s.split(/\n(?=\*\*[^\n]+\([^\n)]*20\d{2}[^\n)]*\)\*\*)/g);let out=[];for(let p of parts){let h=p.match(/\*\*([^\n]+?)\*\*/);if(!h)continue;let title=clean(h[1]);let summary=(p.match(/\*\*[^\n]+\*\*\s*\n\s*\n([^\n]+)/)||[])[1]||'';let assessment=(p.match(/Assessment:\s*([\s\S]*?)(?:\n\n[A-Z][A-Za-z /]+:|\n\n##|$)/)||[])[1]||'';let sources=(p.match(/Sources:\s*([^\n]+)/)||[])[1]||'';let evidence=(p.match(/Evidence\/Severity:\s*([^\n]+)/)||[])[1]||'';let raw=`Daily-Honkytonk-Vorbericht\nTitel: ${title}\nKurzmeldung: ${clean(summary)}\nAssessment: ${wlCut(assessment,500)}\nSources: ${sources}\nEvidence/Severity: ${evidence}`;out.push({title,snippet:wlCut(clean(summary+' '+assessment),900),url:urlsFrom(sources)[0]||'',urls:urlsFrom(sources),date:wlDate(title)||wlDate(p),source:'MOwlSINT Daily Honkytonk',file,raw,source_type:'daily_honkytonk'})}return out.length?out:wlBasicBlocks(s,file,'daily_honkytonk')}
+function wlJsonCandidate(text){let s=String(text||'').trim().replace(/^\uFEFF/,'');let m=s.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);if(m)s=m[1].trim();try{return JSON.parse(s)}catch(e){}let a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1))}catch(e){}}return null}
+function wlObjFirst(o,keys,def=''){if(!o||typeof o!=='object')return def;for(let k of keys){if(o[k]!==undefined&&o[k]!==null&&o[k]!=='')return o[k]}return def}
+function wlArrFromAny(v){if(!v)return[];if(Array.isArray(v))return v;return [v]}
+function wlBoolFlag(v){return v===true||v===1||String(v||'').toLowerCase()==='true'||String(v||'').toLowerCase()==='yes'}
+function wlLooksLikeVoodooJson(obj,file=''){return !!(obj&&typeof obj==='object'&&Array.isArray(obj.events)&&(obj.exported_at!==undefined||obj.filters!==undefined||/voodoo/i.test(String(obj.source||file||''))))}
+function wlEventUrls(ev){let urls=[];['url','link','href','source_url','sourceUrl','article_url','articleUrl','canonical_url','canonicalUrl'].forEach(k=>{if(ev&&ev[k])urls.push(ev[k])});['urls','links','sources','source_urls'].forEach(k=>{let v=ev&&ev[k];if(Array.isArray(v))v.forEach(x=>{if(typeof x==='string')urls.push(x);else if(x&&typeof x==='object')urls.push(x.url||x.link||x.href||x.source_url||'')});else if(typeof v==='string')urls.push(v)});urls=urls.flatMap(x=>urlsFrom(String(x))).concat(urls.filter(x=>/^https?:\/\//i.test(String(x))));return uniq(urls.map(wlNormalizeUrl)).slice(0,4)}
+function wlParseVoodooJson(obj,file){let exported=obj.exported_at||obj.generated_at||'';let events=Array.isArray(obj.events)?obj.events:[];let filters=obj.filters&&typeof obj.filters==='object'?Object.entries(obj.filters).filter(([k,v])=>v!==''&&v!==null&&v!==false).map(([k,v])=>`${k}=${v}`).join(', '):'';if(!events.length){window.whiteLightningSourceNotice=`Voodoo-Whiskers JSON erkannt: 0 Events im Export ${exported?`(${exported})`:''}. Es wurde keine Scheinemeldung erzeugt.`;return []}return events.map((ev,idx)=>{ev=(ev&&typeof ev==='object')?ev:{text:String(ev||'')};let urls=wlEventUrls(ev);let title=clean(String(wlObjFirst(ev,['title','headline','name','event_title','eventTitle','summary','snippet','text','content'],`Voodoo-Whiskers Event ${idx+1}`)));if(title.length>160)title=title.slice(0,157)+'…';let body=String(wlObjFirst(ev,['summary','description','snippet','text','content','body','raw','message','details'],title));let date=wlDate(wlObjFirst(ev,['date','datetime','timestamp','time','created_at','createdAt','published_at','publishedAt','event_time','eventTime'],exported));let source=clean(String(wlObjFirst(ev,['source','domain','publisher','outlet','provider','feed','origin'],obj.source||'Voodoo-Whiskers Dashboard')));let region=clean(String(wlObjFirst(ev,['region','area','country','location','place','port','sea'],'')));let sev=clean(String(wlObjFirst(ev,['sev','severity','risk','score','priority'],'')));let p0=wlBoolFlag(wlObjFirst(ev,['p0','phase_zero','phaseZero','onlyP0','is_p0'],false));let geo=wlBoolFlag(wlObjFirst(ev,['geo','geopolitical','onlyGeo','is_geo'],false));let flags=[];if(p0)flags.push('Phase-Zero/P0');if(geo)flags.push('Geopolitik');let raw=`Voodoo-Whiskers Dashboard Event\nExportiert: ${exported}\nFilter: ${filters}\nTitel: ${title}\nDatum: ${date}\nQuelle/Domain: ${source}\nRegion/Ort: ${region}\nSeverity/Priority: ${sev}\nFlags: ${flags.join(', ')}\nURL: ${urls[0]||''}\nWeitere URLs: ${urls.slice(1).join(' | ')}\n\nOriginal-Extrakt:\n${wlCut(body,1400)}`;return{title,snippet:wlCut(body,900),url:urls[0]||'',urls,date,source,file,raw,source_type:'voodoo_whiskers_json'}})}
+
+function wlIsMailText(t){let ls=String(t||'').split(String.fromCharCode(10)).map(x=>x.trim().toLowerCase());let hasSubject=ls.some(x=>x.startsWith('betreff:')||x.startsWith('subject:'));let hasHeader=ls.some(x=>x.startsWith('von:')||x.startsWith('from:')||x.startsWith('gesendet:')||x.startsWith('sent:')||x.startsWith('an:')||x.startsWith('to:'));return hasSubject&&hasHeader}
+function wlHeader(block,names){let ls=String(block||'').split(String.fromCharCode(10));for(let line of ls){let low=line.trim().toLowerCase();for(let n of names){let key=n.toLowerCase()+':';if(low.startsWith(key))return clean(line.slice(line.indexOf(':')+1))}}return''}
+function wlParseMailChain(text,file){let NL=String.fromCharCode(10);let s=wlStripBoilerplate(wlPreclean(text));let blocks=('\n'+s).split(/\n(?=(?:Von|From):\s|(?:Betreff|Subject):\s*(?:OSINT|\[Talkwalker|Alert))/i).map(x=>x.trim()).filter(x=>x.length>40);if(blocks.length<2)blocks=[s];let out=[];for(let b of blocks){let subject=wlHeader(b,['Betreff','Subject'])||titleFromText(b);let from=wlHeader(b,['Von','From']);let sent=wlHeader(b,['Gesendet','Sent','Erhalten','Received']);let body=wlStripBoilerplate(b.replace(/^(Von|From|Gesendet|Sent|An|To|Cc|Betreff|Subject):.*$/gmi,'')).trim();let link=(body.match(/Link to original source:\s*(https?:\/\/\S+)/i)||[])[1]||urlsFrom(body)[0]||'';let loc=(body.match(/Estimated event location:\s*([^\n]+)/i)||[])[1]||'';let excerpt=(body.match(/Excerpt From[^:]*:\s*([\s\S]*?)(?:\n\s*(?:[-—]{3,}|\d{1,2}:\d{2}|Von:|From:|$))/i)||[])[1]||body;let raw=`DataMinr/Mail-Block\nDatum: ${sent}\nVon: ${from}\nBetreff: ${subject}\nOrt: ${clean(loc)}\nOriginalquelle: ${link}\nSnippet: ${wlCut(excerpt,1200)}`;out.push({title:wlCut(subject.replace(/^OSINT(?: UPDATE)?:\s*/i,''),160),snippet:wlCut(clean(excerpt),900),url:wlNormalizeUrl(link),date:wlDate(sent)||wlDate(body),source:from,file,raw,source_type:'dataminr_mail'})}return out}
+function wlBasicBlocks(text,file,type='raw'){let NL=String.fromCharCode(10);let s=wlStripBoilerplate(wlPreclean(text));let csv=parseCSV(s);if(csv.length)return csv.map(x=>({...x,file,source_type:'csv'}));return s.split(/\n\s*\n+/).map(x=>x.trim()).filter(x=>x.length>25).map(p=>({title:titleFromText(p),snippet:wlCut(p,900),url:urlsFrom(p)[0]||'',date:wlDate(p),source:'',file,raw:p,source_type:type}))}
+function wlParse(text,file='Rohtext'){window.whiteLightningSourceNotice='';let json=wlJsonCandidate(text);if(wlLooksLikeVoodooJson(json,file))return wlParseVoodooJson(json,file);let rawLight=wlPrecleanLight(text);if(wlIsTalkwalker(rawLight,file))return wlParseTalkwalker(rawLight,file);let s=wlPreclean(text);if(wlIsDailyMarkdown(s,file))return wlParseDailyMarkdown(s,file);if(wlIsMailText(s)||String(file||'').toLowerCase().endsWith('.eml')||String(file||'').toLowerCase().endsWith('.msg'))return wlParseMailChain(rawLight,file);return wlBasicBlocks(s,file,'raw')}
+function wlDistill(items,file){let settings=wlSettings();let rawCount=items.length;let minScore=settings.mode==='aggressive'?45:settings.mode==='normal'?25:0;let withMeta=items.map((it,idx)=>{let raw=[it.title,it.snippet,it.raw,it.url].join(' ');let urls=uniq([...(it.urls||[]),...urlsFrom(raw),it.url].filter(Boolean).map(wlNormalizeUrl));let item={...it,url:wlNormalizeUrl(it.url||urls[0]||''),urls,date:wlDate(it.date)||wlDate(raw),source:it.source||wlDomain(it.url||urls[0]||''),snippet:wlCut(it.snippet||it.raw||'',settings.maxChars),raw:wlCut(it.raw||it.snippet||'',Math.max(settings.maxChars+350,900))};item.keep_reason=wlReason(item);item.source_score=wlSourceScore(item);item.fingerprint=wlFingerprint(item);item.original_index=idx+1;return item});let kept=withMeta.filter(x=>x.source_score>=minScore||x.keep_reason.some(r=>r!=='raw_import_candidate'));let lowQuality=withMeta.length-kept.length;if(!kept.length)kept=withMeta;kept.sort((a,b)=>b.source_score-a.source_score);let clusters=new Map();for(let it of kept){let k=it.fingerprint;if(!clusters.has(k))clusters.set(k,[]);clusters.get(k).push(it)}let merged=[];for(let arr of clusters.values()){arr.sort((a,b)=>b.source_score-a.source_score);let best={...arr[0]};let allUrls=uniq(arr.flatMap(x=>x.urls||[])).slice(0,4);best.urls=allUrls;best.url=best.url||allUrls[0]||'';best.duplicate_count=arr.length-1;best.keep_reason=uniq(arr.flatMap(x=>x.keep_reason||[]));if(best.duplicate_count>0)best.keep_reason.push('duplicate_cluster_representative');best.raw=`MOwlSINT White Lightning Cluster\nQuelletyp: ${best.source_type||''}\nKeep-Reasons: ${best.keep_reason.join(', ')}\nDubletten entfernt: ${best.duplicate_count||0}\nPrimär-/beste URL: ${best.url||''}\nWeitere URLs: ${(allUrls||[]).slice(1).join(' | ')}\n\n${best.raw||best.snippet||''}`;merged.push(best)}merged.sort((a,b)=>b.source_score-a.source_score);let limited=merged.slice(0,settings.maxBlocks).map(x=>({...x,snippet:wlCut(x.snippet,settings.maxChars),raw:wlCut(x.raw,settings.maxChars+550)}));let stats={file:file||'',mode:settings.mode,raw_blocks:rawCount,after_quality:kept.length,after_clusters:merged.length,returned:limited.length,duplicates_removed:kept.length-merged.length,low_quality_removed:lowQuality,truncated:Math.max(0,merged.length-limited.length)};window.whiteLightningLastStats=stats;let notice=window.whiteLightningSourceNotice||'';window.whiteLightningSourceNotice='';wlStatus(notice||`White Lightning: ${rawCount} Rohblöcke → ${limited.length} Importblöcke · Dubletten entfernt: ${stats.duplicates_removed} · Low-Quality entfernt: ${stats.low_quality_removed} · Modus: ${settings.mode}`);return limited}
+function parseTextBlocks(text,file='Rohtext'){if(!wlEnabled())return wlBasicBlocks(text,file,'raw');let parsed=wlParse(text,file);return wlDistill(parsed,file)}
+function decodeSmartBuffer(buf){let utf=new TextDecoder('utf-8',{fatal:false}).decode(buf);let win=new TextDecoder('windows-1252',{fatal:false}).decode(buf);let bad=s=>(s.match(new RegExp(' ','g'))||[]).length;return bad(win)<bad(utf)?win:utf}
+async function readFileSmart(file){let buf=await file.arrayBuffer();return decodeSmartBuffer(buf)}
+function addImports(items){for(let it of items){let raw=[it.title,it.snippet,it.url,it.raw].join(' ');imports.push({id:crypto.randomUUID(),title:clean(it.title),snippet:clean(it.snippet),url:it.url||urlsFrom(raw)[0]||'',urls:uniq([...(it.urls||[]),...urlsFrom(raw),it.url].filter(Boolean).map(wlNormalizeUrl)),date:wlDate(it.date)||'',source:clean(it.source),category:categoryFor(raw),severity:severityFor(raw),raw:clean(it.raw||raw),file:it.file||'',source_type:it.source_type||'raw',keep_reason:it.keep_reason||wlReason(it),duplicate_count:it.duplicate_count||0,source_score:it.source_score||wlSourceScore(it)})}dedupeImports();renderImports();updatePrompt()}
+function dedupeImports(){let seen=new Set();imports=imports.filter(x=>{let k=wlFingerprint(x);if(seen.has(k))return false;seen.add(k);return true})}
+function renderImports(){let el=document.getElementById('importList');if(!imports.length){el.innerHTML='<span class="small">Noch keine Treffer importiert.</span>';return}el.innerHTML=imports.map((x,i)=>`<div class="item"><b>${i+1}. ${esc(x.title||'Ohne Titel')}</b><span>${esc(fmtDate(x.date)||'ohne Datum')} · ${esc(CATS[x.category]?.label||'Sonstige')} · ${esc(x.source_type||'raw')} · Score ${esc(x.source_score||'')}</span><span>${esc(x.url||x.source||x.file||'ohne Quelle')}${x.duplicate_count?` · Dubletten entfernt: ${esc(x.duplicate_count)}`:''}</span><span>${esc((x.keep_reason||[]).join(', '))}</span></div>`).join('')}
+document.getElementById('fileInput').addEventListener('change',async e=>{for(let f of [...e.target.files])addImports(parseTextBlocks(await readFileSmart(f),f.name))});
+function ingestRaw(){let v=document.getElementById('rawInput').value;if(v.trim())addImports(parseTextBlocks(v,'Eingabefeld'))}
+function clearImports(){imports=[];document.getElementById('rawInput').value='';document.getElementById('fileInput').value='';renderImports();updatePrompt();wlStatus('White Lightning bereit.')}
+
+function promptRole(audience){
+  if(String(audience||'').toLowerCase().includes('behörden')){
+    return 'Rolle: Du bist ein maritimer Lage- und OSINT-Analyst. Erstelle eine behördlich nutzbare LvU-Unterrichtung aus maritimen OSINT- und Rohdatenhinweisen.'
+  }
+  return 'Rolle: Du bist ein maritimer OSINT-Analyst. Erstelle ein analytisches Kurzmeldungsreporting zu maritimen hybriden Aktivitäten, Phase-Zero-Indikatoren und sonstigen Störungen der Schifffahrt.'
+}
+function modePromptBlock(audience){
+  if(String(audience||'').toLowerCase().includes('behörden')){
+    return `
+
+PROMPT-PROFIL: BEHÖRDENLAGE / LvU-TAUGLICH
+Zweck:
+- Erstelle eine nüchterne, weitergabefähige Unterrichtung für Behörden-/Sicherheitsakteure.
+- Der Text soll unmittelbar für eine Lageunterrichtung nutzbar sein, nicht als spekulativer Analystenvermerk.
+
+Stil und Sprache:
+- Kurz, sachlich, zurückhaltend, lagebildtauglich.
+- Keine dramatisierenden Formulierungen.
+- Keine Hypothesen als Tatsachen formulieren.
+- Unbestätigte Hinweise ausdrücklich als unbestätigt / prüfbedürftig kennzeichnen.
+
+Bewertungslogik:
+- Trenne je Meldung klar: Faktischer Kern, Bewertung, Prüfbedarf.
+- C-Level-Hinweise nur aufnehmen, wenn sie für Sicherheit, Zuständigkeit oder Lagefortschreibung relevant sind.
+- Bei Einzelquellen: zurückhaltend formulieren und keine weitreichenden Schlussfolgerungen ziehen.
+- Behörden-, Gerichts-, Coast-Guard-, Zoll-, Polizei-, Marine-, Hafenbehörden-, UN-/EU-/IMO-/EMSA-/Europol-/Interpol-Quellen bevorzugen.
+
+Ausgabe je Meldung:
+- Kurzmeldung: 80–180 Zeichen, faktisch.
+- Einordnung: 1–2 Sätze mit Relevanz und Begrenzung der Aussagekraft.
+- Prüffelder: konkrete Nachprüfungen, keine allgemeinen Empfehlungen.
+- Schlusslogik im Report: Lagebewertung / Unterrichtungshinweis / Prüfbedarf.
+
+Nicht tun:
+- Keine spekulative Akteurszuschreibung ohne belastbare Quelle.
+- Keine operativen Empfehlungen, die nicht aus den Fakten ableitbar sind.
+- Keine C-Level-Meldungen als gesicherte Lage darstellen.`
+  }
+  return `
+
+PROMPT-PROFIL: OSINT-ANALYST
+Zweck:
+- Erstelle eine analytische Arbeitsgrundlage für OSINT-Auswertung, Mustererkennung und Anschlussrecherche.
+- Der Text darf TTPs, Anomalien, Netzwerke und Hypothesen benennen, solange diese klar gekennzeichnet sind.
+
+Stil und Sprache:
+- Fachlich, analytisch, präzise, aber nicht behördlich-steif.
+- Deutlich zwischen belegt, zusätzlich plausibilisiert und offen unterscheiden.
+- Relevante Muster und Abweichungen aktiv herausarbeiten.
+
+Bewertungslogik:
+- C-Level-Hinweise dürfen aufgenommen werden, wenn sie klar als prüfbedürftig markiert sind und einen analytischen Mehrwert haben.
+- Benenne TTPs, Modus Operandi, Akteurs-/Netzwerkbezüge, Korridore, Chokepoints und Anomalien.
+- Zeige ausdrücklich, welche Informationen für Verifikation fehlen.
+
+Ausgabe je Meldung:
+- Kurzmeldung: 80–180 Zeichen.
+- Einordnung: 2–4 Sätze mit analytischer Relevanz, Musterbezug und Prüflogik.
+- Prüffelder: Anschlussrecherche, Verifikationswege, mögliche Datenquellen.
+- Schlusslogik im Report: Weitere Prüffelder / Anschlussrecherche / Verifikationswege.
+
+Nicht tun:
+- Keine unbelegten Behauptungen als Fakt darstellen.
+- Keine reinen Hintergrundartikel als aktuelle Meldung aufnehmen, wenn sie außerhalb des Zeitfensters liegen.`
+}
+function optChecked(id){let el=document.getElementById(id);return !el||!!el.checked}
+function researchOptionsBlock(){let blocks=[];let web=optChecked('webResearchEnabled');let mandatory=optChecked('mandatoryMaritimeSources');let cyberDrone=optChecked('cyberDroneDeepSearch');let rc=optChecked('russiaChinaEconomicSecurity');let neg=optChecked('negativeCoverageNotes');if(web){blocks.push(`
+PFLICHT-RECHERCHE / SELF-SEARCH, ZWINGEND
+- Nutze die importierten Crawlerdaten nur als Ausgangsmaterial. Der Report darf sich nicht ausschließlich auf diese Rohdaten stützen.
+- Führe zusätzlich eine eigene Webrecherche im angegebenen Zeitfenster durch, sofern das verwendete Modell Webzugriff hat.
+- Wenn Webzugriff nicht verfügbar ist, kennzeichne die Ausgabe als crawlerbasiert und vermerke die fehlende Eigenrecherche im Feld meta.search_coverage.notes_de/notes_en.
+- Verifiziere Crawler-Hinweise aktiv gegen Primärquellen, Behördenmeldungen, maritime Fachmedien oder belastbare Agenturmeldungen. Crawlerdaten allein reichen nur für C-/D-Level.`)}else{blocks.push(`
+RECHERCHEMODUS: CRAWLER-HARMONISIERUNG OHNE LIVE-WEBRECHERCHE
+- Nutze ausschließlich die importierten Rohdaten. Erzeuge keine Behauptung, dass Webquellen selbst geprüft wurden.
+- Setze in meta.search_coverage die Webprüfungen auf false und erkläre dies kurz in notes_de/notes_en.`)}if(mandatory){blocks.push(`
+PFLICHTQUELLEN / MARITIME SELF-SEARCH, ZWINGEND
+- Prüfe im Zeitfenster, sofern erreichbar und öffentlich zugänglich:
+  1. UKMTO: Recent Incidents, Warnings und Advisories.
+  2. Marineschifffahrtleitung sowie relevante Marine-, NATO-Shipping-, Merchant-Shipping-, Coast-Guard- und Schifffahrtswarnstellen.
+  3. The Maritime Executive: https://maritime-executive.com/
+  4. gCaptain: https://gcaptain.com/
+  5. Vesseltracker News: https://www.vesseltracker.com/de/news.html
+  6. Nationale Küstenwachen, Hafenbehörden, Zoll-/Polizeimeldungen, Marine Notices und offizielle Hafen-/Reedereihinweise im Fokusraum.
+- UKMTO- und Marineschifffahrtsleitungs-/Shipping-Warning-Meldungen sind aufzunehmen, wenn sie maritim sicherheitsrelevant und im Zeitfenster liegen.
+- Wenn eine Pflichtquelle keine relevante Meldung enthält oder nicht erreichbar ist, erzeuge keine künstliche Hauptmeldung; vermerke dies im search_coverage-Block.`)}blocks.push(`
+GLOBALE EINBETTUNG MIT EUROPAFILTER
+- Primärfokus bleibt Europa einschließlich Nordsee, Ostsee, Ärmelkanal, Atlantikzugänge, Mittelmeer und Schwarzmeerraum.
+- Meldungen aus Nordamerika, Südamerika, Afrika, Asien und Ozeanien sind aufzunehmen, wenn sie behördlich/gerichtlich/coast-guard-/zoll-/polizeilich/militärisch bestätigt sind und mindestens ein belastbarer Europa-Bezug besteht.
+- Europa-Bezug kann vorliegen bei: EU-/UK-/EWR-Flagge, europäischer Reederei/Manager/Charterer/Versicherer/Klasse, europäischer Crew, europäischem Hafen, Frachtziel Europa, Sanktions-/P&I-/War-Risk-Bezug, Energie-/LNG-/Ölversorgung, Suez-/Mittelmeer-/Atlantik-Zulauf, Drogen-/Waffen-/IUU-/Sanktionsrouten nach Europa oder erheblicher Wirkung auf maritime Lieferketten.
+- Lieferketten sind häufig maritim abhängig: Cyber-, Logistik-, Bahn-/Hinterland-, Zoll- oder Unternehmensmeldungen sind zu prüfen, wenn europäische Hafenbetreiber, Reedereien, Terminalbetreiber, Port Community Systems, TOS/Gate-Systeme oder maritime Dienstleister betroffen sein könnten.`);if(cyberDrone){blocks.push(`
+CYBER-/IT-/OT-PRÜFUNG MIT MARITIMER FOLGEWIRKUNG, ZWINGEND
+- Cybermeldungen sind nicht nur relevant, wenn ein Schiff oder Hafen direkt genannt wird.
+- Prüfe auch Vorfälle bei Reedereien, Charterern, Shipmanagern, Hafenbetreibern, Terminalbetreibern, Logistikdienstleistern, Port Community Systems, Terminal Operating Systems, Gate-/Yard-/Slot-Systemen, Zoll-/Manifest-/Frachtplattformen, VTS, Schleusen, Brücken, Lotsendiensten, Bunker-/LNG-/Energiehäfen, Offshore-Wind, Seekabeln, Pipelines, Konvertern, Umspannwerken und maritimer Sensorik.
+- Quellen aktiv prüfen: BSI, ENISA, nationale CERTs/CSIRTs, NCSC UK, CISA bei Europa-/Supply-Chain-Bezug, Hafen-/Unternehmensmeldungen, Versicherer, maritime ISAC-/Cyberquellen und relevante Nachrichtendienst-/Sicherheitsberichte.
+- Wenn der maritime Bezug indirekt ist, muss eu_relevance_de/en erklären, über welche Lieferkette, Infrastruktur oder Betreiberbeziehung die Relevanz entsteht.
+
+HYBRIDES DROHNENLAGEBILD / MARITIME SPIONAGE, ZWINGEND
+- Suche tiefer nach UAV/USV/UUV-/Drohnenhinweisen mit maritimem Spionage-, Aufklärungs-, Störungs- oder Phase-Zero-Potenzial.
+- Prüfe Drohnen über oder nahe Häfen, LNG-/Ölterminals, Werften, Schleusen, Brücken, Offshore-Windparks, Seekabel-Landepunkten, Marinebasen, Küstenradar, VTS, Lotsstationen, Bahnachsen zu Häfen und Logistikknoten.
+- Prüfe auch Drohnen-/Kamera-/Sensorfunde, RF-/GNSS-/AIS-Anomalien, verdächtige Survey-Aktivitäten, wiederholte Sichtungen, gleiche Räume/Zeitfenster oder mögliche Vorerkundung.
+- Kategorie-Regel: Drohnen in Europa oder europäischem KRITIS-/Hafenumfeld = hybrid/cyber/safety je nach Schwerpunkt. Drohnenangriffe im Ukraine-/Schwarzmeerraum, Roten Meer, Persischen Golf oder anderen Konflikträumen = maritime Geopolitik bzw. safety/shadow, nicht automatisch reine Drohnenrubrik.
+- Wenn keine belastbaren Drohnenhinweise gefunden werden, keine Platzhaltermeldung erzeugen; stattdessen Negativvermerk in meta.search_coverage.`)}if(rc){blocks.push(`
+RUSSLAND-/CHINA-LAGEBILD · WIRTSCHAFTSSPIONAGE, EINFLUSS UND MARITIME WIRTSCHAFT
+- Prüfe zusätzlich Hinweise auf Russland- und China-Bezüge mit maritimem, hafenwirtschaftlichem oder lieferkettenbezogenem Bezug.
+- Nicht jede Handelsbeziehung ist verdächtig. Eine Meldung ist nur aufzunehmen, wenn nachvollziehbarer Lagebildwert besteht: Sanktionen, Dual-Use-Risiko, KRITIS-Bezug, Hafen-/Terminal-/Reederei-/Logistikbezug, Datenzugang, Eigentümer-/Beteiligungsstruktur, ungewöhnliche Routen, politisch sensible Güter, Umgehungsrisiko oder nachrichtendienstlicher Kontext.
+- Prüfe Russland-Bezüge insbesondere bei Getreide-, Dünger-, Kohle-, Öl-, LNG-, Metall-, Holz-, Chemie- und Maschinenhandelsströmen; Import-/Exportbeziehungen über europäische Häfen; russischen oder russlandnahen Reedereien, Charterern, Brokern, Spediteuren, Versicherern und Finanzierungsstrukturen; Sanktionsumgehung, Drittstaaten-Routing, Re-Export, STS, AIS-Lücken, Flaggen-/Managementwechsel; BAFA-, EU-, Zoll-, Unternehmensregister-, Hafen- und Handelskammerhinweisen, sofern verfügbar.
+- Prüfe China-Bezüge insbesondere bei Hafenbeteiligungen, Terminalbetrieb, Port Community Systems, Hafen-IT, Logistikplattformen, Sensorik, Kameras, Drohnen, 5G/Kommunikation, Bahn-/Hinterlandkorridoren, chinesischen Reedereien, Logistikkonzernen, Werften, Ausrüstern, Forschungs-/Survey-Akteuren und maritimen Technologieanbietern.
+- Prüfe wirtschaftliche Einflussnahme, Technologieabfluss, Datenschnittstellen, Abhängigkeiten in Lieferketten und möglichen Dual-Use-Bezug.
+- Quellen aktiv prüfen: BfV, BSI, BAFA, EU-Kommission, Zoll, nationale Sicherheits-/Nachrichtendienstberichte, parlamentarische Drucksachen, Hafenbehörden, Unternehmensmeldungen, Handelsregister, Sanktionslisten, maritime Fachmedien und belastbare Investigativquellen.
+
+MARITIME ECONOMIC SECURITY · PRÜFRASTER
+- Prüfe bei relevanten Meldungen diese Lagebildanker: Hafenbezug, Reedereibezug, sensible/sanktionierte/dual-use-nahe Güter, Zugriff auf Hafen-/Terminal-/Schiffs-/Crew-/Zoll-/Fracht-/AIS-/Sensor-/Logistikdaten, Beteiligungen/Joint Ventures/Konzessionen/langfristige Umschlags- oder Lieferverträge, Drittstaaten-/Zwischenhändler-/Umgehungsbezug und KRITIS-Bezug.
+- Handelsbeziehungen, Hafenumschlag oder Reedereikontakte zu Russland oder China sind nicht automatisch verdächtig.
+- Formuliere keine Verdachtsbehauptung gegen Unternehmen, sofern keine belastbare Quelle einen Compliance-, Sanktions-, Spionage-, Einfluss- oder Dual-Use-Kontext herstellt.
+- Bei rein wirtschaftlichem Bezug nur als Economic-Security-Kontext aufnehmen, nicht als Kriminalitäts- oder Spionagevorwurf. Bei lokalen Unternehmensbezügen besonders vorsichtig formulieren: „prüfbedürftiger wirtschaftlicher Lagebildbezug“, „möglicher Sanktions-/Lieferkettenkontext“, „kein Verdachtsnachweis aus den vorliegenden Quellen“.
+- Russland/China-Lens ist eine Querschnittsprüfung: cyber bei Hafen-IT, shadow bei Sanktionen/Schifffahrt, hybrid bei Drohne/Sensor/Spionage, other/safety bei rein wirtschaftlichem maritimen Lagebildbezug.`)}if(neg){blocks.push(`
+NEGATIVMELDUNGEN / SEARCH COVERAGE, ZWINGEND
+- Wenn in einem Pflichtbereich keine verwertbare aktuelle Meldung gefunden wird, erzeuge keine leere Hauptmeldung und keine Platzhalter-Headline.
+- Dokumentiere die Negativprüfung im Feld meta.search_coverage, z. B. „UKMTO geprüft, keine relevante Meldung im Zeitfenster“ oder „kein belastbarer aktueller Drohnen-/Spionagehinweis mit maritimem Bezug gefunden“.
+- Negativmeldungen sind wichtig, um Suchabdeckung sichtbar zu machen, gehören aber nicht in items[].`)}return blocks.join('\n')}
+function buildPrompt(){let date=document.getElementById('reportDate').value,period=document.getElementById('period').value,region=document.getElementById('region').value,audience=document.getElementById('audience').value;return `${promptRole(audience)}\n\nZeitraum: ${period}
+Report-Datum / Endzeitpunkt der Recherche: ${date}, 23:59 lokale Zeit, sofern keine andere Uhrzeit angegeben ist
+Region/Fokus: ${region}\nAdressat/Modus: ${audience}${modePromptBlock(audience)}\n\nARBEITSPRINZIPIEN
+- Nutze neben allgemeinen Nachrichten gezielt Behördenmeldungen, Hafen-/Coast-Guard-Newsrooms, maritime Fachmedien, Intelligence-Firmen, MDA-Anbieter, Research-Institute, Versicherer/P&I und thematisch einschlägige Fachquellen.
+- Fasse gleichlautende Treffer zusammen, entferne Dubletten, verwerfe falsch-positive Treffer und trenne Fakten von Analyse.
+- Einzelquellen maximal C-Level, außer Behörden, große Agenturen oder mehrere unabhängige Quellen bestätigen den Sachverhalt.${researchOptionsBlock()}
+
+ZEITFENSTER- UND DATUMSREGELN, ZWINGEND
+- Das Zeitfenster ist hart auszulegen. Nimm nur Meldungen auf, deren Ereignisdatum oder Veröffentlichungsdatum innerhalb des angegebenen Zeitfensters liegt.
+- Wenn der Zeitraum in Stunden angegeben ist, rechne rückwärts vom Report-Datum / Endzeitpunkt. Der ausgewählte Dropdown-Wert ist maßgeblich. Bei einem Stundenzeitraum wird vom Report-Endzeitpunkt exakt rückwärts gerechnet; Beispiel: 36 Stunden = vom Vortag 12:00 bis Report-Datum 23:59, sofern keine andere Uhrzeit angegeben ist.
+- Wenn „Wochenübersicht letzte 8 Tage“ gewählt ist, nimm nur Meldungen der letzten 8 Kalendertage einschließlich Report-Datum auf.
+- Alte Hintergrundinformationen dürfen zur Einordnung genutzt werden, aber nicht als eigene aktuelle Meldung ausgegeben werden.
+- Wenn eine Quelle heute erneut über ein älteres Ereignis berichtet, gib die Meldung nur aus, wenn die erneute Veröffentlichung selbst einen neuen Sachstand enthält. Sonst verwerfen.
+- Jede Meldung muss ein Datum enthalten. Wenn kein Datum feststellbar ist, nur in „Verworfene / nicht verwendete Treffer“ nennen.
+- Prüfe Datumsangaben ausdrücklich gegen das Zeitfenster. Keine Meldungen außerhalb des Zeitfensters in den Hauptreport aufnehmen.
+- Bei relativen Formulierungen wie „yesterday“, „last week“, „recently“ oder „reported today“ das Datum normalisieren oder als prüfbedürftig markieren.
+- Erstelle vor der finalen Ausgabe intern eine Datumsprüfung pro Kandidat: IN_SCOPE oder OUT_OF_SCOPE. Gib im Hauptreport nur IN_SCOPE aus.
+
+EUROPA-FOKUS, ZWINGEND
+- Der primäre Such- und Bewertungsraum ist Europa und sein maritimes Vorfeld. Arbeite Europa zuerst ab, bevor globale Brennpunkte aufgenommen werden.
+- Prüfe besonders gründlich: Nordsee, Ostsee, Ärmelkanal, Atlantikzugänge, Mittelmeer, Schwarzes Meer, Dänische Meerengen, Skagerrak/Kattegat, Straße von Gibraltar, Bosporus/Dardanellen, zentrale europäische Häfen sowie Offshore-, Energie- und Kommunikationsinfrastruktur.
+- Berücksichtige ausdrücklich Deutschland, Niederlande, Belgien, Frankreich, UK, Irland, Dänemark, Norwegen, Schweden, Finnland, Polen, Baltikum, Spanien, Portugal, Italien, Griechenland, Türkei, Rumänien, Bulgarien und Ukraine.
+- Globale Brennpunkte aktiv mitprüfen, wenn ein plausibler Bezug zu Europa, europäischen Interessen oder europäischen maritimen Folgewirkungen bestehen kann. Dazu zählen Energieversorgung, Suez-/Mittelmeer-/Atlantikzugänge, EU-/UK-Sanktionen, Versicherungen, War-Risk, Reedereien, europäische Häfen, Warenströme, Blue-Crime-Korridore, Migration/Schleusung, Piraterie, Rauschgift, IUU, Unterseekabel, Offshore-Energie, KRITIS und geopolitische Chokepoints.
+- Wenn ein internationaler Vorfall aufgenommen wird, muss der Europa-Bezug kurz verifiziert und im Feld 'eu_relevance' sowie in der Einordnung benannt werden.
+- Wenn der Europa-Bezug nur indirekt ist, aber plausibel über Seewege, Versicherungen, Warenströme, Sanktionen, Energie oder Sicherheit wirkt, darf die Meldung aufgenommen werden; sie ist dann als „international mit Europa-Bezug“ einzuordnen.
+- Bei knapper Quellenlage nicht automatisch globale Meldungen bevorzugen. Erst prüfen, ob es kleinere, aber europäisch relevante Meldungen gibt. Danach internationale Meldungen mit verifizierbarem Europa-Bezug ergänzen.
+
+INTERNATIONALE ERGÄNZUNGSPRÜFUNG, ZWINGEND
+- Nach der Europa-Suchmatrix eine zweite Prüfung internationaler maritimer Brennpunkte durchführen: Rotes Meer/Bab el-Mandeb, Golf von Aden/Somalia, Persischer Golf/Hormus, Suez, Westafrika/Golf von Guinea, Südamerika-Kokainkorridore, Karibik/Mittelamerika, Südchinesisches Meer, Schwarzes Meer, globale Schattenflotten- und Sanktionsevasionsräume.
+- Internationale Meldungen nicht pauschal verwerfen. Übernimm sie, wenn mindestens ein belastbarer Europa-Bezug vorliegt: EU-/UK-Reederei, EU-/UK-Flagge, europäische Crew, europäische Ware, europäischer Hafen, EU-/UK-Sanktion, P&I/Versicherung, War-Risk, Energie-/LNG-/Ölversorgung, Ausweichroute über Suez/Mittelmeer/Atlantik, maritime Lieferkette, Blue Crime mit Ziel- oder Transitbezug Europa.
+- Für Blue Crime ausdrücklich prüfen: Kokain- und Containerkorridore nach Europa, Piraterie mit Suez-/EU-Shipping-Bezug, IUU/forced labour mit EU-Marktbezug, Schleusung/Migration auf maritimen Routen, Umweltkriminalität und illegale STS-/Öltransfers mit europäischem Versicherungs- oder Hafenbezug.
+- Für maritime Geopolitik ausdrücklich prüfen: Chokepoints, Blockaden, militärische Spannungen, Seewege, Embargos, Sanktionsdurchsetzung, Flottenbewegungen und Folgen für europäische Energie-, Handels- oder Sicherheitsinteressen.
+
+EUROPA-SUCHMATRIX, ZWINGEND
+- Cyber/KRITIS Europa: europäische Häfen, Terminal-IT, Port Community Systems, Terminal Operating Systems, Gate-Systeme, Reedereien, maritime Logistik, GNSS/AIS-Störungen in Ostsee/Nordsee, VTS, Lotsen, Schleusen, Offshore-Wind, Seekabel, Pipelines, LNG, Energiehäfen, Konverter und Umspannwerke.
+- Schattenflotte Europa: EU-/UK-/US-Sanktionsmeldungen mit Europa-Bezug, dänische Meerengen, Ostsee, Nordsee, Ärmelkanal, Gibraltar, Mittelmeer, Schwarzes Meer, STS-Aktivitäten, AIS-Lücken, P&I/Versicherung, PSC/Detentions, Flaggen-/Managerwechsel, russische Öl-/Produktentanker und LNG-/Ölhandelsketten.
+- Hybride Aktivitäten Europa: Sabotage-/Ausspähungsverdacht, Forschungs-/Survey-Schiffe, Drohnen/USV/UUV/UAV, militärische Nähe, Loitering, Kabel-/Pipeline-/Windpark-Nähe, GNSS-Jamming/Spoofing und Phase-Zero-Indikatoren.
+- Maritime Crime Europa: Antwerpen, Rotterdam, Hamburg, Bremerhaven, Le Havre, Algeciras, Valencia, Sines, Vigo, Zeebrugge, Felixstowe, Dublin, skandinavische Häfen sowie Ursprungskorridore Südamerika und Westafrika.
+- IUU/Umwelt/Safety Europa: Fischerei- und EEZ-Verstöße, Schutzgebiete, Transshipment/Reefer, Ölverschmutzung, Havarien, Kanal-/Chokepoint-Störungen sowie Wetter-/Infrastrukturfolgen mit Lagebildrelevanz.
+
+QUELLENHIERARCHIE\n1 Behörden, Gerichte, Coast Guard, Zoll, Polizei, Marine, Hafenbehörden, UN/EU/IMO/EMSA/UNODC/Europol/Interpol.\n2 Maritime Fachmedien, Versicherer, P&I Clubs, Klassifikationsgesellschaften.\n3 Intelligence-Firmen, MDA-, Satelliten-, AIS- und Sanktionsanalyseanbieter.\n4 Regionale Presse, NGOs, Thinktanks, Investigativmedien.\n5 Social Media, Telegram/X, Blogs nur als Hinweis.\n\nKATEGORIEN UND COLLECTION REQUIREMENTS\n1 HYBRIDE BEDROHUNGEN / PHASE ZERO: Sabotage/KRITIS-Nähe; Ausspähung/Research Vessel/Survey; GNSS/AIS/RF-Anomalien; Drohnen/UAV/USV/UUV; staatliche oder paramilitärische Aktivitäten.\n2 SCHATTENFLOTTE / SANKTIONEN / VERSICHERUNG: Tanker/STS; Flaggen-, Management- und Eigentümerwechsel; P&I/Versicherungszertifikate; PSC/Detentions/Umwelt; nicht-tankerbezogene Schattenlogistik.\n3 RAUSCHGIFTSCHMUGGEL / MARITIME CRIME: Südamerika Ost, Südamerika West/Anden-Pazifik, Mittelamerika/Karibik, Westafrika/Nordwestafrika, Europa West/Nord. Prüfe Ursprungs-, Transit- und Endhafen, Containerroute, Re-Containerisierung, Transshipment at sea, Rip-on/Rip-off, Siegelmanipulation, Taucher, Magnetboxen, Sea Chests, Fischerei-/Yacht-/Kleinfrachtermodus, Insiderhinweise und belastbare OCG-/Kartell-/Broker-/Balkan-/Mafia-/Clan-Bezüge. Nutze UNODC, Europol, MAOC-N, WCO, Global Initiative, Zoll-/Polizeimeldungen und Gerichtsverfahren.\n4 IUU / ILLEGALE FISCHEREI: EEZ-/Lizenzverstöße, AIS/VMS-Manipulation, Transshipment/Reefer, Zwangsarbeit/Menschenhandel/Crew-Ausbeutung, Gewalt gegen Kontrollen oder staatlich gedeckte Flotten.\n5 HAFEN / KRITIS / CYBER / OPERATIVE STÖRUNGEN: Hafen-IT/TOS/PCS/Gate-Systeme; VTS/Lotsen/Schleusen; Offshore-Wind/Seekabel/Pipelines/LNG/Konverter/Umspannwerke; Safety-Vorfälle; Supply-Chain-Störungen.\n\nANALYSEACHSEN JE MELDUNG
+TTP/Modus Operandi; Akteurs-/Netzwerkbezug; Korridor/Chokepoint; Deutschland-/EU-Bezug; Schiff/IMO/MMSI; Hafen/UN-LOCODE; Evidenz; offene Prüffelder.
+
+GPT-5.5-HINWEIS / STRICT FINAL MODE
+- Arbeite intern gründlich, aber gib keine Herleitung, keine Zusammenfassung und keine Quellenzitate außerhalb des JSON aus.
+- Die finale Antwort muss für ChatGPT/GPT-5.5 als kopierbares Feld erscheinen: genau ein Markdown-Codeblock mit Sprachkennung json.
+- Vor dem Codeblock darf kein Text stehen. Nach dem Codeblock darf kein Text stehen.
+- Innerhalb des Codeblocks muss ein einziges valides JSON-Objekt stehen.
+
+OUTPUT-VERTRAG, ZWINGEND – KOPIERBARER JSON-CODEBLOCK
+- Antworte ausschließlich in dieser Form:
+~~~json
+{ "meta": {}, "items": [], "discarded": { "OUT_OF_SCOPE": [], "DUPLIKAT": [], "IRRELEVANT": [] } }
+~~~
+- Nutze in der echten Antwort drei Backticks statt Tilden für den json-Codeblock.
+- Kein Text außerhalb dieses einen Codeblocks.
+- Innerhalb des Codeblocks: keine Kommentare, keine trailing commas, keine Markdown-Links, keine Fußnoten, keine Quellenzitate.
+- Alle Schlüssel und String-Werte müssen mit doppelten Anführungszeichen geschrieben werden.
+- Mehrzeilige Texte als kurze Sätze schreiben; keine echten Zeilenumbrüche innerhalb von String-Werten verwenden.
+- Verwende keine Platzhalter wie „siehe oben“. Wenn eine Angabe fehlt, nutze "" oder [] und erkläre den Prüfbedarf in prueffelder_de/prueffelder_en.
+- Die App akzeptiert den kompletten Codeblock oder nur das JSON-Objekt. Der JSON-Inhalt muss mit JSON.parse fehlerfrei lesbar sein.
+- Das JSON-Objekt hat exakt drei Top-Level-Felder: "meta", "items", "discarded".
+- "items" enthält ausschließlich IN_SCOPE-Meldungen.
+- "discarded" enthält OUT_OF_SCOPE, DUPLIKAT und IRRELEVANT als Arrays.
+- Alle berichtsfähigen Textfelder müssen zweisprachig geliefert werden: *_de und *_en.
+- Die deutsche Benutzeroberfläche bleibt deutsch; die App kann aus demselben JSON deutsche oder englische Reports erzeugen.
+
+ANTI-MARKDOWN-/LINK-REGELN, ZWINGEND
+- Nutze in "sources" ausschließlich rohe URL-Strings. Beispiel: "https://example.org/article".
+- Verboten in "sources": Markdown-Links, eckige Klammern, runde Klammern, HTML, Quellenlabels oder erklärender Text. Keine Formate wie "[Reuters](https://...)", "[https://...]" oder "Reuters: https://...".
+- URLs dürfen ausschließlich im Feld "sources" stehen. Keine URLs in region_de, region_en, corridor_de, corridor_en, assessment_*, evidence_*, reason_* oder anderen Textfeldern.
+- In keinem String dürfen Markdown-Link-Artefakte vorkommen: keine Zeichenfolge "](http", kein "[http", keine eingebetteten URL-Klammern, keine HTML-Links.
+- Bereinige Quellen vor der Ausgabe: entferne führende "[", schließende "]", Klammern, Anführungszeichenreste, Tracking-Klammern und Markdown-Syntax. Übrig bleibt nur die nackte URL.
+- Wenn eine Quelle nicht als nackte URL rekonstruierbar ist, lasse sie aus "sources" weg und benenne den Prüfbedarf in prueffelder_de/prueffelder_en.
+
+JSON-SCHEMA, EXAKT EINZUHALTEN:
+{
+  "meta": {
+    "report_date": "YYYY-MM-DD",
+    "period": "...",
+    "language_mode": "bilingual_de_en",
+    "output_contract": "json_only",
+    "source_count": 0,
+    "item_count": 0,
+    "search_coverage": {
+      "web_research_enabled": true,
+      "ukmto_checked": true,
+      "marine_shipping_authorities_checked": true,
+      "maritime_executive_checked": true,
+      "gcaptain_checked": true,
+      "vesseltracker_checked": true,
+      "cyber_authorities_checked": true,
+      "drone_hybrid_scan_checked": true,
+      "russia_china_economic_security_checked": true,
+      "bafa_russia_sanctions_checked": true,
+      "bfv_espionage_context_checked": true,
+      "negative_findings_de": ["..."],
+      "negative_findings_en": ["..."],
+      "notes_de": "...",
+      "notes_en": "..."
+    }
+  },
+  "items": [
+    {
+      "date": "YYYY-MM-DD",
+      "time_window_status": "IN_SCOPE",
+      "headline_de": "...",
+      "headline_en": "...",
+      "summary_de": "80–180 Zeichen",
+      "summary_en": "80–180 characters",
+      "assessment_de": "2–4 Sätze, analytisch, mit Muster-/Prüfbezug",
+      "assessment_en": "2–4 sentences, analytical, with pattern and verification logic",
+      "category": "hybrid|shadow|drugs|iuu|cyber|safety|environment|other",
+      "category_de": "...",
+      "category_en": "...",
+      "subcategory_de": "...",
+      "subcategory_en": "...",
+      "severity": "hoch|mittel|niedrig",
+      "evidence_de": "A/B/C/D + kurze Begründung",
+      "evidence_en": "A/B/C/D + brief rationale",
+      "sources": ["https://..."],
+      "region_de": "...",
+      "region_en": "...",
+      "corridor_de": "...",
+      "corridor_en": "...",
+      "country": "...",
+      "port": "...",
+      "locode": "...",
+      "ship_name": "...",
+      "imo": "...",
+      "mmsi": "...",
+      "actor_type_de": "...",
+      "actor_type_en": "...",
+      "ttp_de": "...",
+      "ttp_en": "...",
+      "eu_relevance_de": "...",
+      "eu_relevance_en": "...",
+      "economic_security_relevance_de": "",
+      "economic_security_relevance_en": "",
+      "russia_china_link_de": "",
+      "russia_china_link_en": "",
+      "espionage_or_influence_indicator_de": "",
+      "espionage_or_influence_indicator_en": "",
+      "sanctions_or_dual_use_angle_de": "",
+      "sanctions_or_dual_use_angle_en": "",
+      "maritime_supply_chain_link_de": "",
+      "maritime_supply_chain_link_en": "",
+      "prueffelder_de": ["..."],
+      "prueffelder_en": ["..."],
+      "places": [
+        {
+          "name": "...",
+          "lat": 0,
+          "lon": 0,
+          "type": "port|region|sea|city|country|chokepoint",
+          "precision": "exact|approximate|regional|unknown",
+          "role": "event_location|corridor|context|origin|destination",
+          "geo_source": "UNLOCODE|IHO|AIS|source|local_gazetteer|unknown",
+          "locode": ""
+        }
+      ]
+    }
+  ],
+  "discarded": {
+    "OUT_OF_SCOPE": [
+      {"title":"...", "date":"YYYY-MM-DD", "reason_de":"...", "reason_en":"..."}
+    ],
+    "DUPLIKAT": [
+      {"title":"...", "merged_into":"...", "reason_de":"...", "reason_en":"..."}
+    ],
+    "IRRELEVANT": [
+      {"title":"...", "reason_de":"...", "reason_en":"..."}
+    ]
+  }
+}
+
+
+SEARCH-COVERAGE-LOGIK, ZWINGEND
+- meta.search_coverage dokumentiert, welche Pflichtbereiche geprüft wurden und welche Negativmeldungen bestehen.
+- search_coverage ist kein Ersatz für items[]. Relevante Treffer gehören in items[], leere/negative Suchabdeckung in meta.search_coverage.negative_findings_de/en.
+- Wenn eine Pflichtquelle nicht erreichbar war, setze den jeweiligen checked-Wert auf false und erkläre dies in notes_de/notes_en.
+- Wenn ein Bereich erreichbar geprüft wurde, aber keine verwertbare Meldung ergab, setze checked=true und schreibe eine kurze Negativmeldung.
+- Zusätzliche Economic-Security-Felder pro item nur ausfüllen, wenn Russland-/China-/Spionage-/Einfluss-/Dual-Use-/Lieferkettenbezug relevant ist. Sonst als leere Strings ausgeben.
+
+GEOREFERENZ-LOGIK, ZWINGEND
+- Für Häfen möglichst UN/LOCODE verwenden. Referenz: UNECE UN/LOCODE Code List by Country and Territory.
+- Für Seegebiete, Meerengen und Chokepoints IHO S-23 / Limits of Oceans and Seas als Benennungs- und Abgrenzungsreferenz nutzen, aber nicht als politische Grenze verstehen.
+- UN/LOCODE ist die bevorzugte Hafenreferenz; IHO ist die bevorzugte Seegebiets-/Chokepoint-Referenz.
+- Keine Koordinaten erfinden. Wenn eine genaue Position nicht belastbar bekannt ist, precision="unknown" oder precision="regional" setzen.
+- Keine Sammelbegriffe wie "Europa", "EU", "globale Brennpunkte" oder "europäischer Raum" als Kartenpunkt ausgeben.
+- Regionale Räume nur als Kontext-/Korridormarker ausgeben, nicht als punktgenaue Ereignisposition.
+- role="context" wird nur im Report erwähnt, nicht als Hauptmarker geplottet.
+- precision="unknown" wird nicht kartiert.
+- precision="regional" wird als regionaler Marker behandelt.
+
+OUTPUT-CHECK VOR FINALER JSON-AUSGABE
+1. Prüfe gedanklich, ob JSON.parse auf den Inhalt innerhalb des json-Codeblocks ohne Fehler funktionieren würde.
+2. Prüfe, dass außerhalb des einen json-Codeblocks kein Text steht.
+3. Hat jedes item ein Datum und time_window_status="IN_SCOPE"?
+4. Hat jedes item mindestens eine Quelle als nackte URL, die exakt mit http:// oder https:// beginnt und keine Klammern/Markdown enthält?
+5. Kommen URLs ausschließlich im Feld sources vor und in keinem anderen Textfeld?
+6. Hat jedes item prueffelder_de und prueffelder_en?
+6. Hat jedes item eu_relevance_de und eu_relevance_en?
+7. Hat jedes item places[] mit role, precision und geo_source?
+8. Ist meta.search_coverage vorhanden und enthält es Negativmeldungen für geprüfte Pflichtbereiche ohne Treffer?
+9. Sind verworfene Rohdaten ausschließlich im JSON-Feld discarded erklärt?
+
+MOwlSINT WHITE LIGHTNING / CRAWLER-/TALKWALKER-/MAIL-ROHDATEN / IMPORTTREFFER:
+[HIER DESTILLIERTE ROHDATEN AUS MOwlSINT WHITE LIGHTNING EINFÜGEN]
+
+WICHTIG: White Lightning ist nur eine regelbasierte Vorfilterung ohne KI-Zusammenfassung. Erst harmonisieren, Dubletten zusammenführen, Datum prüfen und falsch-positive Treffer verwerfen. Danach ausschließlich einen kopierbaren json-Codeblock mit dem oben definierten JSON-Objekt ausgeben.`}function promptWithImports(){let stats=window.whiteLightningLastStats||null;let txt=buildPrompt()+'\n\n---\nMOwlSINT WHITE LIGHTNING · DESTILLIERTE ROHDATEN / IMPORTTREFFER\n---\n';txt+='Hinweis: Die folgenden Importtreffer wurden vor dem Prompt regelbasiert ohne KI-Zusammenfassung verdichtet. White Lightning entfernt Mailheader/Footer, Warnbanner, quoted-printable-Müll, Syndication-Dubletten und Low-Quality-Ballast und kann Voodoo-Whiskers-JSON-Exports mit events[] als Rohdatenquelle einlesen. Behandle die Snippets als Rohdaten-Extrakte, nicht als geprüfte Analyse.\n';if(stats)txt+='White-Lightning-Statistik: '+stats.raw_blocks+' Rohblöcke → '+stats.returned+' Importblöcke; Dubletten entfernt: '+stats.duplicates_removed+'; Low-Quality entfernt: '+stats.low_quality_removed+'; Modus: '+stats.mode+'.\n';if(!imports.length)return txt+'Keine Importtreffer vorhanden.\n';imports.forEach((x,i)=>{txt+='\n['+(i+1)+']\n';txt+='Titel: '+(x.title||'')+'\n';txt+='Datum: '+(x.date||'')+'\n';txt+='Quelle: '+(x.source||'')+'\n';txt+='URL: '+(x.url||'')+'\n';txt+='Quelletyp: '+(x.source_type||'')+'\n';txt+='Keep-Reasons: '+((x.keep_reason||[]).join(', '))+'\n';txt+='Dubletten entfernt: '+(x.duplicate_count||0)+'\n';txt+='Quellenqualität lokal: '+(x.source_score||'')+'\n';txt+='Kategorie-Vorschlag lokal: '+(CATS[x.category]?.label||'')+'\n';txt+='Gewichtung-Vorschlag lokal: '+(x.severity||'')+'\n';txt+='Text/Snippet: '+(x.snippet||x.raw||'')+'\n';if((x.urls||[]).length>1)txt+='Weitere URLs: '+x.urls.join(' | ')+'\n'});return txt+'\n---\nBitte diese destillierten Importtreffer erst harmonisieren, Dubletten zusammenführen, Datum prüfen und ausschließlich einen kopierbaren json-Codeblock mit dem oben definierten JSON-Objekt ausgeben.\n'}function updatePrompt(){document.getElementById('promptBox').value=buildPrompt()}async function copyPromptWithImports(){await navigator.clipboard.writeText(promptWithImports());alert('Prompt inklusive Talkwalker-Rohdaten kopiert.')}function downloadPromptWithImports(){download(`${reportBaseName()}_Prompt.txt`,promptWithImports())}
+function reEsc(s){return String(s||"").split("").map(function(c){return ".*+?^${}()|[]\\".indexOf(c)>=0?"\\"+c:c}).join("")}
+function lookupPlace(name){let n=String(name||'').trim().toLowerCase();if(!n)return null;let exact=GAZ.find(g=>g.name.toLowerCase()===n);if(exact)return exact;let compact=n.replace(/[\s_\-\/]+/g,'');return GAZ.find(g=>g.name.toLowerCase().replace(/[\s_\-\/]+/g,'')===compact)||null}
+function parseCoord(v){if(typeof v==='number'&&isFinite(v))return v;if(typeof v==='string'){let n=parseFloat(v.replace(',','.'));return isFinite(n)?n:undefined}return undefined}
+function normRole(v,type){let r=clean(v||'');if(r)return r;let t=String(type||'').toLowerCase();if(t==='sea'||t==='region'||t==='chokepoint')return'corridor';return'event_location'}
+function normPrecision(v,type,hasCoords){let p=clean(v||'').toLowerCase();if(p)return p;let t=String(type||'').toLowerCase();if(!hasCoords)return'unknown';if(t==='sea'||t==='region'||t==='country'||t==='chokepoint')return'regional';return'approximate'}
+function shouldPlotPlace(p){if(!p)return false;let lat=parseCoord(p.lat),lon=parseCoord(p.lon);if(lat===undefined||lon===undefined)return false;if(lat<-90||lat>90||lon<-180||lon>180)return false;let role=String(p.role||'event_location').toLowerCase();let precision=String(p.precision||'approximate').toLowerCase();if(['context','background','source','unknown'].includes(role))return false;if(['unknown','none'].includes(precision))return false;return['event_location','corridor','origin','destination','port','chokepoint'].includes(role)}
+function dedupePlaces(a){let seen=new Set();return a.filter(p=>{if(!p||!p.name)return false;let lat=parseCoord(p.lat),lon=parseCoord(p.lon);let k=(p.name||'').toLowerCase()+'|'+(lat??'')+'|'+(lon??'')+'|'+(p.role||'');if(seen.has(k))return false;seen.add(k);return true})}
+function extractPlaces(text){let out=[],hay=' '+String(text||'')+' ';for(let g of GAZ){let rx=new RegExp('(^|[^A-Za-zÄÖÜäöüß])'+reEsc(g.name)+'([^A-Za-zÄÖÜäöüß]|$)','i');if(rx.test(hay))out.push({...g,type:'region',role:'corridor',precision:'regional',geo_source:'local_gazetteer'})}return dedupePlaces(out)}
+function normalizePlaces(input){if(!Array.isArray(input))return[];return input.map(p=>{if(typeof p==='string'){let lk=lookupPlace(p);if(lk)return{...lk,type:'region',role:'corridor',precision:'regional',geo_source:'local_gazetteer'};return{name:clean(p),role:'context',precision:'unknown'}}if(p&&typeof p==='object'){let o={name:clean(p.name||p.locode||'')};if(!o.name)return null;let lat=parseCoord(p.lat),lon=parseCoord(p.lon);if(lat!==undefined&&lon!==undefined){if(Math.abs(lat)>90&&Math.abs(lon)<=90){let tmp=lat;lat=lon;lon=tmp}o.lat=lat;o.lon=lon}let lk=lookupPlace(o.name);if(lk&&(o.lat===undefined||o.lon===undefined)){o.lat=lk.lat;o.lon=lk.lon;o.geo_source=clean(p.geo_source||'local_gazetteer')}if(p.type)o.type=clean(p.type);else if(lk&&!o.type)o.type='region';if(p.locode)o.locode=clean(p.locode);if(p.geo_source&&!o.geo_source)o.geo_source=clean(p.geo_source);let hasCoords=(parseCoord(o.lat)!==undefined&&parseCoord(o.lon)!==undefined);o.role=normRole(p.role,o.type);o.precision=normPrecision(p.precision,o.type,hasCoords);return o}return null}).filter(Boolean)}
+function collectPlaces(){let ps=[];for(let r of reports){if(Array.isArray(r.places))ps.push(...r.places.map(p=>({...p,category:r.category})));ps.push(...extractPlaces([r.headline,r.summary,r.note,r.region,r.corridor,r.port].join(' ')).map(p=>({...p,category:r.category})))}return dedupePlaces(ps)}
+function parseJsonArray(txt){
+  let raw=String(txt||'').trim();
+  let candidates=[];
+  let fenceRe=new RegExp('```(?:json)?\\s*([\\s\\S]*?)```','gi');
+  let m;
+  while((m=fenceRe.exec(raw))!==null){let c=m[1].trim();if(c.startsWith('['))candidates.push(c)}
+  let s=raw.indexOf('['),e=raw.lastIndexOf(']');
+  if(s>=0&&e>s)candidates.push(raw.slice(s,e+1));
+  let NL=String.fromCharCode(10);
+  let lines=raw.split(NL);
+  for(let i=0;i<lines.length;i++){
+    if(lines[i].trim().startsWith('[')){
+      for(let j=lines.length-1;j>=i;j--){
+        if(lines[j].trim().endsWith(']')){candidates.push(lines.slice(i,j+1).join(NL));break}
+      }
+    }
+  }
+  for(let c of candidates){try{let d=JSON.parse(c);if(Array.isArray(d))return d}catch(err){}}
+  return []
+}function pickLang(o,base,lang){
+  return clean(o[base+'_'+lang]||o[base+(lang==='en'?'En':'De')]||o[base+'_'+(lang==='en'?'english':'german')]||'')
+}
+function pickAny(o,names){for(let n of names){let v=o[n];if(v!==undefined&&v!==null&&String(v).trim()!=='')return v}return''}
+function fromAiObj(o){
+  let headline_de=pickLang(o,'headline','de')||clean(o.headline||o.title||'');
+  let headline_en=pickLang(o,'headline','en')||clean(o.headline_en||'');
+  let summary_de=pickLang(o,'summary','de')||clean(o.summary||o.kurzmeldung||o.text||'');
+  let summary_en=pickLang(o,'summary','en')||clean(o.summary_en||'');
+  let assessment_de=pickLang(o,'assessment','de')||clean(o.assessment||o.einordnung||o.note||'');
+  let assessment_en=pickLang(o,'assessment','en')||clean(o.assessment_en||o.note_en||'');
+  let headline=headline_de||headline_en||titleFromText(summary_de||summary_en);
+  let summary=summary_de||summary_en||shortSummary(assessment_de||assessment_en||'');
+  if(!headline&&!summary)return null;
+  let sourcesRaw=o.sources||o.quellen||[];
+  let sources=Array.isArray(sourcesRaw)?sourcesRaw.map(x=>typeof x==='string'?x:(x.url||x.link||x.source||'')).map(clean).filter(Boolean).slice(0,4):urlsFrom(String(sourcesRaw||'')).slice(0,4);
+  return{
+    id:crypto.randomUUID(),
+    date:isoFromAny(o.date||o.datum)||document.getElementById('reportDate').value,
+    time_window_status:clean(o.time_window_status||'IN_SCOPE'),
+    category:normalizeCat(o.category||o.kategorie||o.category_de||o.category_en||''),
+    subcategory:clean(o.subcategory||o.unterkategorie||o.subcategory_de||''),
+    subcategory_de:pickLang(o,'subcategory','de')||clean(o.subcategory_de||o.subcategory||o.unterkategorie||''),
+    subcategory_en:pickLang(o,'subcategory','en')||clean(o.subcategory_en||''),
+    severity:normalizeSeverity(o.severity||o.gewichtung||''),
+    headline,
+    headline_de,
+    headline_en,
+    summary,
+    summary_de,
+    summary_en,
+    sources,
+    note:assessment_de||assessment_en,
+    assessment_de,
+    assessment_en,
+    evidence:clean(o.evidence||o.evidenz||o.evidence_de||o.evidence_en||'')||'C2 - harmonisierte KI-Ausgabe, Quellenprüfung empfohlen',
+    evidence_de:clean(o.evidence_de||o.evidenz_de||o.evidence||o.evidenz||''),
+    evidence_en:clean(o.evidence_en||''),
+    region:clean(o.region||o.region_de||''),
+    region_de:pickLang(o,'region','de')||clean(o.region_de||o.region||''),
+    region_en:pickLang(o,'region','en')||clean(o.region_en||''),
+    corridor:clean(o.corridor||o.corridor_de||''),
+    corridor_de:pickLang(o,'corridor','de')||clean(o.corridor_de||o.corridor||''),
+    corridor_en:pickLang(o,'corridor','en')||clean(o.corridor_en||''),
+    country:clean(o.country||''),
+    port:clean(o.port||''),
+    locode:clean(o.locode||''),
+    ship_name:clean(o.ship_name||o.vessel_name||''),
+    imo:clean(o.imo||''),
+    mmsi:clean(o.mmsi||''),
+    actor_type:clean(o.actor_type||o.actor_type_de||''),
+    actor_type_de:pickLang(o,'actor_type','de')||clean(o.actor_type_de||o.actor_type||''),
+    actor_type_en:pickLang(o,'actor_type','en')||clean(o.actor_type_en||''),
+    ttp:clean(o.ttp||o.ttp_de||''),
+    ttp_de:pickLang(o,'ttp','de')||clean(o.ttp_de||o.ttp||''),
+    ttp_en:pickLang(o,'ttp','en')||clean(o.ttp_en||''),
+    eu_relevance:clean(o.eu_relevance||o.eu_relevance_de||''),
+    eu_relevance_de:pickLang(o,'eu_relevance','de')||clean(o.eu_relevance_de||o.eu_relevance||''),
+    eu_relevance_en:pickLang(o,'eu_relevance','en')||clean(o.eu_relevance_en||''),
+    economic_security_relevance_de:clean(o.economic_security_relevance_de||''),
+    economic_security_relevance_en:clean(o.economic_security_relevance_en||''),
+    russia_china_link_de:clean(o.russia_china_link_de||''),
+    russia_china_link_en:clean(o.russia_china_link_en||''),
+    espionage_or_influence_indicator_de:clean(o.espionage_or_influence_indicator_de||''),
+    espionage_or_influence_indicator_en:clean(o.espionage_or_influence_indicator_en||''),
+    sanctions_or_dual_use_angle_de:clean(o.sanctions_or_dual_use_angle_de||''),
+    sanctions_or_dual_use_angle_en:clean(o.sanctions_or_dual_use_angle_en||''),
+    maritime_supply_chain_link_de:clean(o.maritime_supply_chain_link_de||''),
+    maritime_supply_chain_link_en:clean(o.maritime_supply_chain_link_en||''),
+    prueffelder:clean(o.prueffelder||o.prueffelder_de||o.further_checks_de||''),
+    prueffelder_de:pickLang(o,'prueffelder','de')||clean(o.prueffelder_de||o.prueffelder||''),
+    prueffelder_en:pickLang(o,'prueffelder','en')||clean(o.prueffelder_en||o.further_checks_en||''),
+    places:normalizePlaces(o.places||[])
+  }
+}
+function parseMarkdownMeldungen(txt){let blocks=txt.split('\n**').map((x,i)=>i?'**'+x:x).map(x=>x.trim()).filter(Boolean),out=[];for(let b of blocks){let hm=b.match(/\*\*(.+?)\s*\((\d{2}\.\d{2}\.\d{4})\)\*\*/);if(!hm)continue;let lines=b.split('\n').map(clean).filter(Boolean),find=p=>lines.find(l=>l.toLowerCase().startsWith(p))||'',src=find('quellen:'),cat=find('kategorie:'),sub=find('unterkategorie:'),sev=find('gewichtung:'),ev=find('evidenz:'),ass=find('einordnung:'),pl=find('orte');let sum=lines.find(l=>!l.startsWith('**')&&!/^(einordnung|kategorie|unterkategorie|gewichtung|evidenz|quellen|orte)/i.test(l))||'';out.push({id:crypto.randomUUID(),date:isoFromAny(hm[2]),category:normalizeCat(cat),subcategory:sub.replace(/^Unterkategorie:\s*/i,''),severity:normalizeSeverity(sev),headline:clean(hm[1]),summary:sum||shortSummary(b),sources:urlsFrom(src),note:ass.replace(/^Einordnung:\s*/i,''),evidence:ev.replace(/^Evidenz:\s*/i,'')||'C2 - harmonisierte KI-Ausgabe',region:'',corridor:'',port:'',locode:'',ship_name:'',imo:'',mmsi:'',actor_type:'',ttp:'',eu_relevance:'',prueffelder:'',places:extractPlaces(pl)})}return out}function parseJsonPayload(txt){
+  let raw=String(txt||'').trim(),candidates=[];
+  let fenceRe=new RegExp('```(?:json)?\\s*([\\s\\S]*?)```','gi'),m;
+  while((m=fenceRe.exec(raw))!==null)candidates.push(m[1].trim());
+  candidates.push(raw);
+  let sObj=raw.indexOf('{'),eObj=raw.lastIndexOf('}');
+  if(sObj>=0&&eObj>sObj)candidates.push(raw.slice(sObj,eObj+1));
+  let sArr=raw.indexOf('['),eArr=raw.lastIndexOf(']');
+  if(sArr>=0&&eArr>sArr)candidates.push(raw.slice(sArr,eArr+1));
+  for(let c of candidates){try{return JSON.parse(c)}catch(err){}}
+  return null
+}
+function extractItemsFromPayload(payload){
+  if(Array.isArray(payload))return payload;
+  if(payload&&typeof payload==='object'){
+    return payload.items||payload.meldungen||payload.reports||payload.report_items||payload.data||[]
+  }
+  return []
+}
+
+function defaultDiscarded(){return{OUT_OF_SCOPE:[],DUPLIKAT:[],IRRELEVANT:[]}}
+function normalizeDiscarded(d){let out=defaultDiscarded();if(!d||typeof d!=='object')return out;for(let k of Object.keys(out)){if(Array.isArray(d[k]))out[k]=d[k]}return out}
+function normalizeJsonPayloadForCopy(payload){let items=extractItemsFromPayload(payload);let meta={report_date:document.getElementById('reportDate').value||stamp(),period:document.getElementById('period').value,language_mode:'bilingual_de_en',output_contract:'json_only',source_count:imports.length,item_count:Array.isArray(items)?items.length:0};let discarded=defaultDiscarded();if(payload&&typeof payload==='object'&&!Array.isArray(payload)){meta={...meta,...(payload.meta||{})};discarded=normalizeDiscarded(payload.discarded||payload.verworfene||payload.rejected)}return{meta,items:Array.isArray(items)?items:[],discarded}}
+function reportItemToJson(r){return{date:r.date||'',time_window_status:r.time_window_status||'IN_SCOPE',headline_de:r.headline_de||r.headline||'',headline_en:r.headline_en||r.headline||'',summary_de:r.summary_de||r.summary||'',summary_en:r.summary_en||r.summary||'',assessment_de:r.assessment_de||r.note||'',assessment_en:r.assessment_en||r.note||'',category:r.category||'other',category_de:CATS[r.category]?.label||'',category_en:CATS_EN[r.category]||'',subcategory_de:r.subcategory_de||r.subcategory||'',subcategory_en:r.subcategory_en||r.subcategory||'',severity:r.severity||'mittel',evidence_de:r.evidence_de||r.evidence||'',evidence_en:r.evidence_en||r.evidence||'',sources:Array.isArray(r.sources)?r.sources:[],region_de:r.region_de||r.region||'',region_en:r.region_en||r.region||'',corridor_de:r.corridor_de||r.corridor||'',corridor_en:r.corridor_en||r.corridor||'',country:r.country||'',port:r.port||'',locode:r.locode||'',ship_name:r.ship_name||'',imo:r.imo||'',mmsi:r.mmsi||'',actor_type_de:r.actor_type_de||r.actor_type||'',actor_type_en:r.actor_type_en||r.actor_type||'',ttp_de:r.ttp_de||r.ttp||'',ttp_en:r.ttp_en||r.ttp||'',eu_relevance_de:r.eu_relevance_de||r.eu_relevance||'',eu_relevance_en:r.eu_relevance_en||r.eu_relevance||'',economic_security_relevance_de:r.economic_security_relevance_de||'',economic_security_relevance_en:r.economic_security_relevance_en||'',russia_china_link_de:r.russia_china_link_de||'',russia_china_link_en:r.russia_china_link_en||'',espionage_or_influence_indicator_de:r.espionage_or_influence_indicator_de||'',espionage_or_influence_indicator_en:r.espionage_or_influence_indicator_en||'',sanctions_or_dual_use_angle_de:r.sanctions_or_dual_use_angle_de||'',sanctions_or_dual_use_angle_en:r.sanctions_or_dual_use_angle_en||'',maritime_supply_chain_link_de:r.maritime_supply_chain_link_de||'',maritime_supply_chain_link_en:r.maritime_supply_chain_link_en||'',prueffelder_de:Array.isArray(r.prueffelder_de)?r.prueffelder_de:(r.prueffelder_de||r.prueffelder?[String(r.prueffelder_de||r.prueffelder)]:[]),prueffelder_en:Array.isArray(r.prueffelder_en)?r.prueffelder_en:(r.prueffelder_en?[String(r.prueffelder_en)]:[]),places:Array.isArray(r.places)?r.places:[]}}
+function defaultSearchCoverage(){return{web_research_enabled:optChecked('webResearchEnabled'),ukmto_checked:false,marine_shipping_authorities_checked:false,maritime_executive_checked:false,gcaptain_checked:false,vesseltracker_checked:false,cyber_authorities_checked:false,drone_hybrid_scan_checked:false,russia_china_economic_security_checked:false,bafa_russia_sanctions_checked:false,bfv_espionage_context_checked:false,negative_findings_de:[],negative_findings_en:[],notes_de:'Bei manuell erzeugtem Report-JSON nicht automatisch befüllt.',notes_en:'Not automatically populated for locally generated report JSON.'}}
+function jsonPayloadFromReports(){return{meta:{report_date:document.getElementById('reportDate').value||stamp(),period:document.getElementById('period').value,language_mode:'bilingual_de_en',output_contract:'json_only',source_count:imports.length,item_count:reports.length,search_coverage:defaultSearchCoverage()},items:reports.map(reportItemToJson),discarded:defaultDiscarded()}}
+function isPlainUrl(s){s=String(s||'').trim();return /^https?:\/\/[^\s<>'"\[\]\(\)]+$/i.test(s)}
+function hasMarkdownUrlArtifact(s){s=String(s||'');return /\]\s*\(\s*https?:\/\//i.test(s)||/\[\s*https?:\/\//i.test(s)||/<a\s/i.test(s)||/%22|%5B|%5D|%28|%29/i.test(s)}
+function scanTextForUrlLeak(obj,path,issues){
+  if(obj==null)return;
+  if(typeof obj==='string'){
+    let inSources=/\.sources\.\d+$/.test(path);
+    if(inSources){
+      if(!isPlainUrl(obj))issues.push('FEHLER: '+path+' ist keine nackte URL: '+String(obj).slice(0,80));
+      if(hasMarkdownUrlArtifact(obj))issues.push('FEHLER: '+path+' enthält Markdown-/Link-Artefakte.');
+    }else{
+      if(/https?:\/\//i.test(obj))issues.push('FEHLER: '+path+' enthält eine URL. URLs dürfen nur im Feld sources stehen.');
+      if(hasMarkdownUrlArtifact(obj))issues.push('FEHLER: '+path+' enthält Markdown-Link-Artefakte.');
+    }
+    return;
+  }
+  if(Array.isArray(obj)){obj.forEach((v,i)=>scanTextForUrlLeak(v,path+'.'+i,issues));return}
+  if(typeof obj==='object'){Object.keys(obj).forEach(k=>scanTextForUrlLeak(obj[k],path?path+'.'+k:k,issues))}
+}
+function validateBilingualJsonPayload(payload){
+  let issues=[];
+  if(!payload||typeof payload!=='object'||Array.isArray(payload)){issues.push('FEHLER: Top-Level muss ein JSON-Objekt sein.');return issues}
+  if(!payload.meta||typeof payload.meta!=='object')issues.push('FEHLER: meta fehlt oder ist kein Objekt.');
+  if(!Array.isArray(payload.items))issues.push('FEHLER: items fehlt oder ist kein Array.');
+  if(!payload.discarded||typeof payload.discarded!=='object')issues.push('FEHLER: discarded fehlt oder ist kein Objekt.');
+  (payload.items||[]).forEach((it,i)=>{
+    let n=i+1;
+    if(!it.date)issues.push('FEHLER: Item '+n+': date fehlt.');
+    if(it.time_window_status!=='IN_SCOPE')issues.push('FEHLER: Item '+n+': time_window_status ist nicht IN_SCOPE.');
+    if(!it.headline_de||!it.headline_en)issues.push('FEHLER: Item '+n+': headline_de/headline_en unvollständig.');
+    if(!it.summary_de||!it.summary_en)issues.push('FEHLER: Item '+n+': summary_de/summary_en unvollständig.');
+    if(!Array.isArray(it.sources)||!it.sources.length)issues.push('FEHLER: Item '+n+': sources fehlt oder ist leer.');
+    if(Array.isArray(it.sources)){
+      it.sources.forEach((s,j)=>{if(!isPlainUrl(s))issues.push('FEHLER: Item '+n+' Source '+(j+1)+': keine nackte URL: '+String(s).slice(0,70));});
+      if(!it.sources.some(s=>isPlainUrl(s)))issues.push('FEHLER: Item '+n+': mindestens eine echte nackte Quellen-URL fehlt.');
+    }
+    if(!Array.isArray(it.places))issues.push('FEHLER: Item '+n+': places ist kein Array.');
+    if(Array.isArray(it.places)){
+      it.places.forEach((p,j)=>{
+        if(!p.role)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': role fehlt.');
+        if(!p.precision)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': precision fehlt.');
+        if(!p.geo_source)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': geo_source fehlt.');
+      })
+    }
+    if(!it.eu_relevance_de||!it.eu_relevance_en)issues.push('FEHLER: Item '+n+': eu_relevance_de/eu_relevance_en fehlt.');
+    if(!Array.isArray(it.prueffelder_de)||!Array.isArray(it.prueffelder_en))issues.push('FEHLER: Item '+n+': prueffelder_de/prueffelder_en müssen Arrays sein.');
+  });
+  scanTextForUrlLeak(payload,'',issues);
+  return issues
+}
+function hasFatalJsonIssues(issues){return (issues||[]).some(x=>String(x).startsWith('FEHLER:'))}
+function setJsonStatus(msg,kind='ok'){let el=document.getElementById('jsonStatus');if(!el)return;el.className='small '+(kind==='bad'?'json-status-bad':kind==='warn'?'json-status-warn':'json-status-ok');el.textContent=msg}
+function writeJsonBox(payload,source='input'){let normalized=normalizeJsonPayloadForCopy(payload);let warnings=validateBilingualJsonPayload(normalized);let fatal=hasFatalJsonIssues(warnings);let box=document.getElementById('jsonOutputBox');if(box)box.value=JSON.stringify(normalized,null,2);if(warnings.length){setJsonStatus((source==='report'?'Report-JSON erzeugt, ':'JSON geprüft, ')+(fatal?'NICHT IMPORTIERBAR, ':'')+warnings.length+' Hinweis(e): '+warnings.slice(0,4).join(' | ')+(warnings.length>4?' …':''),fatal?'bad':'warn')}else{setJsonStatus((source==='report'?'Report-JSON erzeugt: ':'JSON gültig: ')+normalized.items.length+' item(s), kopierbar.','ok')}return normalized}
+function mirrorAiJsonOutput(){let txt=(document.getElementById('aiOutput')?.value||'');let box=document.getElementById('jsonOutputBox');if(box)box.value=txt;if(txt.trim())setJsonStatus('KI-Ausgabe im kopierbaren JSON-Fenster gespiegelt. Für Formatierung: JSON prüfen / formatieren.', 'warn')}
+function validateAndFormatJsonOutput(){let txt=(document.getElementById('aiOutput')?.value||'').trim();let box=document.getElementById('jsonOutputBox');if(!txt){if(reports.length)return generateReportJsonBox();if(box)box.value='';setJsonStatus('Keine KI-Ausgabe und keine Report-Meldungen vorhanden.', 'bad');return null}let payload=parseJsonPayload(txt);if(!payload){if(box)box.value=txt;setJsonStatus('Kein valides JSON erkannt. Rohtext bleibt im kopierbaren JSON-Fenster sichtbar. Erwartet wird ein JSON-Codeblock oder ein einzelnes JSON-Objekt mit meta, items, discarded.', 'bad');return null}return writeJsonBox(payload,'input')}
+function generateReportJsonBox(){if(!reports.length){setJsonStatus('Noch keine Report-Meldungen vorhanden.', 'bad');return null}return writeJsonBox(jsonPayloadFromReports(),'report')}
+async function copyJsonOutputBox(){let box=document.getElementById('jsonOutputBox');if(!box||!box.value.trim()){let p=validateAndFormatJsonOutput();if(!p)return}await navigator.clipboard.writeText(document.getElementById('jsonOutputBox').value);setJsonStatus('JSON in die Zwischenablage kopiert.','ok')}
+function parseHarmonized(txt){let payload=parseJsonPayload(txt);if(!payload)return[];let arr=extractItemsFromPayload(payload);if(arr.length){let converted=arr.map(fromAiObj).filter(Boolean);if(converted.length)return converted}return[]}
+function importHarmonizedOutput(){try{let txt=document.getElementById('aiOutput').value.trim();if(!txt){setImportStatus('Bitte zuerst die harmonisierte KI-Ausgabe einfügen.',true);alert('Bitte zuerst die harmonisierte KI-Ausgabe einfügen.');return}let payload=parseJsonPayload(txt);if(!payload){let box=document.getElementById('jsonOutputBox');if(box)box.value=txt;setImportStatus('Kein gültiges JSON erkannt. Rohtext steht im kopierbaren JSON-Fenster. Bitte Prompt erneut laufen lassen oder JSON-Codeblock korrigieren.',true);setJsonStatus('Kein gültiges JSON erkannt. Erwartet wird ein json-Codeblock oder ein JSON-Objekt mit meta, items und discarded.','bad');return}let normalized=writeJsonBox(payload,'input');let issues=validateBilingualJsonPayload(normalized);if(hasFatalJsonIssues(issues)){setImportStatus('JSON formal lesbar, aber strukturell unbrauchbar. Bitte Prompt erneut laufen lassen oder Quellen/Link-Artefakte bereinigen.',true);return}let parsed=parseHarmonized(txt);if(!parsed.length){setImportStatus('JSON ist lesbar, aber es wurden keine items erkannt.',true);setJsonStatus('JSON lesbar, aber items[] fehlt oder ist leer.','bad');return}reports=[...reports,...parsed];dedupeReports();sortReports(false);renderEditor();renderReport();generateReportJsonBox();setImportStatus(parsed.length+' Meldung(en) in den Report übernommen.')}catch(e){console.error(e);setImportStatus('Fehler beim Übernehmen: '+e.message,true);alert('Fehler beim Übernehmen: '+e.message)}}
+function parseLooseMeldungen(txt){let blocks=String(txt||'').split(String.fromCharCode(10)+String.fromCharCode(10)).map(clean).filter(x=>x.length>40);let out=[];for(let c of blocks){let date=isoFromAny(c)||document.getElementById('reportDate').value;let lines=c.split(String.fromCharCode(10)).map(clean).filter(Boolean);let head=(lines[0]||titleFromText(c)).replaceAll('**','').replace('#','').trim();let src=lines.find(l=>l.toLowerCase().startsWith('quellen:'))||'';let cat=lines.find(l=>l.toLowerCase().startsWith('kategorie:'))||c;let sev=lines.find(l=>l.toLowerCase().startsWith('gewichtung:'))||c;let ev=lines.find(l=>l.toLowerCase().startsWith('evidenz:'))||'C2 - lose KI-Ausgabe, Quellenprüfung empfohlen';let summary=lines.find(l=>!l.toLowerCase().startsWith('quellen:')&&!l.toLowerCase().startsWith('kategorie:')&&!l.toLowerCase().startsWith('gewichtung:')&&!l.toLowerCase().startsWith('evidenz:')&&!l.toLowerCase().startsWith('einordnung:')&&l!==lines[0])||shortSummary(c);if(head&&summary){out.push({id:crypto.randomUUID(),date,category:normalizeCat(cat),subcategory:'',severity:normalizeSeverity(sev),headline:head,summary:summary,sources:urlsFrom(src||c),note:(lines.find(l=>l.toLowerCase().startsWith('einordnung:'))||'').replace('Einordnung:','').trim(),evidence:ev.replace('Evidenz:','').trim(),region:'',corridor:'',port:'',locode:'',ship_name:'',imo:'',mmsi:'',actor_type:'',ttp:'',eu_relevance:'',prueffelder:'',places:extractPlaces(c)})}}return out}
+
+function catFromSectionName(name){let t=String(name||'').toLowerCase();if(/hybride|hybrid|phase/.test(t))return'hybrid';if(/schatten|shadow|sanction|sanktions|insurance|versicherung/.test(t))return'shadow';if(/rausch|drug|drogen|kokain|cocaine|smuggl|schleus|maritime crime/.test(t))return'drugs';if(/iuu|fisch|fish/.test(t))return'iuu';if(/cyber|kriti|critical infrastructure|port|hafen|operative|operational/.test(t))return'cyber';if(/störung|safety|disruption|shipping|schifffahrt/.test(t))return'safety';if(/umwelt|pollution|environment/.test(t))return'environment';return'other'}
+function lineAfterLabel(lines,labels){for(let l of lines){let low=l.toLowerCase();for(let lab of labels){if(low.startsWith(lab.toLowerCase()+':'))return clean(l.slice(l.indexOf(':')+1));}}return''}
+function parseArchivedMarkdownSettings(md){let out={};let lines=String(md||'').split(/\r?\n/).map(x=>x.trim());let title=lines.find(l=>l.startsWith('# '))||'';let dm=title.match(/\((\d{1,2}\.\d{1,2}\.20\d{2})\)/);if(dm)out.reportDate=isoFromAny(dm[1]);for(let l of lines){let low=l.toLowerCase();if(low.startsWith('zeitraum:')||low.startsWith('period:'))out.period=clean(l.slice(l.indexOf(':')+1));if(low.startsWith('region/fokus:')||low.startsWith('region/focus:')||low.startsWith('region:'))out.region=clean(l.slice(l.indexOf(':')+1));if(low.startsWith('adressat/modus:')||low.startsWith('audience/mode:')||low.startsWith('audience:'))out.audience=clean(l.slice(l.indexOf(':')+1));}return out}
+function applyArchivedMarkdownSettings(settings){if(!settings)return;let d=document.getElementById('reportDate');if(d&&settings.reportDate)d.value=settings.reportDate;let p=document.getElementById('period');if(p&&settings.period){let opt=[...p.options].find(o=>o.textContent.trim().toLowerCase()===settings.period.toLowerCase());if(opt)p.value=opt.value||opt.textContent}let r=document.getElementById('region');if(r&&settings.region)r.value=settings.region;let a=document.getElementById('audience');if(a&&settings.audience){let opt=[...a.options].find(o=>o.textContent.trim().toLowerCase()===settings.audience.toLowerCase());if(opt)a.value=opt.value||opt.textContent}}
+function parseArchivedMarkdown(md,fileName='Archiv.md'){
+  let text=String(md||'').replace(/\r\n/g,'\n');
+  let sections=[];let re=/^##\s+(.+?)\s*$/gm,m,last=null;
+  while((m=re.exec(text))!==null){if(last)sections.push({title:last.title,start:last.end,end:m.index});last={title:m[1].trim(),end:re.lastIndex}}
+  if(last)sections.push({title:last.title,start:last.end,end:text.length});
+  let items=[];
+  for(let sec of sections){let secName=sec.title;if(/lagekern|situation core|summary|prüfhinweis|map/i.test(secName))continue;let cat=catFromSectionName(secName);let body=text.slice(sec.start,sec.end);let hRe=/\*\*(.+?)\s*\((\d{1,2}\.\d{1,2}\.20\d{2})\)\*\*/g,hm,heads=[];while((hm=hRe.exec(body))!==null)heads.push({idx:hm.index,end:hRe.lastIndex,headline:clean(hm[1]),date:isoFromAny(hm[2])});
+    for(let i=0;i<heads.length;i++){let h=heads[i];let block=body.slice(h.end,heads[i+1]?.idx??body.length).trim();let lines=block.split(/\n+/).map(clean).filter(Boolean);let summary=lines.find(l=>!/^(-|einordnung:|assessment:|unterkategorie:|subcategory:|region\/korridor\/hafen:|region\/corridor\/port:|ttp:|quellen:|sources:|evidenz\/gewichtung:|evidence\/severity:|evidence\/weighting:)/i.test(l))||shortSummary(block);let assessment=lineAfterLabel(lines,['Einordnung','Assessment']);let subcat=lineAfterLabel(lines,['Unterkategorie','Subcategory']);let rch=lineAfterLabel(lines,['Region/Korridor/Hafen','Region/corridor/port','Region/corridor/port']);let ttp=lineAfterLabel(lines,['TTP']);let srcLine=lineAfterLabel(lines,['Quellen','Sources']);let evLine=lineAfterLabel(lines,['Evidenz/Gewichtung','Evidence/severity','Evidence/weighting']);let parts=rch.split('|').map(clean).filter(Boolean);let evidence=evLine,severity='mittel';if(evLine.includes('·')){let ep=evLine.split('·').map(clean);severity=normalizeSeverity(ep.pop());evidence=ep.join(' · ')}else severity=normalizeSeverity(evLine);let sources=urlsFrom(srcLine);if(!sources.length)sources=srcLine.split('|').map(clean).filter(Boolean).slice(0,4);let placeText=[rch,block,h.headline].join(' ');items.push({id:crypto.randomUUID(),date:h.date||document.getElementById('reportDate').value,category:cat,subcategory:subcat,severity,headline:h.headline,summary,sources,note:assessment,evidence:evidence||'C2 - aus archiviertem Markdown reimportiert',region:parts[0]||'',corridor:parts[1]||'',port:parts[2]||'',locode:'',ship_name:'',imo:'',mmsi:'',actor_type:'',ttp,eu_relevance:'',prueffelder:'',places:dedupePlaces(extractPlaces(placeText).concat((parts[2]?[parts[2]]:[]).map(n=>lookupPlace(n)||{name:n})))});}
+  }
+  if(!items.length){items=parseMarkdownMeldungen(text).map(x=>({...x,evidence:x.evidence||'C2 - aus archiviertem Markdown reimportiert'}));}
+  return {settings:parseArchivedMarkdownSettings(text),items,fileName};
+}
+function openArchiveMarkdownPicker(){let inp=document.getElementById('archiveMarkdownInput');if(inp){inp.value='';inp.click()}}
+async function loadArchivedMarkdownFiles(evt){let files=[...(evt.target.files||[])];if(!files.length)return;let replace=true;if(reports.length)replace=confirm('Archivierte Markdown-Datei(en) laden und aktuellen Report ersetzen?\nOK = ersetzen, Abbrechen = anhängen.');if(replace)reports=[];let total=0,firstSettings=null,failed=[];for(let f of files){try{let txt=await readFileSmart(f);let parsed=parseArchivedMarkdown(txt,f.name);if(parsed.settings&&!firstSettings)firstSettings=parsed.settings;if(parsed.items.length){reports.push(...parsed.items);total+=parsed.items.length}else failed.push(f.name)}catch(e){console.error(e);failed.push(f.name)}}if(firstSettings&&files.length===1)applyArchivedMarkdownSettings(firstSettings);dedupeReports();sortReports(false);renderEditor();renderReport();generateReportJsonBox();updatePrompt();let msg=total+' Meldung(en) aus archiviertem Markdown geladen.'+(failed.length?' Nicht erkannt: '+failed.join(', '):'');let el=document.getElementById('manualStatus')||document.getElementById('importStatus');if(el){el.style.color=failed.length?'#ffe1a4':'#b8ffc4';el.textContent=msg}alert(msg)}
+function dedupeReports(){let seen=new Set();reports=reports.filter(r=>{let k=((r.sources||[])[0]||r.headline).toLowerCase().slice(0,140);if(seen.has(k))return false;seen.add(k);return true})}function addManualMeldung(){reports.unshift({id:crypto.randomUUID(),date:document.getElementById('reportDate').value,category:'hybrid',subcategory:'',severity:'mittel',headline:'Neue maritime Meldung',summary:'Kurzmeldung ergänzen.',sources:[],note:'',evidence:'C2 - manuell angelegt',region:'',corridor:'',port:'',locode:'',ship_name:'',imo:'',mmsi:'',actor_type:'',ttp:'',eu_relevance:'',prueffelder:'',places:[]});renderEditor();renderReport()}
+function manualVal(id){let el=document.getElementById(id);return el?clean(el.value):''}
+function setManualStatus(msg,bad=false){let el=document.getElementById('manualStatus');if(el){el.style.color=bad?'#ffb8b8':'#b8ffc4';el.textContent=msg}}
+function buildManualReportObject(){let ft=manualVal('manualFreeText');let headline=manualVal('manualHeadline')||titleFromText(ft)||'Manueller Lagebeitrag';let summary=manualVal('manualSummary')||shortSummary(ft)||'Manueller Lagebeitrag ergänzt.';let assessment=manualVal('manualAssessment')||'';let placeText=[manualVal('manualPlaces'),manualVal('manualRegion'),manualVal('manualCorridor'),manualVal('manualPort'),ft].filter(Boolean).join(', ');let sources=manualVal('manualSources').split(String.fromCharCode(10)).map(clean).filter(Boolean).slice(0,4);let category=manualVal('manualCategory')||categoryFor([headline,summary,assessment,ft].join(' '));return{id:crypto.randomUUID(),date:manualVal('manualDate')||isoFromAny(ft)||document.getElementById('reportDate').value,category:category,subcategory:manualVal('manualSubcategory'),severity:manualVal('manualSeverity')||severityFor([headline,summary,assessment,ft].join(' ')),headline:headline,summary:summary,sources:sources,note:assessment,evidence:'C2 - manueller Lagebeitrag, Quellenprüfung empfohlen',region:manualVal('manualRegion'),corridor:manualVal('manualCorridor'),port:manualVal('manualPort'),locode:'',ship_name:manualVal('manualShip'),imo:manualVal('manualImo'),mmsi:manualVal('manualMmsi'),actor_type:'',ttp:manualVal('manualTtp'),eu_relevance:'',prueffelder:'',places:dedupePlaces(extractPlaces(placeText).concat(manualVal('manualPlaces').split(',').map(clean).filter(Boolean).map(n=>lookupPlace(n)||{name:n})))}}
+function addManualFromForm(){try{let r=buildManualReportObject();if(!r.headline||!r.summary){setManualStatus('Bitte mindestens Überschrift oder Freitext sowie Kurzmeldung ergänzen.',true);return}reports.unshift(r);dedupeReports();renderEditor();renderReport();setManualStatus('Manueller Lagebeitrag in den Report übernommen.')}catch(e){console.error(e);setManualStatus('Fehler: '+e.message,true)}}
+function clearManualForm(){['manualHeadline','manualSummary','manualAssessment','manualSubcategory','manualRegion','manualCorridor','manualPort','manualShip','manualImo','manualMmsi','manualTtp','manualPlaces','manualSources','manualFreeText'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});let d=document.getElementById('manualDate');if(d)d.value=document.getElementById('reportDate').value;setManualStatus('Felder geleert.')}
+async function copyManualJsonPreview(){let r=buildManualReportObject();let obj={date:r.date,time_window_status:'IN_SCOPE',headline:r.headline,summary:r.summary,assessment:r.note,category:CATS[r.category]?.label||r.category,subcategory:r.subcategory,severity:r.severity,evidence:r.evidence,sources:r.sources,region:r.region,corridor:r.corridor,country:'',port:r.port,locode:r.locode,ship_name:r.ship_name,imo:r.imo,mmsi:r.mmsi,actor_type:r.actor_type,ttp:r.ttp,eu_relevance:r.eu_relevance,prueffelder:r.prueffelder,places:r.places};await navigator.clipboard.writeText(JSON.stringify(obj,null,2));setManualStatus('JSON-Vorschau kopiert.')}function sortReports(d=true){let sev={hoch:0,mittel:1,niedrig:2};reports.sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(sev[a.severity]??3)-(sev[b.severity]??3));if(d){renderEditor();renderReport()}}function clearReports(){if(confirm('Alle Meldungen löschen?')){reports=[];renderEditor();renderReport()}}function updateReport(id,f,v){let r=reports.find(x=>x.id===id);if(!r)return;if(f==='sources')r.sources=v.split(/\n|,\s*/).map(clean).filter(Boolean).slice(0,4);else if(f==='placesText')r.places=dedupePlaces(extractPlaces(v).concat(v.split(',').map(clean).filter(Boolean).map(n=>lookupPlace(n)||{name:n})));else r[f]=v;renderReport()}function delReport(id){reports=reports.filter(x=>x.id!==id);renderEditor();renderReport()}
+function renderEditor(){let el=document.getElementById('reportEditor');if(!reports.length){el.innerHTML='<span class="small">Noch keine Meldungen.</span>';return}el.innerHTML=reports.map(r=>`<div class="editor-card"><div class="row"><div><label>Datum</label><input type="date" value="${esc(r.date)}" onchange="updateReport('${r.id}','date',this.value)"></div><div><label>Kategorie</label><select onchange="updateReport('${r.id}','category',this.value)">${Object.entries(CATS).map(([k,v])=>`<option value="${k}" ${r.category===k?'selected':''}>${esc(v.label)}</option>`).join('')}</select></div></div><div class="row"><div><label>Unterkategorie</label><input value="${esc(r.subcategory||'')}" onchange="updateReport('${r.id}','subcategory',this.value)"></div><div><label>Gewichtung</label><select onchange="updateReport('${r.id}','severity',this.value)"><option ${r.severity==='hoch'?'selected':''}>hoch</option><option ${r.severity==='mittel'?'selected':''}>mittel</option><option ${r.severity==='niedrig'?'selected':''}>niedrig</option></select></div></div><label>Überschrift</label><input value="${esc(r.headline)}" onchange="updateReport('${r.id}','headline',this.value)"><label>Kurzmeldung</label><textarea onchange="updateReport('${r.id}','summary',this.value)">${esc(r.summary)}</textarea><label>Einordnung</label><textarea onchange="updateReport('${r.id}','note',this.value)">${esc(r.note||'')}</textarea><div class="row3"><div><label>Region</label><input value="${esc(r.region||'')}" onchange="updateReport('${r.id}','region',this.value)"></div><div><label>Korridor</label><input value="${esc(r.corridor||'')}" onchange="updateReport('${r.id}','corridor',this.value)"></div><div><label>Hafen</label><input value="${esc(r.port||'')}" onchange="updateReport('${r.id}','port',this.value)"></div></div><div class="row3"><div><label>Schiff</label><input value="${esc(r.ship_name||'')}" onchange="updateReport('${r.id}','ship_name',this.value)"></div><div><label>IMO</label><input value="${esc(r.imo||'')}" onchange="updateReport('${r.id}','imo',this.value)"></div><div><label>MMSI</label><input value="${esc(r.mmsi||'')}" onchange="updateReport('${r.id}','mmsi',this.value)"></div></div><label>TTP / Modus</label><input value="${esc(r.ttp||'')}" onchange="updateReport('${r.id}','ttp',this.value)"><label>Evidenz</label><input value="${esc(r.evidence||'')}" onchange="updateReport('${r.id}','evidence',this.value)"><label>Orte / Regionen für Karte</label><input value="${esc((r.places||[]).map(p=>p.name).join(', '))}" onchange="updateReport('${r.id}','placesText',this.value)"><label>Quellen, max. 4</label><textarea onchange="updateReport('${r.id}','sources',this.value)">${esc((r.sources||[]).join('\n'))}</textarea><button class="danger" onclick="delReport('${r.id}')">Meldung löschen</button></div>`).join('')}
+function scopeFor(places){let forced=document.getElementById('mapMode').value;if(forced!=='auto')return forced;let plot=places.filter(shouldPlotPlace);if(!plot.length)return'europe';return plot.some(p=>{let lat=parseCoord(p.lat),lon=parseCoord(p.lon);return !(lon>=-25&&lon<=45&&lat>=25&&lat<=72)})?'world':'europe'}
+function boundsFor(scope){return scope==='world'?{minLon:-170,minLat:-55,maxLon:70,maxLat:72}:{minLon:-25,minLat:28,maxLon:45,maxLat:72}}
+function mapUrl(b){let bbox=[b.minLon,b.minLat,b.maxLon,b.maxLat].join(',');return`https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/export?bbox=${bbox}&bboxSR=4326&imageSR=4326&size=1200,520&format=png32&transparent=false&f=image`}
+function fitBoxForBounds(b,w=1200,h=520){let lonSpan=(b.maxLon-b.minLon),latSpan=(b.maxLat-b.minLat);let geoRatio=lonSpan/latSpan,imgRatio=w/h;let drawW=w,drawH=h,padX=0,padY=0;if(imgRatio>geoRatio){drawW=h*geoRatio;padX=(w-drawW)/2}else if(imgRatio<geoRatio){drawH=w/geoRatio;padY=(h-drawH)/2}return{padXPct:(padX/w)*100,padYPct:(padY/h)*100,drawWPct:(drawW/w)*100,drawHPct:(drawH/h)*100}}
+function placeXY(p,b){let lat=parseCoord(p.lat),lon=parseCoord(p.lon);let fit=fitBoxForBounds(b);let nx=(lon-b.minLon)/(b.maxLon-b.minLon),ny=(b.maxLat-lat)/(b.maxLat-b.minLat);let x=fit.padXPct+(nx*fit.drawWPct),y=fit.padYPct+(ny*fit.drawHPct);return{x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))}}
+function renderMap(places){let L=outLabels(),lang=outputLang();let plot=places.filter(shouldPlotPlace);let scope=scopeFor(places),b=boundsFor(scope),pts=plot;let markers=pts.map((p,i)=>{let q=placeXY(p,b),c=CATS[p.category||'other']?.color||'#b33131',op=String(p.precision||'').toLowerCase()==='regional'?'.72':'1';return`<div class="marker" style="left:${q.x}%;top:${q.y}%;opacity:${op}" title="${i+1}. ${esc(p.name)} · ${esc(p.role||'')} · ${esc(p.precision||'')}"><div class="pin" style="background:${c}">${i+1}</div></div>`}).join('');let locList=pts.map((p,i)=>`<div><b>${i+1}.</b> ${esc(p.name)}${p.locode?' · '+esc(p.locode):''}${p.precision?' · '+esc(p.precision):''}${p.role?' · '+esc(p.role):''}</div>`).join('');let skipped=places.length-pts.length;return`<div class="mapbox"><h2>${esc(L.map_title)}</h2><div class="realmap" id="reportMapBox"><div class="map-fallback">${L.map_fallback}</div><img src="${mapUrl(b)}" alt="Maritime Lagekarte" crossorigin="anonymous">${markers}</div><div class="map-location-list">${locList||'<div>'+esc(L.map_empty)+'</div>'}</div><div class="legend">${Object.entries(CATS).map(([k,v])=>`<span class="leg"><i class="dot" style="background:${v.color}"></i>${esc(catLabel(k,lang))}</span>`).join('')}</div><div class="mapnote">${esc(L.map_note)} ${skipped>0?esc(L.map_note_skipped(skipped)):''}${esc(L.map_note_numbers)}</div></div>`}
+function resolveMapLabels(){return}
+function safePrintFileName(){return reportBaseName().replace(/[\\/:*?"<>|]/g,'_')}
+function getPrintBaseHref(){let h=String(location.href||'');let i=h.lastIndexOf('/');return i>=0?h.slice(0,i+1):h}
+function buildCleanPrintHTML(){
+  renderReport();
+  resolveMapLabels();
+  let title=safePrintFileName();
+  let L=outLabels();
+  let styles=Array.from(document.querySelectorAll('style')).map(s=>s.textContent||'').join('\n');
+  let report=document.getElementById('reportView')?.outerHTML||'';
+  let printCss=`
+@page{
+  size:A4;
+  margin:10mm 10mm 17mm 10mm;
+  @bottom-left{
+    content:"MOwlSINT Daily Honky-Tonk";
+    font-family:"Courier New",Courier,monospace;
+    font-size:8.5px;
+    color:#666;
+  }
+  @bottom-right{
+    content:"${L.page} " counter(page) " / " counter(pages);
+    font-family:"Courier New",Courier,monospace;
+    font-size:8.5px;
+    color:#666;
+  }
+}
+@media print{
+  html,body{background:#fff!important;color:#000!important;margin:0!important;padding:0!important}
+  body{font-family:"Courier New",Courier,monospace!important}
+  header,.left,.toolbar{display:none!important}
+  main{display:block!important;max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
+  .report-wrap{border:0!important;box-shadow:none!important;width:100%!important;overflow:visible!important;background:#fff!important}
+  .report-inner{padding:0!important;background:#fff!important;width:100%!important;max-width:none!important;overflow:visible!important;min-height:0!important}
+  .summarybox,.mapbox,.stat,.meldung{background:#fff!important}
+}
+@media screen{
+  body{background:#fff!important}
+  main{display:block!important;margin:0!important;padding:0!important}
+  .report-wrap{border:0!important;box-shadow:none!important}
+  .report-inner{background:#fff!important}
+}
+`;
+  return '<!doctype html><html lang="'+esc(outputLang())+'"><head><meta charset="utf-8"><base href="'+esc(getPrintBaseHref())+'"><title>'+esc(title)+'</title><style>'+styles+'\n'+printCss+'</style></head><body><main><div class="report-wrap">'+report+'</div></main><script>document.title='+JSON.stringify(title)+';window.addEventListener("load",function(){setTimeout(function(){window.focus();window.print();},450);});<\/script></body></html>';
+}
+function showNativeFooterHint(){
+  let key='mowlsintPrintFooterHintSeenV2';
+  try{
+    if(localStorage.getItem(key))return;
+    localStorage.setItem(key,'1');
+  }catch(e){}
+  alert('Wichtig für PDF ohne Dateipfad: Im Druckdialog „Kopf- und Fußzeilen“ ausschalten. Die Seitenzahl wird jetzt im Report selbst unten rechts erzeugt.');
+}
+function printReport(){
+  showNativeFooterHint();
+  let title=safePrintFileName();
+  document.title=title;
+  let old=document.getElementById('cleanPrintFrame');
+  if(old)old.remove();
+  let frame=document.createElement('iframe');
+  frame.id='cleanPrintFrame';
+  frame.title=title;
+  frame.style.position='fixed';
+  frame.style.right='0';
+  frame.style.bottom='0';
+  frame.style.width='0';
+  frame.style.height='0';
+  frame.style.border='0';
+  frame.style.opacity='0';
+  document.body.appendChild(frame);
+  let doc=frame.contentWindow.document;
+  doc.open();
+  doc.write(buildCleanPrintHTML());
+  doc.close();
+  setTimeout(()=>{try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){window.print()}setTimeout(()=>{let f=document.getElementById('cleanPrintFrame');if(f)f.remove()},1800)},800);
+}
+window.addEventListener('beforeprint',()=>{resolveMapLabels()});
+function stats(){let p=collectPlaces();return{total:reports.length,high:reports.filter(r=>r.severity==='hoch').length,hybrid:reports.filter(r=>['hybrid','shadow','cyber'].includes(r.category)).length,crime:reports.filter(r=>['drugs','iuu'].includes(r.category)).length,mapped:p.filter(shouldPlotPlace).length}}
+function meldungHTML(r){let L=outLabels(),lang=outputLang(),cls=CATS[r.category]?.cls||'other';
+  let headline=outVal(r,'headline',lang)||r.headline;
+  let summary=outVal(r,'summary',lang)||r.summary;
+  let assessment=outVal(r,'assessment',lang)||outVal(r,'note',lang)||r.note;
+  let subcat=outVal(r,'subcategory',lang)||r.subcategory;
+  let region=outVal(r,'region',lang)||r.region, corridor=outVal(r,'corridor',lang)||r.corridor, port=r.port;
+  let ttp=outVal(r,'ttp',lang)||r.ttp;
+  let checks=outVal(r,'prueffelder',lang)||r.prueffelder;
+  let evidence=outVal(r,'evidence',lang)||r.evidence;
+  let econ=[outVal(r,'economic_security_relevance',lang),outVal(r,'russia_china_link',lang),outVal(r,'espionage_or_influence_indicator',lang),outVal(r,'sanctions_or_dual_use_angle',lang),outVal(r,'maritime_supply_chain_link',lang)].map(clean).filter(Boolean).join(' | ');
+  let econLabel=lang==='en'?'Economic Security / Russia-China lens':'Economic Security / Russland-China-Lens';
+  return`<article class="meldung ${cls}"><h3><b>${esc(headline)}</b> <span>(${esc(fmtDate(r.date))})</span></h3><p>${esc(summary)}</p>${assessment?`<p><b>${L.assessment}:</b> ${esc(assessment)}</p>`:''}${subcat?`<p><b>${L.subcategory}:</b> ${esc(subcat)}</p>`:''}${(region||corridor||port)?`<p><b>${L.region_corridor_port}:</b> ${esc([region,corridor,port].filter(Boolean).join(' | '))}</p>`:''}${(r.ship_name||r.imo||r.mmsi)?`<p><b>${L.ship}:</b> ${esc([r.ship_name,r.imo?'IMO '+r.imo:'',r.mmsi?'MMSI '+r.mmsi:''].filter(Boolean).join(' | '))}</p>`:''}${ttp?`<p><b>TTP:</b> ${esc(ttp)}</p>`:''}${econ?`<p><b>${econLabel}:</b> ${esc(econ)}</p>`:''}${checks?`<p><b>${L.fields}:</b> ${esc(checks)}</p>`:''}<p class="src"><b>${L.sources}:</b> ${esc((r.sources||[]).join(' | ')||L.source_missing)}</p><div class="tags"><span class="tag">${esc(catLabel(r.category,lang))}</span><span class="tag">${esc(sevLabel(r.severity,lang))}</span><span class="tag">${esc(evidence||'')}</span></div></article>`}
+function renderReport(){document.title=reportBaseName();let L=outLabels(),lang=outputLang(),st=stats(),date=fmtDate(document.getElementById('reportDate').value),region=document.getElementById('region').value,period=document.getElementById('period').value,aud=document.getElementById('audience').value,places=collectPlaces(),grouped=reports.reduce((a,r)=>{(a[r.category]??=[]).push(r);return a},{});let html=`<div class="report-title"><div><h1>${esc(L.title)}</h1><div class="sub">${esc(L.subtitle)}</div></div><div class="report-head-right"><div class="report-meta"><b>${esc(date)}</b><br>${esc(L.period)}: ${esc(period)}<br>${esc(L.region)}: ${esc(region)}<br>${esc(L.audience)}: ${esc(aud)}</div><div class="report-logo"><img src="${LOGO}" alt="MOwlSINT Daily Honky-Tonk Logo"></div></div></div><div class="summarybox"><b>${esc(L.lagekern)}:</b> ${st.total?esc(L.summary(st,imports.length)):esc(L.no_reports)}</div><div class="stats"><div class="stat"><b>${st.total}</b><span>${esc(L.stats[0])}</span></div><div class="stat"><b>${st.high}</b><span>${esc(L.stats[1])}</span></div><div class="stat"><b>${st.hybrid}</b><span>${esc(L.stats[2])}</span></div><div class="stat"><b>${st.crime}</b><span>${esc(L.stats[3])}</span></div><div class="stat"><b>${st.mapped}</b><span>${esc(L.stats[4])}</span></div></div>${renderMap(places)}`;for(let cat of ['hybrid','shadow','cyber','drugs','iuu','safety','environment','other']){if(!grouped[cat]?.length)continue;html+=`<section class="cat-section"><h2>${esc(catLabel(cat,lang))}</h2>`;for(let r of grouped[cat])html+=meldungHTML(r);html+='</section>'}html+=`<div class="summarybox"><b>${esc(L.check_title)}:</b> ${esc(L.check)}</div>`;document.getElementById('reportView').innerHTML=html}
+function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.getElementById('reportDate').value),st=stats(),md=`# ${L.title} (${date})\n\n${L.period}: ${document.getElementById('period').value}\n\n${L.region}: ${document.getElementById('region').value}\n\n${L.audience}: ${document.getElementById('audience').value}\n\n## ${L.lagekern}\n\n${L.summary(st,imports.length)}\n\n`;for(let cat of ['hybrid','shadow','cyber','drugs','iuu','safety','environment','other']){let arr=reports.filter(r=>r.category===cat);if(!arr.length)continue;md+=`## ${catLabel(cat,lang)}\n\n`;for(let r of arr){let headline=outVal(r,'headline',lang)||r.headline,summary=outVal(r,'summary',lang)||r.summary,assessment=outVal(r,'assessment',lang)||r.note,subcat=outVal(r,'subcategory',lang)||r.subcategory,region=outVal(r,'region',lang)||r.region,corridor=outVal(r,'corridor',lang)||r.corridor,ttp=outVal(r,'ttp',lang)||r.ttp,evidence=outVal(r,'evidence',lang)||r.evidence;md+=`**${headline} (${fmtDate(r.date)})**\n\n${summary}\n\n`;if(assessment)md+=`${L.assessment}: ${assessment}\n\n`;if(subcat)md+=`${L.subcategory}: ${subcat}\n\n`;if(region||corridor||r.port)md+=`${L.region_corridor_port}: ${[region,corridor,r.port].filter(Boolean).join(' | ')}\n\n`;if(ttp)md+=`TTP: ${ttp}\n\n`;let econ=[outVal(r,'economic_security_relevance',lang),outVal(r,'russia_china_link',lang),outVal(r,'espionage_or_influence_indicator',lang),outVal(r,'sanctions_or_dual_use_angle',lang),outVal(r,'maritime_supply_chain_link',lang)].map(clean).filter(Boolean).join(' | ');if(econ)md+=`${lang==='en'?'Economic Security / Russia-China lens':'Economic Security / Russland-China-Lens'}: ${econ}\n\n`;md+=`${L.sources}: ${(r.sources||[]).join(' | ')||L.source_missing}\n\n${L.evidence_severity}: ${evidence||'open'} · ${sevLabel(r.severity,lang)}\n\n`}}return md+'---\n'+L.md_map_note+'\n'}function textReport(){return markdown().replace(/^#+\s*/gm,'').replace(/\*\*/g,'')}function downloadMarkdown(){renderReport();download(`${reportBaseName()}.md`,markdown(),'text/markdown')}function downloadText(){renderReport();download(`${reportBaseName()}.txt`,textReport())}function downloadHTMLReport(){renderReport();download(`${reportBaseName()}.html`,`<!doctype html><html lang="${outputLang()}"><head><meta charset="utf-8"><title>${reportBaseName()}</title>${document.querySelector('style').outerHTML}</head><body><main><div class="report-wrap"><div class="report-inner">${document.getElementById('reportView').innerHTML}</div></div></main></body></html>`,'text/html')}async function copyMarkdown(){await navigator.clipboard.writeText(markdown());alert(outputLang()==='en'?'Markdown copied.':'Markdown kopiert.')}
+['reportDate','period','region','audience','mapMode','outputLanguage','webResearchEnabled','mandatoryMaritimeSources','cyberDroneDeepSearch','russiaChinaEconomicSecurity','negativeCoverageNotes'].forEach(id=>{let el=document.getElementById(id);if(el)el.addEventListener('input',()=>{updatePrompt();renderReport()})});let archiveInput=document.getElementById('archiveMarkdownInput');if(archiveInput)archiveInput.addEventListener('change',loadArchivedMarkdownFiles);updatePrompt();renderImports();renderEditor();renderReport();
+</script>
+<script>
+/* Honky Tonk index2: isolated, deterministic Magic Paws adapter. No network or LLM calls. */
+(() => {
+  'use strict';
+  const STORAGE = 'mowlsint.honkytonk.index2.draft.v1';
+  const LIMIT = 10 * 1024 * 1024;
+  const MAX_EVENTS = 2000;
+  const $ = id => document.getElementById(id);
+  const state = { batches: [], rows: [], audit: null, busy: false, saveTimer: null };
+  const original = { renderReport, renderEditor, collectPlaces, fromAiObj, reportItemToJson,
+    jsonPayloadFromReports, markdown, updateReport, boundsFor };
+  const safeText = value => typeof value === 'string' || typeof value === 'number' ? clean(String(value)) : '';
+  function safeURL(value) {
+    try { const u = new URL(String(value)); return /^https?:$/.test(u.protocol) && !u.username && !u.password ? u.href : ''; } catch { return ''; }
+  }
+  function canonical(value) {
+    const raw = safeURL(value); if (!raw) return '';
+    const u = new URL(raw); u.hash = '';
+    for (const k of [...u.searchParams.keys()]) if (/^utm_|^(fbclid|gclid)$/i.test(k)) u.searchParams.delete(k);
+    u.searchParams.sort(); return u.href;
+  }
+  function dateUTC(value) {
+    let s = safeText(value); if (!s) return null;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) s += 'T00:00:00Z';
+    else if (/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(?::\d{2})?\s*(?:UTC)?$/.test(s)) s = s.replace(/\s*UTC$/, '').replace(' ', 'T') + 'Z';
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(s)) return null;
+    const calendar = new Date(s.slice(0,10)+'T00:00:00Z');
+    if (!Number.isFinite(calendar.getTime()) || calendar.toISOString().slice(0,10)!==s.slice(0,10)) return null;
+    const d = new Date(s); return Number.isFinite(d.getTime()) ? d : null;
+  }
+  function status(message, bad = false) { $('mpStatus').textContent = message; $('mpStatus').style.color = bad ? '#ffb8b8' : '#ffe1a4'; }
+  function labelsOf(e) { return Array.isArray(e.labels) ? e.labels.map(x => safeText(typeof x === 'object' && x ? x.name : x)).filter(Boolean) : []; }
+  function field(e, key, prefix) { return safeText(e[key]) || labelsOf(e).find(x => x.startsWith(prefix)) || ''; }
+  function category(e) {
+    const domain = field(e, 'domain', 'D:').replace(/^D:/, '').replace(/\s+/g, '_').toUpperCase();
+    const explicit = { CYBER_OT:'cyber', RF_SIGNAL:'cyber', INFRA_CI:'cyber', CI_PORT:'cyber', DRONE_UAS:'hybrid', AIR_ACTIVITY:'hybrid', SHADOW_FLEET:'shadow', SANCTIONS:'shadow', DRUGS:'drugs', IUU:'iuu', POLLUTION:'environment', SAFETY:'safety' };
+    const t = [safeText(e.title), safeText(e.text)].join(' ');
+    // Conservative, word-bounded suggestions. Container/tanker/port alone are not crime evidence.
+    const rules = [ ['drugs', /\b(cocaine|kokain|narcotics?|drug trafficking|rauschgift|drogenschmuggel)\b/i],
+      ['iuu', /\b(iuu|illegal fishing|illegale[rsn]? fischerei)\b/i],
+      ['shadow', /\b(shadow fleet|dark fleet|sanctions?|sanktionen|schattenflotte)\b/i],
+      ['environment', /\b(oil spill|pollution|marpol|ölverschmutzung|gewässerverunreinigung)\b/i],
+      ['cyber', /\b(cyber|ransomware|jamming|spoofing|gnss)\b/i],
+      ['safety', /\b(collision|grounding|fire|havarie|kollision|brand|shipwreck)\b/i],
+      ['hybrid', /\b(sabotage|hybrid|espionage|spionage|drone|drohne|drones|drohnen)\b/i] ];
+    const hit = rules.find(([,r]) => r.test(t));
+    return { value:hit ? hit[0] : explicit[domain] || 'other', reason:hit ? 'Schlagwortregel; redaktionell prüfen' : explicit[domain] ? 'Magic-Paws-Domäne: ' + domain + '; redaktionell prüfen' : 'Keine eindeutige Regel; manuell zuordnen' };
+  }
+  function number(v) { if (typeof v === 'number') return Number.isFinite(v) ? v : null; if (typeof v !== 'string' || !/^-?\d+(?:[.,]\d+)?$/.test(v.trim())) return null; return Number(v.trim().replace(',', '.')); }
+  function places(e) {
+    const g = e.geo;
+    if (!g || typeof g !== 'object') return [];
+    const lat = number(g.lat), lon = number(g.lon);
+    if (lat === null || lon === null || Math.abs(lat)>90 || Math.abs(lon)>180) return [];
+    const method = safeText(g.method) || 'unknown';
+    const regional = /region|centroid|gazetteer/.test(method.toLowerCase()) || g.precision === 'regional';
+    const explicit = /^(source|source_coordinate|source_coordinates|text_coordinate|geo_json|manual)$/.test(method.toLowerCase());
+    const known = regional || explicit;
+    return [{ name:safeText(g.name) || (regional ? safeText(e.region).replace(/^REG:/,'').replaceAll('_',' ') : '') || safeText(e.title),
+      lat, lon, type:regional ? 'region' : 'city', precision:regional ? 'regional' : explicit ? 'approximate' : 'unknown',
+      role:regional ? 'corridor' : known ? 'event_location' : 'context', geo_source:'source', source_method:method }];
+  }
+  function parseInput(input, name) {
+    if (typeof input !== 'string' || new Blob([input]).size > LIMIT) throw new Error('Datei fehlt oder ist größer als 10 MB.');
+    const text = input.replace(/^\uFEFF/, '').trim();
+    if (text.startsWith('{') || text.startsWith('[')) {
+      const p = JSON.parse(text);
+      if (!p || !Array.isArray(p.events)) throw new Error('Kein events[]-Feed. Die latest…rawdata_report.json ist nur ein Index. Bitte den HTML-Bericht laden.');
+      if (p.events.length > MAX_EVENTS) throw new Error('Maximal 2000 Ereignisse je Import.');
+      if (p.events_count !== undefined && p.events_count !== p.events.length) throw new Error('events_count passt nicht zur Ereignisliste.');
+      if (p.ok === false) throw new Error('Quellexport meldet einen Fehler (ok=false).');
+      const generated = dateUTC(p.generated_at || p.created_at || p.exported_at);
+      if (!generated) throw new Error('Gültiger Exportzeitpunkt (generated_at/created_at) fehlt.');
+      if (!p.events.every(e => e && typeof e === 'object' && !Array.isArray(e))) throw new Error('Ungültiger Ereignisdatensatz.');
+      return { name:safeText(name), generated:generated.toISOString(), events:p.events, kind:'json' };
+    }
+    // A template is inert: scripts, images and frames from imported HTML are never mounted.
+    const template = document.createElement('template'); template.innerHTML = text;
+    const doc = template.content;
+    if (!/MAGIC PAWS/i.test(doc.querySelector('h1')?.textContent || '')) throw new Error('Kein unterstützter Magic-Paws-HTML-Rohdatenbericht.');
+    const cards = [...doc.querySelectorAll('.metaCard')];
+    const created = cards.find(c => /^(Erstellt|Created|Generated)$/i.test(c.querySelector('.k')?.textContent.trim() || ''));
+    const generated = dateUTC(created?.querySelector('.v')?.textContent);
+    if (!generated) throw new Error('Exportzeitpunkt im HTML-Bericht nicht erkannt.');
+    if (!doc.querySelector('.rawList')) throw new Error('Rohereignis-Liste fehlt; KI-Lagebericht wird nicht importiert.');
+    const articles = [...doc.querySelectorAll('.rawList article.event')];
+    if (articles.length > MAX_EVENTS) throw new Error('Maximal 2000 Ereignisse je Import.');
+    const countRow = [...doc.querySelectorAll('.summaryBox tr')].find(r=>/^(Meldungen|Events)$/i.test(r.querySelector('td')?.textContent.trim()||''));
+    if (countRow && Number(countRow.querySelector('.num')?.textContent)!==articles.length) throw new Error('HTML-Ereigniszahl passt nicht zur Kurzübersicht.');
+    const events = articles.map(a => {
+      const facts = {};
+      for (const d of a.querySelectorAll('.eventFacts > div')) facts[d.querySelector('dt')?.textContent.trim().toLowerCase()] = d.querySelector('dd')?.textContent.trim() || '';
+      const gm = (facts.geo || '').match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*(?:·\s*(.*))?$/);
+      return { title:a.querySelector('h3')?.textContent || '', text:a.querySelector('.excerpt')?.textContent || '',
+        ts:a.querySelector('.eventMetaTop > span')?.textContent || '', severity:a.querySelector('.severity')?.textContent || '',
+        labels:[...a.querySelectorAll('.label')].map(l=>l.textContent.trim()), region:facts.region || '', domain:facts.domain || '',
+        confidence:facts.confidence || '', source:facts.quelle || facts.source || '',
+        url:a.querySelector('.eventFacts a')?.getAttribute('href') || '',
+        geo:gm ? { lat:gm[1], lon:gm[2], method:gm[3] || 'unknown' } : null };
+    });
+    return { name:safeText(name), generated:generated.toISOString(), events, kind:'html' };
+  }
+  function eventKey(e) {
+    const u = canonical(e.url || e.source_url); if (u) return 'url:' + u;
+    return 'text:' + safeText(e.title).toLowerCase() + '|' + safeText(e.ts || e.time || e.date);
+  }
+  function makeReport(e, batch) {
+    const time = dateUTC(e.ts || e.time || e.date || e.published_at);
+    const title = safeText(e.title || e.headline), sourceURL = safeURL(e.url || e.source_url);
+    const reasons = [];
+    if (!title) reasons.push('Überschrift fehlt');
+    if (!time) reasons.push('Datum fehlt oder ungültig');
+    if (!sourceURL) reasons.push('Originalquelle fehlt / URL ungültig');
+    if (reasons.length) return { error:reasons.join('; '), title:title || '(ohne Titel)' };
+    const cat = category(e), geo = places(e), raw = safeText(e.text || e.summary || e.description);
+    const sev = field(e,'severity','SEV:').match(/^(?:SEV[: ]*)?([1-4])$/i);
+    const sevNum = sev ? Number(sev[1]) : null;
+    const warning = [];
+    if (!sevNum) warning.push('Gewichtung unbekannt, manuell prüfen');
+    if (!raw) warning.push('Nur Überschrift vorhanden');
+    if (!geo.some(shouldPlotPlace)) warning.push('Nicht belastbar kartierbar');
+    if (geo.some(p=>p.precision==='regional')) warning.push('Regionaler Mittelpunkt, keine Ereignisposition');
+    if (/^(\d{4}-\d{2}-\d{2})$/.test(safeText(e.ts || e.time || e.date))) warning.push('Nur Datum: UTC 00:00 als Filterhilfswert');
+    const confidence = field(e,'confidence','CONF:') || 'unbekannt';
+    return { report:{ id:crypto.randomUUID(), date:time.toISOString().slice(0,10), time_window_status:'IN_SCOPE',
+      category:cat.value, severity:sevNum ? sevNum >= 3 ? 'hoch' : sevNum === 2 ? 'mittel' : 'niedrig' : 'unbekannt',
+      headline:title, summary:raw || title, note:'', assessment_de:'', assessment_en:'',
+      sources:[sourceURL], region:safeText(e.region).replace(/^REG:/,'').replaceAll('_',' '), places:geo,
+      evidence:'Ungeprüfter Magic-Paws-Rohimport · CONF: ' + confidence.replace(/^CONF:/,'') + ' (keine A/B/C-Evidenzeinstufung)',
+      prueffelder:warning.join('; '),
+      mp:{ key:eventKey(e), event_id:safeText(e.id || e.number), event_time:time.toISOString(),
+        time_basis:safeText(e.time_basis) || 'Magic Paws: Ereignis-/Publikations-/Erfassungszeit nicht eindeutig getrennt',
+        generated_at:batch.generated, input_file:batch.name, source:safeText(e.source), raw_text:raw,
+        source_language:safeText(e.language) || 'original/unknown', category_rule:cat.reason, labels:labelsOf(e),
+        source_severity:field(e,'severity','SEV:'), source_confidence:confidence, geo_method:safeText(e.geo?.method),
+        warning, reviewed:false } } };
+  }
+  function inWindow(row) {
+    const end = dateUTC($('mpEnd').value); if (!end) return false;
+    const time = new Date(row.report.mp.event_time).getTime();
+    return $('mpHours').value === 'all' || (time <= end.getTime() && time > end.getTime() - Number($('mpHours').value)*36e5);
+  }
+  function preview() {
+    const end = dateUTC($('mpEnd').value);
+    let good = 0, outside = 0, invalid = 0, duplicates = 0;
+    $('mpPreview').innerHTML = state.rows.map((row,i) => {
+      let eligible = !row.error && !row.duplicate && inWindow(row);
+      if (row.duplicate) duplicates++; else if(row.error) invalid++; else if(!eligible) outside++; else good++;
+      const r = row.report;
+      return `<div class="item"><label style="text-transform:none"><input type="checkbox" data-mp-row="${i}" style="width:auto" ${eligible&&row.selected?'checked':''} ${eligible?'':'disabled'}> ${esc(r?.headline || row.title)}</label><span>${esc(row.duplicate ? 'Exakte Dublette: bereits in diesen Eingaben' : row.error || (!eligible ? 'Außerhalb des Zeitfensters' : `${r.date} · ${CATS[r.category].label} · ${r.severity}`))}</span>${r?`<span>${esc(r.summary)}</span><span>${esc(r.mp.category_rule)} · ${esc(r.mp.warning.join('; '))}</span><span>${esc(r.sources[0])}</span>`:''}</div>`;
+    }).join('') || '<span class="small">Keine Rohereignisse vorhanden.</span>';
+    state.audit = { input_events:state.rows.length, eligible:good, out_of_scope:outside, invalid, duplicates, end_utc:end?.toISOString() || '', hours:$('mpHours').value };
+    const newest = Math.max(...state.batches.map(b=>new Date(b.generated).getTime()));
+    const age = (Date.now()-newest)/36e5;
+    status(`${state.batches.length} Datei(en) · ${good} gültig · ${outside} außerhalb · ${invalid} ungültig · ${duplicates} Dubletten. ${Number.isFinite(age)&&age>30?'Achtung: neuester Export älter als 30 Stunden. ':''}${end?'':'Endzeitpunkt fehlt! '}Nur gelieferte Daten, keine zusätzliche Recherche. Kartierung ist keine Ortsverifikation.`);
+    $('mpApply').disabled = state.busy || !state.rows.some(r=>!r.error&&!r.duplicate&&r.selected&&inWindow(r));
+  }
+  async function stageInputs(files) {
+    if (state.busy) return; state.busy = true; $('mpApply').disabled = true;
+    try {
+      const batches = [];
+      if (files.length > 32) throw new Error('Maximal 32 Dateien auf einmal.');
+      for (const file of files) {
+        if (file.size > LIMIT) throw new Error('Maximal 10 MB pro Datei.');
+        batches.push(parseInput(await file.text(), file.name));
+      }
+      if (batches.reduce((n,b)=>n+b.events.length,0) > MAX_EVENTS) throw new Error('Maximal 2000 Ereignisse insgesamt.');
+      batches.sort((a,b)=>new Date(b.generated)-new Date(a.generated));
+      const seen = new Set(), rows = [];
+      for (const b of batches) for (const e of b.events) {
+        const row = makeReport(e,b), key = row.report?.mp.key;
+        row.duplicate = !!key && seen.has(key); if(key) seen.add(key);
+        row.selected = !row.error && !row.duplicate; rows.push(row);
+      }
+      state.batches = batches; state.rows = rows;
+      const latest = Math.max(...batches.map(b=>new Date(b.generated).getTime()));
+      if (Number.isFinite(latest)) $('mpEnd').value = new Date(Math.ceil(latest/60000)*60000).toISOString().slice(0,16);
+    } catch(e) { state.busy = false; status('Import abgebrochen; bestehender Report bleibt unverändert: '+e.message,true); return; }
+    state.busy = false; preview();
+  }
+  function apply() {
+    if (state.busy) return;
+    const seen = new Set(reports.map(r=>canonical(r.sources?.[0]) ? 'url:'+canonical(r.sources[0]) : r.mp?.key).filter(Boolean));
+    let added = 0, duplicate = 0;
+    for (const row of state.rows) {
+      if (row.error || row.duplicate || !row.selected || !inWindow(row)) continue;
+      if (seen.has(row.report.mp.key)) {duplicate++;continue;}
+      seen.add(row.report.mp.key); reports.push(structuredClone(row.report)); added++;
+    }
+    if(added){
+      if (reports.length === added) {
+        $('reportDate').value = $('mpEnd').value.slice(0,10); $('period').value = 'frei / aus Import';
+        $('region').value = uniq(reports.map(r=>r.region)).join(', ') || 'Magic-Paws-Rohdaten';
+      }
+      sortReports(false); renderEditor(); renderReport(); generateReportJsonBox(); updatePrompt();
+    }
+    status(`${added} Meldungen angehängt; ${duplicate} bereits vorhandene Quellen übersprungen. Bestehende redaktionelle Änderungen bleiben erhalten. Keine Übersetzung oder Analyse erzeugt.`);
+  }
+  function draft() {
+    return { schema:'honkytonk-draft-1', saved_at:new Date().toISOString(), meta:{ ...jsonPayloadFromReports().meta, import_audit:state.audit },
+      settings:Object.fromEntries(['reportDate','period','region','audience','mapMode','outputLanguage'].map(k=>[k,$(k).value])),
+      items:reports.map(reportItemToJson) };
+  }
+  function save() {
+    if (!$('mpAutosave').checked) return;
+    try { localStorage.setItem(STORAGE,JSON.stringify(draft())); } catch { status('Browsersicherung fehlgeschlagen (Speicher voll/gesperrt). Bitte Entwurf als JSON sichern.',true); }
+  }
+  function restoreText(text) {
+    if (new Blob([text]).size>LIMIT) throw new Error('Entwurf zu groß.');
+    const d = JSON.parse(text);
+    if(d.schema!=='honkytonk-draft-1'||!Array.isArray(d.items)||d.items.length>MAX_EVENTS)throw new Error('Kein gültiger Honky-Tonk-index2-Entwurf.');
+    const restored = d.items.map(o=>{if(!o||typeof o!=='object')throw new Error('Ungültige Meldung.');return fromAiObj(o);});
+    if(restored.some(r=>!r))throw new Error('Unvollständige Meldung.');
+    if(reports.length&&!confirm('Aktuellen Report durch den gespeicherten Entwurf ersetzen?'))return;
+    reports=restored; state.audit=d.meta?.import_audit||null;
+    for(const k of ['reportDate','period','region','audience','mapMode','outputLanguage']){
+      const el=$(k),value=safeText(d.settings?.[k]);
+      if(el&&value&&(el.tagName!=='SELECT'||[...el.options].some(o=>o.value===value)))el.value=value;
+    }
+    renderEditor();renderReport();generateReportJsonBox();updatePrompt();status(`${reports.length} Meldungen aus Entwurf geladen.`);
+  }
+  // Keep provenance and raw language in the existing JSON/AI import contract.
+  reportItemToJson = function(r) {
+    const o=original.reportItemToJson(r);
+    if(r.mp){
+      Object.assign(o,{ headline:r.headline,summary:r.summary,assessment:r.note||'',evidence:r.evidence,region:r.region,prueffelder:r.prueffelder||'',mp:r.mp });
+      for(const k of ['headline','summary','assessment','evidence','region']) for(const l of ['de','en']) o[k+'_'+l]=r[k+'_'+l]||'';
+    }
+    return o;
+  };
+  fromAiObj = function(o) {
+    const r=original.fromAiObj(o); if(!r)return r;
+    r.sources=(r.sources||[]).map(safeURL).filter(Boolean);
+    if(o.mp && typeof o.mp==='object') {
+      r.mp=JSON.parse(JSON.stringify(o.mp));r.id=crypto.randomUUID();
+      for(const k of ['headline','summary','evidence','region']) r[k]=safeText(o[k])||r[k];
+      r.note=safeText(o.assessment||o.note);
+      for(const k of ['headline','summary','assessment','evidence','region']) for(const l of ['de','en']) r[k+'_'+l]=safeText(o[k+'_'+l]);
+      r.prueffelder=safeText(o.prueffelder)||r.prueffelder;
+      r.severity=['hoch','mittel','niedrig'].includes(o.severity)?o.severity:'unbekannt';
+      // normalizePlaces must not infer coordinates or upgrade an unknown precision for imported data.
+      r.places=Array.isArray(o.places)?o.places.map(p=>({name:safeText(p.name),lat:number(p.lat),lon:number(p.lon),
+        type:safeText(p.type),role:safeText(p.role)||'context',precision:safeText(p.precision)||'unknown',geo_source:safeText(p.geo_source),source_method:safeText(p.source_method)})).filter(p=>p.name):[];
+    }
+    return r;
+  };
+  jsonPayloadFromReports = function() {
+    const p=original.jsonPayloadFromReports();
+    if(reports.some(r=>r.mp)){
+      p.meta.language_mode='original_source_text_with_optional_manual_translations';p.meta.processing='deterministic_magicpaws_import';
+      p.meta.source_count=new Set(reports.flatMap(r=>r.sources||[])).size;p.meta.import_audit=state.audit;
+      p.meta.search_coverage={...defaultSearchCoverage(),web_research_enabled:false,notes_de:'Keine Webrecherche durch den Magic-Paws-Import; nur gelieferte Rohdaten verarbeitet.',notes_en:'No web research by this importer; supplied raw events only.'};
+    }return p;
+  };
+  collectPlaces = function() {
+    const out=[];
+    for(const r of reports){out.push(...(r.places||[]).map(p=>({...p,category:r.category})));
+      if(!r.mp)out.push(...extractPlaces([r.headline,r.summary,r.note,r.region,r.corridor,r.port].join(' ')).map(p=>({...p,category:r.category})));}
+    return dedupePlaces(out);
+  };
+  boundsFor=function(scope){return scope==='world'?{minLon:-180,minLat:-90,maxLon:180,maxLat:90}:original.boundsFor(scope);};
+  updateReport=function(id,f,v){
+    const r=reports.find(x=>x.id===id);
+    if(r?.mp&&f==='placesText'){
+      const names=v.split(',').map(clean).filter(Boolean),old=r.places||[];
+      r.places=names.map(name=>old.find(p=>p.name===name)||{name,precision:'unknown',role:'context',geo_source:'unknown'});renderReport();return;
+    }
+    if(r?.mp){const fieldMap={headline:'headline',summary:'summary',note:'assessment',region:'region',evidence:'evidence',subcategory:'subcategory',corridor:'corridor',ttp:'ttp'};const key=fieldMap[f];if(key){delete r[key+'_de'];delete r[key+'_en'];}}
+    original.updateReport(id,f,v);
+  };
+  const noticeDE='Magic-Paws-Rohimport: Originalsprache, ohne KI-Übersetzung oder Analyse. Kategorie/Gewichtung sind regelbasierte Vorschläge, Quellen ungeprüft. Regionale Marker sind keine genauen Ereignispositionen; unklare Orte bleiben unkartiert.';
+  const noticeEN='Magic Paws raw import: original language, no AI translation or analysis. Categories/severity are rule-based suggestions; sources unverified. Regional markers are not exact event positions; uncertain places are not mapped.';
+  renderReport=function(){
+    original.renderReport();
+    if(reports.some(r=>r.mp)){
+      const box=document.createElement('div');box.className='summarybox';box.textContent=outputLang()==='en'?noticeEN:noticeDE;
+      if(state.audit?.end_utc)box.textContent+=' | Import UTC: '+state.audit.end_utc+' · '+state.audit.hours+' h';
+      $('reportView').insertBefore(box,$('reportView').children[1]||null);
+    }
+    clearTimeout(state.saveTimer);state.saveTimer=setTimeout(save,350);
+  };
+  markdown=function(){const text=original.markdown();return reports.some(r=>r.mp)?text+'\n'+(outputLang()==='en'?noticeEN:noticeDE)+'\n':text;};
+  renderEditor=function(){original.renderEditor();
+    [...$('reportEditor').querySelectorAll('.editor-card')].forEach((card,i)=>{
+      const r=reports[i];if(!r?.mp)return;
+      const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Magic-Paws-Herkunft / Rohtext / Geo';details.append(summary);
+      const p=document.createElement('p');p.className='small';p.textContent=`${safeText(r.mp.input_file)} · ${safeText(r.mp.event_time)} · ${safeText(r.mp.category_rule)} · ${safeText(r.mp.geo_method)}`;details.append(p);
+      const raw=document.createElement('p');raw.className='small';raw.textContent=safeText(r.mp.raw_text);details.append(raw);
+      const geo=document.createElement('textarea');geo.value=JSON.stringify(r.places||[],null,2);geo.setAttribute('aria-label','Geo JSON');
+      const label=document.createElement('p');label.className='small';label.textContent='Geo manuell prüfen: lat/lon, precision (approximate/regional/unknown), role (event_location/corridor/context). Nur belegte Positionen setzen.';details.append(label,geo);
+      const b=document.createElement('button');b.textContent='Geo übernehmen';b.addEventListener('click',()=>{try{const ps=JSON.parse(geo.value);if(!Array.isArray(ps)||ps.length>20)throw new Error('Liste mit maximal 20 Orten erwartet.');
+        r.places=ps.map(p=>{const lat=number(p.lat),lon=number(p.lon);if(!safeText(p.name)||lat===null||lon===null||Math.abs(lat)>90||Math.abs(lon)>180)throw new Error('Name oder Koordinaten ungültig.');if(!['exact','approximate','regional','unknown'].includes(p.precision)||!['event_location','corridor','context','origin','destination'].includes(p.role))throw new Error('precision / role fehlt oder ungültig.');return{name:safeText(p.name),lat,lon,type:safeText(p.type)||'region',precision:p.precision,role:p.role,geo_source:'manual',source_method:'operator_review'};});renderReport();status('Manuelle Geoangaben übernommen.');}catch(e){status('Geo nicht übernommen: '+e.message,true);}});details.append(b);card.append(details);
+      if(r.severity==='unbekannt'){const sel=card.querySelectorAll('select')[1];const opt=new Option('unbekannt','unbekannt',true,true);sel.add(opt);}
+    });
+  };
+  $('mpFiles').addEventListener('change',e=>{if(e.target.files.length)stageInputs([...e.target.files]);});
+  $('mpParse').addEventListener('click',()=>stageInputs([{name:'Eingefügter Rohbericht',text:async()=>$('mpPaste').value,size:new Blob([$('mpPaste').value]).size}]));
+  for(const id of ['mpHours','mpEnd'])$(id).addEventListener('change',preview);
+  $('mpAll').addEventListener('click',()=>{state.rows.forEach(r=>r.selected=!r.error&&!r.duplicate&&inWindow(r));preview();});
+  $('mpNone').addEventListener('click',()=>{state.rows.forEach(r=>r.selected=false);preview();});
+  $('mpPreview').addEventListener('change',e=>{const n=e.target.dataset.mpRow;if(n!==undefined){state.rows[Number(n)].selected=e.target.checked;preview();}});
+  $('mpApply').addEventListener('click',apply);
+  $('mpAutosave').addEventListener('change',save);
+  $('mpRestore').addEventListener('click',()=>{try{const s=localStorage.getItem(STORAGE);if(!s)throw new Error('Noch keine Browsersicherung vorhanden.');restoreText(s);}catch(e){status(e.message,true);}});
+  $('mpForget').addEventListener('click',()=>{if(!confirm('Nur die index2-Browsersicherung löschen? Der geöffnete Report bleibt erhalten.'))return;try{localStorage.removeItem(STORAGE);$('mpAutosave').checked=false;status('index2-Browsersicherung gelöscht.');}catch{status('Browserspeicher gesperrt.',true);}});
+  $('mpDraft').addEventListener('click',()=>download(reportBaseName()+'_Entwurf.json',JSON.stringify(draft(),null,2),'application/json'));
+  $('mpDraftFile').addEventListener('change',async e=>{try{const f=e.target.files[0];if(f){if(f.size>LIMIT)throw new Error('Entwurf zu groß.');restoreText(await f.text());}}catch(err){status('Entwurf nicht geladen: '+err.message,true);}});
+  window.addEventListener('pagehide',save);
+  $('mpEnd').value=new Date().toISOString().slice(0,16);
+  // Public testing hooks have no credentials and never request external data.
+  window.MagicPawsImport={parseInput,makeReport,category,places,canonical,dateUTC,stageInputs,apply,restoreText,draft,state};
+  renderReport();renderEditor();
+})();
+
+</script>
+</body>
+</html>
+
