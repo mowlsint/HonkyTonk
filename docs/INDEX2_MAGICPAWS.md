@@ -4,19 +4,20 @@
 
 ## Sofort nutzbarer Ablauf nach Veröffentlichung von index2
 
-1. Im privaten Magic-Paws-Repo `reports/rawdata` öffnen.
-2. Den aktuellen `latest_MAGIC_PAWS_24h_rawdata_report_de.html` (oder EN) herunterladen. Die zugehörige `latest…rawdata_report.json` ist nur ein Metadatenindex und wird abgelehnt.
-3. In `index2.html` unter **02a** auswählen oder den HTML-Quelltext einfügen. Mehrere Tagesdateien lassen sich gemeinsam auswählen.
-4. UTC-Endzeit und Zeitfenster prüfen. Der neueste gelieferte Export setzt die Endzeit. Ein größeres Fenster holt keine fehlenden Tage nach.
-5. Meldungen auswählen und an den Report anhängen. Kein KI-Zwischenschritt nötig. Danach redaktionell bearbeiten und die vorhandenen Exporte verwenden.
+1. In GitHub einen Fine-grained Personal Access Token für `mowlsint/MagicPaws` mit **Contents: read** verwenden.
+2. In `index2.html` unter **02a** den Token einfügen und **Aktuelle Magic-Paws-JSON laden** klicken. Der Token wird nicht im Repo gespeichert; nur das optionale Häkchen merkt ihn lokal in diesem Browser.
+3. UTC-Endzeit und Zeitfenster prüfen. Der neueste gelieferte Export setzt die Endzeit. Ein größeres Fenster holt keine fehlenden Tage nach.
+4. Meldungen auswählen und an den Report anhängen. Kein KI-Zwischenschritt nötig. Danach redaktionell bearbeiten und die vorhandenen Exporte verwenden.
+5. Fallback bleibt möglich: Im privaten Magic-Paws-Repo `reports/rawdata` den aktuellen HTML-Bericht oder `latest_honkytonk_feed.json` herunterladen und lokal auswählen.
 
 Der ergänzte Magic-Paws-Renderer erzeugt außerdem **privat** `reports/rawdata/latest_honkytonk_feed.json`. Sobald diese Änderung übernommen und der bestehende Morgenlauf regulär ausgeführt wurde, lässt sich diese kleinere JSON-Datei gleichwertig importieren. Es wurde kein Workflow gestartet oder neu geplant. Bei Ausfall des optionalen Sidecars wird die bestehende PDF-/Mail-Erstellung nicht absichtlich abgebrochen.
 
 ## Was automatisiert ist – und was nicht
 
 - HTML/JSON lesen, Datumsfilter, URL-Dubletten, konservative Kategorie-Vorschläge, vorhandene Koordinaten, bestehendes Reportlayout.
-- Manuell bleibt der Download/Dateiauswahl-Schritt sowie die redaktionelle Kontrolle. Kein automatischer Direktzugriff auf das private Repo, keine öffentliche Spiegelung, keine automatische Veröffentlichung oder E-Mail.
-- Ein späterer unbeaufsichtigter Abruf benötigt einen ausdrücklich festgelegten geschützten Backend-/Feed-Zugang oder eine freigegebene öffentliche Datenmenge. Tokens gehören nicht in diese HTML-Datei.
+- Halbautomatisch ist jetzt der private Klick-Abruf der aktuellen JSON per lokal eingegebenem GitHub-Token. Manuell bleibt die redaktionelle Kontrolle und das Anhängen der ausgewählten Meldungen.
+- Der Token gehört weiterhin nicht in diese HTML-Datei und wird nicht in Entwurfs-JSON exportiert. Optionales Merken nutzt nur den lokalen Browser-Speicher des jeweiligen Geräts.
+- Ein späterer unbeaufsichtigter Abruf ohne Benutzereingriff benötigt weiterhin einen geschützten Backend-/Feed-Zugang oder eine freigegebene öffentliche Datenmenge.
 - Keine globale Websuche, keine Übersetzung, keine neue Analyse. Rohtexte bleiben in ihrer Originalsprache. DE/EN schaltet die Oberfläche/Reportbeschriftung um, nicht automatisch die Sprache der Meldungen.
 - Der vorhandene Kartenhintergrund wird wie bisher von ArcGIS geladen; Offline-Karten sind noch kein Bestandteil dieser Änderung. Die Weltansicht umfasst jetzt auch Asien/Pazifik.
 
