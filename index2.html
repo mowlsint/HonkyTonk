@@ -975,9 +975,11 @@ function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.ge
     try {
       status('Lade private Magic-Paws-JSON aus GitHub ...');
       const res = await fetch(url, { headers: { 'Accept':'application/vnd.github+json', 'Authorization':'Bearer ' + token, 'X-GitHub-Api-Version':'2022-11-28' }, cache:'no-store' });
-      if (res.status === 404) throw new Error('Feed noch nicht gefunden. Vermutlich ist nach dem Merge noch kein erfolgreicher Magic-Paws-Rohdatenlauf gelaufen.');
-      if (res.status === 401 || res.status === 403) throw new Error('GitHub lehnt den Zugriff ab. Token, Repo-Rechte und Fine-grained Contents: read prüfen.');
-      if (!res.ok) throw new Error('GitHub meldet HTTP ' + res.status + '.');
+      const errorPayload = res.ok ? null : await res.clone().json().catch(() => null);
+      const githubMessage = safeText(errorPayload?.message);
+      if (res.status === 404) throw new Error('GitHub meldet 404. Bei privaten Repositories heißt das: Feed oder Branch fehlt, oder der Token darf MagicPaws nicht lesen. Im Token unter Resource owner „mowlsint“ das Repository „MagicPaws“ und unter Repository permissions „Contents: Read-only“ setzen.' + (githubMessage ? ' GitHub: ' + githubMessage : ''));
+      if (res.status === 401 || res.status === 403) throw new Error('GitHub lehnt den Zugriff ab. Token, Resource owner „mowlsint“, Repository „MagicPaws“ und Fine-grained „Contents: Read-only“ prüfen.' + (githubMessage ? ' GitHub: ' + githubMessage : ''));
+      if (!res.ok) throw new Error('GitHub meldet HTTP ' + res.status + (githubMessage ? ': ' + githubMessage : '.') );
       const payload = await res.json();
       if (!payload || typeof payload.content !== 'string') throw new Error('GitHub-Antwort enthält keinen Dateiinhalt.');
       const raw = atob(payload.content.replace(/\s+/g, ''));
