@@ -21,7 +21,7 @@ function harness() {
     document:{getElementById:node},clean,esc:clean,
     shouldPlotPlace:p=>p.lat!==null&&p.lon!==null&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)&&Math.abs(p.lat)<=90&&Math.abs(p.lon)<=180&&p.precision!=='unknown'&&p.role!=='context',
     CATS:Object.fromEntries(['hybrid','shadow','drugs','iuu','cyber','safety','environment','other'].map(k=>[k,{label:k}])),
-    reports:[],uniq:a=>[...new Set(a)],sortReports(){},generateReportJsonBox(){},updatePrompt(){},
+    reports:[],uniq:a=>[...new Set(a)],normalizePlaces:a=>Array.isArray(a)?a:[],sortReports(){},generateReportJsonBox(){},updatePrompt(){},
     renderReport(){},renderEditor(){},collectPlaces(){},fromAiObj(){},reportItemToJson(){},jsonPayloadFromReports(){},markdown(){},updateReport(){},boundsFor(){}};
   // Pure parsing / staging / application functions, before the UI wrappers.
   const prefix=addon.slice(0,addon.indexOf('  // Keep provenance'));
@@ -70,6 +70,11 @@ test('URL dedupe removes tracking but preserves case-sensitive paths and meaning
 test('regional centroid is a regional corridor, never exact',()=>{
   const p=harness().api.places(event({geo:{lat:57,lon:18,method:'controlled_region_centroid'}}))[0];
   assert.equal(p.precision,'regional');assert.equal(p.role,'corridor');assert.equal(p.source_method,'controlled_region_centroid');
+});
+test('HonkyTonk AI places are preserved by the direct importer',()=>{
+  const {api}=harness();const sourcePlace={name:'Strait of Hormuz',lat:26.57,lon:56.25,type:'chokepoint',role:'corridor',precision:'regional',geo_source:'IHO'};
+  const {report}=api.makeReport(event({places:[sourcePlace],geo:null}),batch);
+  assert.deepEqual(report.places,[sourcePlace]);
 });
 test('source coordinates remain approximate; unknown method is unplottable',()=>{
   const {api,ctx}=harness();let p=api.places(event({geo:{lat:53,lon:8,method:'text_coordinate'}}))[0];
