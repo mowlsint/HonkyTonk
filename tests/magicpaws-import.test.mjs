@@ -37,6 +37,11 @@ test('all inline scripts have valid syntax and old interface remains present',()
   for(const id of ['fileInput','reportEditor','archiveMarkdownInput','outputLanguage','mapMode','mpPanel','mpPreview','mpToken','mpFetchLatest']) assert.match(html,new RegExp('id="'+id+'"'));
   assert.match(html,/function printReport\(/);assert.match(html,/function downloadHTMLReport\(/);assert.match(html,/async function fetchLatestFeed\(/);assert.doesNotMatch(html,/ghp_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/);
 });
+test('harmonized report contract requires bilingual executive summaries and paired text exports',()=>{
+  for(const required of ['report_summary_de','report_summary_en','priority_findings_de','priority_findings_en','downloadBilingualMarkdown','downloadBilingualText','reportExecutiveSummary']) assert.match(html,new RegExp(required));
+  assert.match(html,/mindestens 300 Zeichen/);
+  assert.match(html,/einschließlich zweisprachiger Gesamtlage/);
+});
 test('routine containers, tankers, fishing and pipelines are not crime or hybrid proof',()=>{
   const {api}=harness();for(const title of ['Container ship arrives','Oil tanker delivers cargo','Trawler visits port','Pipeline project tender'])assert.equal(api.category(event({title,text:''})).value,'other');
 });
