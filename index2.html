@@ -398,16 +398,16 @@ JSON-SCHEMA, EXAKT EINZUHALTEN:
       "ttp_en": "...",
       "eu_relevance_de": "...",
       "eu_relevance_en": "...",
-      "economic_security_relevance_de": "",
-      "economic_security_relevance_en": "",
-      "russia_china_link_de": "",
-      "russia_china_link_en": "",
-      "espionage_or_influence_indicator_de": "",
-      "espionage_or_influence_indicator_en": "",
-      "sanctions_or_dual_use_angle_de": "",
-      "sanctions_or_dual_use_angle_en": "",
-      "maritime_supply_chain_link_de": "",
-      "maritime_supply_chain_link_en": "",
+      "economic_security_relevance_de": "Konkrete Wirkung oder: Kein belastbarer Economic-Security-Bezug erkennbar.",
+      "economic_security_relevance_en": "Concrete effect or: No substantiated economic-security relevance identified.",
+      "russia_china_link_de": "Konkreter Bezug oder: Kein belastbarer Russland-/China-Bezug erkennbar.",
+      "russia_china_link_en": "Concrete link or: No substantiated Russia/China link identified.",
+      "espionage_or_influence_indicator_de": "Indikator oder: Kein belastbarer Spionage-/Einflussindikator erkennbar.",
+      "espionage_or_influence_indicator_en": "Indicator or: No substantiated espionage/influence indicator identified.",
+      "sanctions_or_dual_use_angle_de": "Bezug oder: Kein belastbarer Sanktions-/Dual-Use-Bezug erkennbar.",
+      "sanctions_or_dual_use_angle_en": "Link or: No substantiated sanctions/dual-use angle identified.",
+      "maritime_supply_chain_link_de": "Wirkung oder: Keine konkrete maritime Lieferkettenwirkung belastbar erkennbar.",
+      "maritime_supply_chain_link_en": "Impact or: No concrete maritime supply-chain effect substantiated.",
       "prueffelder_de": ["..."],
       "prueffelder_en": ["..."],
       "places": [
@@ -443,7 +443,15 @@ SEARCH-COVERAGE-LOGIK, ZWINGEND
 - search_coverage ist kein Ersatz für items[]. Relevante Treffer gehören in items[], leere/negative Suchabdeckung in meta.search_coverage.negative_findings_de/en.
 - Wenn eine Pflichtquelle nicht erreichbar war, setze den jeweiligen checked-Wert auf false und erkläre dies in notes_de/notes_en.
 - Wenn ein Bereich erreichbar geprüft wurde, aber keine verwertbare Meldung ergab, setze checked=true und schreibe eine kurze Negativmeldung.
-- Zusätzliche Economic-Security-Felder pro item nur ausfüllen, wenn Russland-/China-/Spionage-/Einfluss-/Dual-Use-/Lieferkettenbezug relevant ist. Sonst als leere Strings ausgeben.
+- Die Economic-Security-/Russland-China-Felder sind je item Pflicht. Wenn kein besonderer Bezug belegt ist, ist dies ausdrücklich und quellennah als Negativfeststellung einzutragen, nicht als leerer String.
+
+PFLICHTFELDER JE BERICHTSFÄHIGEM ITEM, ZWINGEND
+- Die deutsche Fassung ist führend und fachlich vollständig; die englische Fassung muss inhaltlich gleichwertig sein. Kein Feld darf durch eine verkürzte englische Wiederholung des Titels ersetzt werden.
+- Immer nichtleer ausgeben: assessment_de/en (2–4 analytische Sätze), subcategory_de/en, evidence_de/en, region_de/en, corridor_de/en, ttp_de/en, eu_relevance_de/en, prueffelder_de/en (je mindestens ein konkreter Prüfpunkt) sowie alle fünf Economic-Security-/Russland-China-Feldpaare.
+- Die fünf Economic-Security-/Russland-China-Feldpaare sind: economic_security_relevance_*, russia_china_link_*, espionage_or_influence_indicator_*, sanctions_or_dual_use_angle_* und maritime_supply_chain_link_*.
+- Wenn ein besonderer Bezug nicht belegt ist, schreibe ausdrücklich die passende Negativfeststellung (z. B. „Kein belastbarer Russland-/China-Bezug erkennbar.“). Niemals "", "n/a", "unbekannt" oder einen Platzhalter verwenden.
+- assessment benennt nur belegten Sachstand und trennt klar zwischen bestätigt, plausibel und offen. ttp beschreibt die beobachtete oder behauptete Wirkweise; bei fehlender belastbarer Wirkweise: „Keine belastbare TTP ableitbar; … prüfen.“
+- prueffelder enthalten konkrete Anschlussrecherche, keine Floskeln. Der Bericht soll für jede Meldung denselben analytischen Informationsgehalt wie ein qualifizierter manueller HonkyTonk-Eintrag liefern.
 
 GEOREFERENZ-LOGIK, ZWINGEND
 - Die KI übernimmt die Georeferenzierung. Für jedes berichtsfähige item muss places[] bewusst befüllt werden; ein leeres Array ist nur zulässig, wenn weder Quelle noch Recherche einen benennbaren Ort, Hafen, Seeweg, Seegebiet oder Staat nennen.
@@ -634,10 +642,12 @@ function validateBilingualJsonPayload(payload){
   if(!payload.discarded||typeof payload.discarded!=='object')issues.push('FEHLER: discarded fehlt oder ist kein Objekt.');
   (payload.items||[]).forEach((it,i)=>{
     let n=i+1;
+    const requiredPairs=[['assessment_de','assessment_en'],['subcategory_de','subcategory_en'],['evidence_de','evidence_en'],['region_de','region_en'],['corridor_de','corridor_en'],['ttp_de','ttp_en'],['eu_relevance_de','eu_relevance_en'],['economic_security_relevance_de','economic_security_relevance_en'],['russia_china_link_de','russia_china_link_en'],['espionage_or_influence_indicator_de','espionage_or_influence_indicator_en'],['sanctions_or_dual_use_angle_de','sanctions_or_dual_use_angle_en'],['maritime_supply_chain_link_de','maritime_supply_chain_link_en']];
     if(!it.date)issues.push('FEHLER: Item '+n+': date fehlt.');
     if(it.time_window_status!=='IN_SCOPE')issues.push('FEHLER: Item '+n+': time_window_status ist nicht IN_SCOPE.');
     if(!it.headline_de||!it.headline_en)issues.push('FEHLER: Item '+n+': headline_de/headline_en unvollständig.');
     if(!it.summary_de||!it.summary_en)issues.push('FEHLER: Item '+n+': summary_de/summary_en unvollständig.');
+    requiredPairs.forEach(([de,en])=>{if(!clean(it[de])||!clean(it[en]))issues.push('FEHLER: Item '+n+': '+de+'/'+en+' unvollständig.');});
     if(!Array.isArray(it.sources)||!it.sources.length)issues.push('FEHLER: Item '+n+': sources fehlt oder ist leer.');
     if(Array.isArray(it.sources)){
       it.sources.forEach((s,j)=>{if(!isPlainUrl(s))issues.push('FEHLER: Item '+n+' Source '+(j+1)+': keine nackte URL: '+String(s).slice(0,70));});
@@ -645,15 +655,14 @@ function validateBilingualJsonPayload(payload){
     }
     if(!Array.isArray(it.places))issues.push('FEHLER: Item '+n+': places ist kein Array.');
     if(Array.isArray(it.places)){
-      if(!it.places.length)issues.push('HINWEIS: Item '+n+': places[] ist leer; bei benanntem Ort/Seegebiet/Korridor Geoangabe ergänzen.');
+      if(!it.places.length)issues.push('FEHLER: Item '+n+': places[] ist leer; berichtsfähige Meldungen benötigen mindestens eine KI-Georeferenz.');
       it.places.forEach((p,j)=>{
         if(!p.role)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': role fehlt.');
         if(!p.precision)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': precision fehlt.');
         if(!p.geo_source)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': geo_source fehlt.');
       })
     }
-    if(!it.eu_relevance_de||!it.eu_relevance_en)issues.push('FEHLER: Item '+n+': eu_relevance_de/eu_relevance_en fehlt.');
-    if(!Array.isArray(it.prueffelder_de)||!Array.isArray(it.prueffelder_en))issues.push('FEHLER: Item '+n+': prueffelder_de/prueffelder_en müssen Arrays sein.');
+    if(!Array.isArray(it.prueffelder_de)||!Array.isArray(it.prueffelder_en)||!it.prueffelder_de.length||!it.prueffelder_en.length)issues.push('FEHLER: Item '+n+': prueffelder_de/prueffelder_en müssen nichtleere Arrays sein.');
   });
   scanTextForUrlLeak(payload,'',issues);
   return issues
@@ -786,11 +795,13 @@ function meldungHTML(r){let L=outLabels(),lang=outputLang(),cls=CATS[r.category]
   let subcat=outVal(r,'subcategory',lang)||r.subcategory;
   let region=outVal(r,'region',lang)||r.region, corridor=outVal(r,'corridor',lang)||r.corridor, port=r.port;
   let ttp=outVal(r,'ttp',lang)||r.ttp;
+  let actor=outVal(r,'actor_type',lang)||r.actor_type;
+  let eu=outVal(r,'eu_relevance',lang)||r.eu_relevance;
   let checks=outVal(r,'prueffelder',lang)||r.prueffelder;
   let evidence=outVal(r,'evidence',lang)||r.evidence;
   let econ=[outVal(r,'economic_security_relevance',lang),outVal(r,'russia_china_link',lang),outVal(r,'espionage_or_influence_indicator',lang),outVal(r,'sanctions_or_dual_use_angle',lang),outVal(r,'maritime_supply_chain_link',lang)].map(clean).filter(Boolean).join(' | ');
   let econLabel=lang==='en'?'Economic Security / Russia-China lens':'Economic Security / Russland-China-Lens';
-  return`<article class="meldung ${cls}"><h3><b>${esc(headline)}</b> <span>(${esc(fmtDate(r.date))})</span></h3><p>${esc(summary)}</p>${assessment?`<p><b>${L.assessment}:</b> ${esc(assessment)}</p>`:''}${subcat?`<p><b>${L.subcategory}:</b> ${esc(subcat)}</p>`:''}${(region||corridor||port)?`<p><b>${L.region_corridor_port}:</b> ${esc([region,corridor,port].filter(Boolean).join(' | '))}</p>`:''}${(r.ship_name||r.imo||r.mmsi)?`<p><b>${L.ship}:</b> ${esc([r.ship_name,r.imo?'IMO '+r.imo:'',r.mmsi?'MMSI '+r.mmsi:''].filter(Boolean).join(' | '))}</p>`:''}${ttp?`<p><b>TTP:</b> ${esc(ttp)}</p>`:''}${econ?`<p><b>${econLabel}:</b> ${esc(econ)}</p>`:''}${checks?`<p><b>${L.fields}:</b> ${esc(checks)}</p>`:''}<p class="src"><b>${L.sources}:</b> ${esc((r.sources||[]).join(' | ')||L.source_missing)}</p><div class="tags"><span class="tag">${esc(catLabel(r.category,lang))}</span><span class="tag">${esc(sevLabel(r.severity,lang))}</span><span class="tag">${esc(evidence||'')}</span></div></article>`}
+  return`<article class="meldung ${cls}"><h3><b>${esc(headline)}</b> <span>(${esc(fmtDate(r.date))})</span></h3><p>${esc(summary)}</p>${assessment?`<p><b>${L.assessment}:</b> ${esc(assessment)}</p>`:''}${subcat?`<p><b>${L.subcategory}:</b> ${esc(subcat)}</p>`:''}${(region||corridor||port)?`<p><b>${L.region_corridor_port}:</b> ${esc([region,corridor,port].filter(Boolean).join(' | '))}</p>`:''}${(r.ship_name||r.imo||r.mmsi)?`<p><b>${L.ship}:</b> ${esc([r.ship_name,r.imo?'IMO '+r.imo:'',r.mmsi?'MMSI '+r.mmsi:''].filter(Boolean).join(' | '))}</p>`:''}${actor?`<p><b>${lang==='en'?'Actor / network':'Akteur / Netzwerk'}:</b> ${esc(actor)}</p>`:''}${ttp?`<p><b>TTP:</b> ${esc(ttp)}</p>`:''}${eu?`<p><b>${lang==='en'?'EU / Germany relevance':'EU-/Deutschlandbezug'}:</b> ${esc(eu)}</p>`:''}${econ?`<p><b>${econLabel}:</b> ${esc(econ)}</p>`:''}${checks?`<p><b>${L.fields}:</b> ${esc(checks)}</p>`:''}<p class="src"><b>${L.sources}:</b> ${esc((r.sources||[]).join(' | ')||L.source_missing)}</p><div class="tags"><span class="tag">${esc(catLabel(r.category,lang))}</span><span class="tag">${esc(sevLabel(r.severity,lang))}</span><span class="tag">${esc(evidence||'')}</span></div></article>`}
 function renderReport(){document.title=reportBaseName();let L=outLabels(),lang=outputLang(),st=stats(),date=fmtDate(document.getElementById('reportDate').value),region=document.getElementById('region').value,period=document.getElementById('period').value,aud=document.getElementById('audience').value,places=collectPlaces(),grouped=reports.reduce((a,r)=>{(a[r.category]??=[]).push(r);return a},{});let html=`<div class="report-title"><div><h1>${esc(L.title)}</h1><div class="sub">${esc(L.subtitle)}</div></div><div class="report-head-right"><div class="report-meta"><b>${esc(date)}</b><br>${esc(L.period)}: ${esc(period)}<br>${esc(L.region)}: ${esc(region)}<br>${esc(L.audience)}: ${esc(aud)}</div><div class="report-logo"><img src="${LOGO}" alt="MOwlSINT Daily Honky-Tonk Logo"></div></div></div><div class="summarybox"><b>${esc(L.lagekern)}:</b> ${st.total?esc(reportSummary(st)):esc(L.no_reports)}</div><div class="stats"><div class="stat"><b>${st.total}</b><span>${esc(L.stats[0])}</span></div><div class="stat"><b>${st.high}</b><span>${esc(L.stats[1])}</span></div><div class="stat"><b>${st.hybrid}</b><span>${esc(L.stats[2])}</span></div><div class="stat"><b>${st.crime}</b><span>${esc(L.stats[3])}</span></div><div class="stat"><b>${st.mapped}</b><span>${esc(L.stats[4])}</span></div></div>${renderMap(places)}`;for(let cat of ['hybrid','shadow','cyber','drugs','iuu','safety','environment','other']){if(!grouped[cat]?.length)continue;html+=`<section class="cat-section"><h2>${esc(catLabel(cat,lang))}</h2>`;for(let r of grouped[cat])html+=meldungHTML(r);html+='</section>'}html+=`<div class="summarybox"><b>${esc(L.check_title)}:</b> ${esc(L.check)}</div>`;document.getElementById('reportView').innerHTML=html}
 function markdown(){let L=outLabels(),lang=outputLang(),date=fmtDate(document.getElementById('reportDate').value),st=stats(),md=`# ${L.title} (${date})\n\n${L.period}: ${document.getElementById('period').value}\n\n${L.region}: ${document.getElementById('region').value}\n\n${L.audience}: ${document.getElementById('audience').value}\n\n## ${L.lagekern}\n\n${reportSummary(st)}\n\n`;for(let cat of ['hybrid','shadow','cyber','drugs','iuu','safety','environment','other']){let arr=reports.filter(r=>r.category===cat);if(!arr.length)continue;md+=`## ${catLabel(cat,lang)}\n\n`;for(let r of arr){let headline=outVal(r,'headline',lang)||r.headline,summary=outVal(r,'summary',lang)||r.summary,assessment=outVal(r,'assessment',lang)||r.note,subcat=outVal(r,'subcategory',lang)||r.subcategory,region=outVal(r,'region',lang)||r.region,corridor=outVal(r,'corridor',lang)||r.corridor,ttp=outVal(r,'ttp',lang)||r.ttp,evidence=outVal(r,'evidence',lang)||r.evidence;md+=`**${headline} (${fmtDate(r.date)})**\n\n${summary}\n\n`;if(assessment)md+=`${L.assessment}: ${assessment}\n\n`;if(subcat)md+=`${L.subcategory}: ${subcat}\n\n`;if(region||corridor||r.port)md+=`${L.region_corridor_port}: ${[region,corridor,r.port].filter(Boolean).join(' | ')}\n\n`;if(ttp)md+=`TTP: ${ttp}\n\n`;let econ=[outVal(r,'economic_security_relevance',lang),outVal(r,'russia_china_link',lang),outVal(r,'espionage_or_influence_indicator',lang),outVal(r,'sanctions_or_dual_use_angle',lang),outVal(r,'maritime_supply_chain_link',lang)].map(clean).filter(Boolean).join(' | ');if(econ)md+=`${lang==='en'?'Economic Security / Russia-China lens':'Economic Security / Russland-China-Lens'}: ${econ}\n\n`;md+=`${L.sources}: ${(r.sources||[]).join(' | ')||L.source_missing}\n\n${L.evidence_severity}: ${evidence||'open'} · ${sevLabel(r.severity,lang)}\n\n`}}return md+'---\n'+L.md_map_note+'\n'}function textReport(){return markdown().replace(/^#+\s*/gm,'').replace(/\*\*/g,'')}function downloadMarkdown(){renderReport();download(`${reportBaseName()}.md`,markdown(),'text/markdown')}function downloadText(){renderReport();download(`${reportBaseName()}.txt`,textReport())}function downloadHTMLReport(){renderReport();download(`${reportBaseName()}.html`,`<!doctype html><html lang="${outputLang()}"><head><meta charset="utf-8"><title>${reportBaseName()}</title>${document.querySelector('style').outerHTML}</head><body><main><div class="report-wrap"><div class="report-inner">${document.getElementById('reportView').innerHTML}</div></div></main></body></html>`,'text/html')}async function copyMarkdown(){await navigator.clipboard.writeText(markdown());alert(outputLang()==='en'?'Markdown copied.':'Markdown kopiert.')}
 ['reportDate','period','region','audience','mapMode','outputLanguage','webResearchEnabled','mandatoryMaritimeSources','cyberDroneDeepSearch','russiaChinaEconomicSecurity','negativeCoverageNotes'].forEach(id=>{let el=document.getElementById(id);if(el)el.addEventListener('input',()=>{updatePrompt();renderReport()})});let archiveInput=document.getElementById('archiveMarkdownInput');if(archiveInput)archiveInput.addEventListener('change',loadArchivedMarkdownFiles);updatePrompt();renderImports();renderEditor();renderReport();
