@@ -468,7 +468,8 @@ PFLICHTFELDER JE BERICHTSFÄHIGEM ITEM, ZWINGEND
 - prueffelder enthalten konkrete Anschlussrecherche, keine Floskeln. Der Bericht soll für jede Meldung denselben analytischen Informationsgehalt wie ein qualifizierter manueller HonkyTonk-Eintrag liefern.
 
 GEOREFERENZ-LOGIK, ZWINGEND
-- Die KI übernimmt die Georeferenzierung. Für jedes berichtsfähige item muss places[] bewusst befüllt werden; ein leeres Array ist nur zulässig, wenn weder Quelle noch Recherche einen benennbaren Ort, Hafen, Seeweg, Seegebiet oder Staat nennen.
+- Die KI übernimmt die Georeferenzierung. HARTE IMPORTREGEL: Ein berichtsfähiges Element in items[] mit places: [] ist verboten und nicht importierbar. Recherchiere bei fehlender Ortsangabe gezielt in Quelle und belastbaren Kontextquellen nach Hafen, Ort, Staat, Seeweg, Seegebiet oder Chokepoint.
+- Kann nach dieser Recherche kein belegter geografischer Anker angegeben werden, darf die Meldung nicht in items[] stehen: Verschiebe sie nach discarded.IRRELEVANT und begründe zweisprachig: reason_de="Kein belastbarer geografischer Bezug für einen berichtsfähigen Lageeintrag." und reason_en="No substantiated geographic anchor for a reportable intelligence item." Niemals ersatzweise Koordinaten erfinden.
 - Sobald ein benannter Hafen, Ort, eine Meerenge, ein Seegebiet, ein Korridor oder ein Herkunfts-/Zielort vorliegt, gib mindestens ein places[]-Objekt aus. „OTHER“, „GLOBAL“, „Europa“ oder „EU“ sind keine Orte und dürfen nicht als Kartenpunkt verwendet werden.
 - Belegte konkrete Ortsangabe: role="event_location" und precision="exact" oder "approximate"; geo_source muss die Herkunft nennen (z. B. source, AIS, UNLOCODE).
 - Nur benanntes Seegebiet / Route / Chokepoint ohne konkrete Ereignisposition: role="corridor", type="sea|region|chokepoint", precision="regional" und Mittelpunktkoordinate; geo_source="IHO" oder "local_gazetteer".
@@ -492,7 +493,7 @@ OUTPUT-CHECK VOR FINALER JSON-AUSGABE
 5. Kommen URLs ausschließlich im Feld sources vor und in keinem anderen Textfeld?
 6. Hat jedes item prueffelder_de und prueffelder_en?
 6. Hat jedes item eu_relevance_de und eu_relevance_en?
-7. Hat jedes item places[] mit role, precision und geo_source? Bei einem benannten Ort, Hafen, Seegebiet, Korridor oder Chokepoint darf places[] nicht leer sein.
+7. Hat jedes item mindestens einen belegten places[]-Eintrag mit role, precision und geo_source? Ein leeres places[] ist in items[] niemals zulässig; ohne belastbaren geografischen Anker muss die Meldung nach discarded.IRRELEVANT.
 8. Ist meta.search_coverage vorhanden und enthält es Negativmeldungen für geprüfte Pflichtbereiche ohne Treffer?
 9. Sind verworfene Rohdaten ausschließlich im JSON-Feld discarded erklärt?
 
@@ -672,7 +673,7 @@ function validateBilingualJsonPayload(payload){
     }
     if(!Array.isArray(it.places))issues.push('FEHLER: Item '+n+': places ist kein Array.');
     if(Array.isArray(it.places)){
-      if(!it.places.length)issues.push('FEHLER: Item '+n+': places[] ist leer; berichtsfähige Meldungen benötigen mindestens eine KI-Georeferenz.');
+      if(!it.places.length)issues.push('FEHLER: Item '+n+': places[] ist leer. Ergänze einen belegten Ort, ein Seegebiet oder einen Korridor mit role, precision und geo_source; falls kein belastbarer geografischer Anker existiert, verschiebe die Meldung aus items[] nach discarded.IRRELEVANT.');
       it.places.forEach((p,j)=>{
         if(!p.role)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': role fehlt.');
         if(!p.precision)issues.push('HINWEIS: Item '+n+' Place '+(j+1)+': precision fehlt.');
