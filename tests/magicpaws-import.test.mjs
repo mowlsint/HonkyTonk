@@ -49,6 +49,11 @@ test('harmonized report contract requires bilingual executive summaries and pair
   assert.match(html,/mindestens 300 Zeichen/);
   assert.match(html,/einschließlich zweisprachiger Gesamtlage/);
 });
+test('reportable AI items require a substantiated georeference or discard',()=>{
+  assert.match(html,/HARTE IMPORTREGEL: Ein berichtsfähiges Element in items\[\] mit places: \[\] ist verboten/);
+  assert.match(html,/Verschiebe sie nach discarded\.IRRELEVANT/);
+  assert.match(html,/verschiebe die Meldung aus items\[\] nach discarded\.IRRELEVANT/);
+});
 test('routine containers, tankers, fishing and pipelines are not crime or hybrid proof',()=>{
   const {api}=harness();for(const title of ['Container ship arrives','Oil tanker delivers cargo','Trawler visits port','Pipeline project tender'])assert.equal(api.category(event({title,text:''})).value,'other');
 });
