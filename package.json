@@ -1,0 +1,12 @@
+{
+  "name": "mowlsint-honkytonk",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build:cloudflare-pages": "node scripts/build-cloudflare-pages.mjs",
+    "test": "node --test tests/magicpaws-import.test.mjs"
+  }
+}
