@@ -54,6 +54,13 @@ test('reportable AI items require a substantiated georeference or discard',()=>{
   assert.match(html,/Verschiebe sie nach discarded\.IRRELEVANT/);
   assert.match(html,/verschiebe die Meldung aus items\[\] nach discarded\.IRRELEVANT/);
 });
+test('PDF print waits for the logo and base map before opening the print dialog',()=>{
+  assert.match(html,/function waitForPrintImages\(frameWindow,timeoutMs=12000\)/);
+  assert.match(html,/await waitForPrintImages\(frame\.contentWindow\)/);
+  assert.match(html,/frame\.style\.left='-10000px'/);
+  assert.match(html,/frame\.style\.width='794px'/);
+  assert.doesNotMatch(html,/window\.addEventListener\("load",function\(\)\{setTimeout\(function\(\)\{window\.focus\(\);window\.print\(\);\},450\)/);
+});
 test('routine containers, tankers, fishing and pipelines are not crime or hybrid proof',()=>{
   const {api}=harness();for(const title of ['Container ship arrives','Oil tanker delivers cargo','Trawler visits port','Pipeline project tender'])assert.equal(api.category(event({title,text:''})).value,'other');
 });
