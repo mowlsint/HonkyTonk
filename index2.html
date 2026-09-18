@@ -783,7 +783,18 @@ function buildCleanPrintHTML(){
   .report-inner{background:#fff!important}
 }
 `;
-  return '<!doctype html><html lang="'+esc(outputLang())+'"><head><meta charset="utf-8"><base href="'+esc(getPrintBaseHref())+'"><title>'+esc(title)+'</title><style>'+styles+'\n'+printCss+'</style></head><body><main><div class="report-wrap">'+report+'</div></main><script>document.title='+JSON.stringify(title)+';window.addEventListener("load",function(){setTimeout(function(){window.focus();window.print();},450);});<\/script></body></html>';
+  return '<!doctype html><html lang="'+esc(outputLang())+'"><head><meta charset="utf-8"><base href="'+esc(getPrintBaseHref())+'"><title>'+esc(title)+'</title><style>'+styles+'\n'+printCss+'</style></head><body><main><div class="report-wrap">'+report+'</div></main></body></html>';
+}
+function waitForPrintImages(frameWindow,timeoutMs=12000){
+  let images=[...(frameWindow.document?.images||[])];
+  let waitFor=img=>new Promise(resolve=>{
+    let settled=false;
+    let done=()=>{if(settled)return;settled=true;resolve()};
+    let decode=()=>typeof img.decode==='function'?img.decode().catch(()=>{}).then(done):done();
+    if(img.complete)decode();
+    else{img.addEventListener('load',decode,{once:true});img.addEventListener('error',done,{once:true});setTimeout(done,timeoutMs)}
+  });
+  return Promise.all(images.map(waitFor)).then(()=>new Promise(resolve=>setTimeout(resolve,180)));
 }
 function showNativeFooterHint(){
   let key='mowlsintPrintFooterHintSeenV2';
@@ -793,7 +804,7 @@ function showNativeFooterHint(){
   }catch(e){}
   alert('Wichtig für PDF ohne Dateipfad: Im Druckdialog „Kopf- und Fußzeilen“ ausschalten. Die Seitenzahl wird jetzt im Report selbst unten rechts erzeugt.');
 }
-function printReport(){
+async function printReport(){
   showNativeFooterHint();
   let title=safePrintFileName();
   document.title=title;
@@ -803,18 +814,26 @@ function printReport(){
   frame.id='cleanPrintFrame';
   frame.title=title;
   frame.style.position='fixed';
-  frame.style.right='0';
-  frame.style.bottom='0';
-  frame.style.width='0';
-  frame.style.height='0';
+  frame.style.left='-10000px';
+  frame.style.top='0';
+  frame.style.width='794px';
+  frame.style.height='1123px';
   frame.style.border='0';
   frame.style.opacity='0';
+  frame.style.pointerEvents='none';
   document.body.appendChild(frame);
   let doc=frame.contentWindow.document;
   doc.open();
   doc.write(buildCleanPrintHTML());
   doc.close();
-  setTimeout(()=>{try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){window.print()}setTimeout(()=>{let f=document.getElementById('cleanPrintFrame');if(f)f.remove()},1800)},800);
+  let cleanup=()=>{let f=document.getElementById('cleanPrintFrame');if(f)f.remove()};
+  try{
+    await waitForPrintImages(frame.contentWindow);
+    frame.contentWindow.addEventListener('afterprint',cleanup,{once:true});
+    frame.contentWindow.focus();
+    frame.contentWindow.print();
+    setTimeout(cleanup,15000);
+  }catch(e){cleanup();window.print()}
 }
 window.addEventListener('beforeprint',()=>{resolveMapLabels()});
 function stats(){let p=collectPlaces();return{total:reports.length,high:reports.filter(r=>r.severity==='hoch').length,hybrid:reports.filter(r=>['hybrid','shadow','cyber'].includes(r.category)).length,crime:reports.filter(r=>['drugs','iuu'].includes(r.category)).length,mapped:p.filter(shouldPlotPlace).length}}
