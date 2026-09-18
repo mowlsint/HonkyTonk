@@ -37,6 +37,13 @@ test('all inline scripts have valid syntax and old interface remains present',()
   for(const id of ['fileInput','reportEditor','archiveMarkdownInput','outputLanguage','mapMode','mpPanel','mpPreview','mpToken','mpFetchLatest']) assert.match(html,new RegExp('id="'+id+'"'));
   assert.match(html,/function printReport\(/);assert.match(html,/function downloadHTMLReport\(/);assert.match(html,/async function fetchLatestFeed\(/);assert.doesNotMatch(html,/ghp_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/);
 });
+test('section 04 uses explicit click listeners rather than inline handlers',()=>{
+  const section=html.match(/<section class="panel ki-input-panel">[\s\S]*?<\/section>/)?.[0] || '';
+  const controls=['aiImportButton','jsonValidateButton','jsonCopyButton','reportJsonButton','jsonMirrorButton','manualAddButton','reportSortButton','reportClearButton'];
+  for(const id of controls){assert.match(section,new RegExp('id="'+id+'"'));assert.match(html,new RegExp("bindSection04Action\\('"+id+"'"));}
+  assert.doesNotMatch(section,/onclick=/);
+  assert.match(html,/aiOutput\.addEventListener\('input',mirrorAiJsonOutput\)/);
+});
 test('harmonized report contract requires bilingual executive summaries and paired text exports',()=>{
   for(const required of ['report_summary_de','report_summary_en','priority_findings_de','priority_findings_en','downloadBilingualMarkdown','downloadBilingualText','reportExecutiveSummary']) assert.match(html,new RegExp(required));
   assert.match(html,/mindestens 300 Zeichen/);
