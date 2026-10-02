@@ -743,13 +743,14 @@ function renderMap(places){let L=outLabels(),lang=outputLang();let plot=places.f
 function resolveMapLabels(){return}
 function safePrintFileName(){return reportBaseName().replace(/[\\/:*?"<>|]/g,'_')}
 function getPrintBaseHref(){let h=String(location.href||'');let i=h.lastIndexOf('/');return i>=0?h.slice(0,i+1):h}
-function buildCleanPrintHTML(){
+function buildCleanPrintHTML(printMapSrc=''){
   renderReport();
   resolveMapLabels();
   let title=safePrintFileName();
   let L=outLabels();
   let styles=Array.from(document.querySelectorAll('style')).map(s=>s.textContent||'').join('\n');
   let report=document.getElementById('reportView')?.outerHTML||'';
+  if(printMapSrc)report=report.replace(/(<img\s+src=")[^"]+(" alt="Maritime Lagekarte")/,'$1'+esc(printMapSrc)+'$2');
   let printCss=`
 @page{
   size:A4;
@@ -785,6 +786,26 @@ function buildCleanPrintHTML(){
 `;
   return '<!doctype html><html lang="'+esc(outputLang())+'"><head><meta charset="utf-8"><base href="'+esc(getPrintBaseHref())+'"><title>'+esc(title)+'</title><style>'+styles+'\n'+printCss+'</style></head><body><main><div class="report-wrap">'+report+'</div></main></body></html>';
 }
+async function inlineMapForPrint(){
+  let img=document.querySelector('#reportMapBox img');
+  let src=img?.currentSrc||img?.src||'';
+  if(!src)return '';
+  let timer=0;
+  try{
+    let controller=typeof AbortController==='function'?new AbortController():null;
+    if(controller)timer=setTimeout(()=>controller.abort(),12000);
+    let response=await fetch(src,{mode:'cors',cache:'no-store',signal:controller?.signal});
+    if(!response.ok)throw new Error('Kartenabruf fehlgeschlagen: '+response.status);
+    let blob=await response.blob();
+    if(!/^image\//i.test(blob.type))throw new Error('Kartenantwort ist kein Bild');
+    return await new Promise((resolve,reject)=>{
+      let reader=new FileReader();
+      reader.onload=()=>resolve(String(reader.result||src));
+      reader.onerror=reject;
+      reader.readAsDataURL(blob);
+    });
+  }catch(e){return src}finally{if(timer)clearTimeout(timer)}
+}
 function waitForPrintImages(frameWindow,timeoutMs=12000){
   let images=[...(frameWindow.document?.images||[])];
   let waitFor=img=>new Promise(resolve=>{
@@ -806,6 +827,8 @@ function showNativeFooterHint(){
 }
 async function printReport(){
   showNativeFooterHint();
+  renderReport();
+  let printMapSrc=await inlineMapForPrint();
   let title=safePrintFileName();
   document.title=title;
   let old=document.getElementById('cleanPrintFrame');
@@ -824,7 +847,7 @@ async function printReport(){
   document.body.appendChild(frame);
   let doc=frame.contentWindow.document;
   doc.open();
-  doc.write(buildCleanPrintHTML());
+  doc.write(buildCleanPrintHTML(printMapSrc));
   doc.close();
   let cleanup=()=>{let f=document.getElementById('cleanPrintFrame');if(f)f.remove()};
   try{
