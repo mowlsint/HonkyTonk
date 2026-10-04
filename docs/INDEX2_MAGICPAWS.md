@@ -30,6 +30,7 @@ Der ergänzte Magic-Paws-Renderer erzeugt außerdem **privat** `reports/rawdata/
 - Keine neuen Orte aus Volltext-Nennungen beim Magic-Paws-Import. Bekannte regionale Mittelpunkte werden als `regional/corridor` gezeigt. Unbekannte Geo-Methoden und ungültige Koordinaten werden nicht als Hauptmarker dargestellt. Im Editor können belegte Geoangaben manuell ergänzt werden.
 - Alle Meldungen sind Entwürfe. Routinetanker oder Container allein begründen keinen Kriminalitäts-/Schattenflottenhinweis. Kategorie und Gewichtung sind Vorschläge, keine abschließende Bewertung.
 - Die vollständige Entwurfs-JSON bewahrt Rohtext, Herkunft und Geo-Prüfmerkmale. MD/TXT/HTML sind Leseprodukte, keine verlustfreien Rohdatenarchive.
+- Die englischen PDF-, HTML-, MD- und TXT-Ausgaben übersetzen auch die Werte der Zeitraum- und Modusauswahl, bekannte Regionsnamen, Kartenbeschriftungen und feste Prüf-/Evidenzhinweise. Beispiel: „letzte 48 Stunden“ erscheint als „Last 48 hours“. Die deutsche Formularauswahl und gespeicherten Quelldaten bleiben erhalten; Meldungstexte verwenden vorhandene englische Felder oder die Originalsprache. Englisch exportierte MD-Einstellungen lassen sich wieder in die deutschen Auswahlfelder einlesen.
 - Optionale Browsersicherung unter eigenem Schlüssel `mowlsint.honkytonk.index2.draft.v1`; kein automatisches Laden, kein Überschreiben von Speicher der alten Oberfläche. Browserdaten und Entwürfe können private Meldungen enthalten.
 
 ## Validierung
