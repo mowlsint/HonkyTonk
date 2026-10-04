@@ -14,14 +14,37 @@
 <main>
 <div class="left">
 <section class="panel"><h2>01 · Report Settings</h2><div class="row"><div><label>Report-Datum</label><input id="reportDate" type="date"></div><div><label>Zeitraum</label><select id="period"><option>letzte 24 Stunden</option><option selected>letzte 36 Stunden</option><option>letzte 48 Stunden</option><option>Wochenübersicht letzte 8 Tage</option><option>letzte 7 Tage</option><option>frei / aus Import</option></select></div></div><label>Region / Fokus</label><input id="region" value="Nordsee, Ostsee, Ärmelkanal, Atlantikzugänge, Mittelmeer, Schwarzmeerraum, globale maritime Brennpunkte"><div class="row"><div><label>Adressat / Modus</label><select id="audience"><option>OSINT-Analyst</option><option>Behördenlage / LvU-tauglich</option></select></div><div><label>Kartenscope</label><select id="mapMode"><option value="auto">Auto</option><option value="europe">Europa</option><option value="world">Welt</option></select></div></div><div class="chips"><span class="chip">Hybrid</span><span class="chip">Schattenflotte</span><span class="chip">Rauschgift</span><span class="chip">IUU</span><span class="chip">Cyber/KRITIS</span><span class="chip">Safety</span></div><p class="small">Logo: honkytonk.png im selben Ordner; PDF-Report nutzt dieselbe Datei.</p></section>
+<section class="panel" id="automationPanel"><details id="automationDetails"><summary>01a · HonkyTonk Automatisierung (optional)</summary>
+<p class="small">Manuell ist Standard. Der Controller kann Berichte im Hintergrund recherchieren, erstellen und je Ausgabe an einen eigenen Verteiler senden. Courier und Reportlayout bleiben erhalten.</p>
+<label for="automationEndpoint">Controller-Adresse</label><input id="automationEndpoint" type="url" placeholder="https://honkytonk-controller.example.org (leer: diese Origin)">
+<label for="automationAdminToken">Controller-Zugang</label><input id="automationAdminToken" type="password" autocomplete="off" placeholder="Administrations-Token; nur für diese Sitzung">
+<button id="automationConnect" class="cyan">Verbinden</button><button id="automationDisconnect" class="ghost">Trennen</button>
+<label for="automationMode">Gespeicherter Betriebsmodus</label><select id="automationMode"><option value="manual" selected>Manuell · Automatik pausiert</option><option value="review">Automatisch erstellen · manuell freigeben</option><option value="automatic">Automatisch recherchieren, erstellen und versenden</option></select>
+<label for="automationProfile">Ausgabeprofil</label><select id="automationProfile"></select><button id="automationAdd" class="ghost">Weitere Ausgabe</button>
+<label><input id="automationEnabled" type="checkbox" style="width:auto"> Zeitplan für diese Ausgabe aktiv</label>
+<label for="automationName">Ausgabename</label><input id="automationName">
+<div class="row"><div><label for="automationPreset">Berichtsfenster</label><select id="automationPreset"><option value="daily">24 Stunden</option><option value="twoDay">48 Stunden</option><option value="weekly">7 Tage</option></select></div><div><label for="automationLanguage">Sprache / Anhänge</label><select id="automationLanguage"><option value="de">Deutsch</option><option value="en">English</option><option value="both">DE + EN</option></select></div></div>
+<p class="small">Recherchepuffer: 30 / 55 Stunden bzw. 8 Tage. Sichtbare Zeitangaben bleiben 24 / 48 Stunden / 7 Tage.</p>
+<label for="automationModel">Modell und zugehöriges Promptprofil</label><select id="automationModel"><option value="gpt-6.1-sol">GPT-6.1 Sol · medium</option><option value="gpt-6-astra">GPT-6 Astra · high</option></select>
+<label for="automationRegion">Region / Fokus</label><input id="automationRegion">
+<div class="row"><div><label for="automationAudience">Adressat</label><select id="automationAudience"><option>OSINT-Analyst</option><option>Behördenlage / LvU-tauglich</option></select></div><div><label for="automationMap">Kartenscope</label><select id="automationMap"><option value="auto">Auto</option><option value="europe">Europa</option><option value="world">Welt</option></select></div></div>
+<label for="automationTopics">Recherchebereiche (Komma getrennt)</label><input id="automationTopics"><p class="small">hybrid, shadow, drugs, iuu, cyber, safety, economic, ukmto, authorities, maritimeExecutive, gcaptain, vesseltracker</p>
+<label for="automationRecipients">Verteiler dieser Ausgabe · eine E-Mail je Zeile</label><textarea id="automationRecipients" placeholder="Noch kein Verteiler eingerichtet"></textarea>
+<div class="row"><div><label for="automationCadence">Versandrhythmus</label><select id="automationCadence"><option value="daily">Täglich</option><option value="48h">Alle 48 Stunden</option><option value="weekly">Wöchentlich</option></select></div><div><label for="automationTime">Uhrzeit</label><input id="automationTime" type="time"></div></div>
+<div class="row"><div><label for="automationTimezone">Zeitzone</label><input id="automationTimezone" value="Europe/Berlin"></div><div><label for="automationAnchor">Erster geplanter Termin</label><input id="automationAnchor" type="date"></div></div>
+<p class="small">Täglich/wöchentlich zur lokalen Uhrzeit. 48 Stunden sind exakt ab dem ersten Termin gerechnet. Modus und Profile werden erst durch Speichern wirksam.</p>
+<button id="automationSave" class="ok">Modus und Profile speichern</button><button id="automationPreview" class="ghost">Rechercheplan prüfen</button>
+<details><summary>Plan und Archiv</summary><pre id="automationPlan" class="scrollbox" style="white-space:pre-wrap;max-height:300px">Noch kein Plan geladen.</pre><button id="automationArchiveImports">White-Lightning-Importe archivieren</button><p class="small">Quellen ohne verifizierte Uhrzeit bleiben Recherchehinweise. Auch ohne Importe ist Webrecherche möglich.</p></details>
+<button id="automationRun" class="purple">Entwurf jetzt recherchieren</button><button id="automationRetry" class="ghost">Fehlgeschlagenen Lauf erneut starten</button><button id="automationRefresh" class="ghost">Status aktualisieren</button>
+<div id="automationRuns" class="scrollbox">Noch keine Verbindung.</div>
+<details><summary>Geladenen Automatikentwurf bearbeiten</summary><p id="automationDraftInfo" class="small">Noch kein Entwurf geladen.</p><p class="small">DE/EN im bestehenden Report prüfen. Änderungen am Automatikentwurf hier als vollständiges JSON speichern; danach den neu erstellten Bericht erneut laden und prüfen.</p><textarea id="automationDraftJson" class="json-output-box" aria-label="Automatikentwurf JSON"></textarea><button id="automationDraftSave">Entwurf speichern und neu rendern</button></details>
+<button id="automationRelease" class="warn" disabled>Geprüfte Ausgabe an gespeicherten Verteiler freigeben</button>
+<p class="small">Freigabe benötigt einen gespeicherten Automatikmodus und aktives Profil. Trennen pausiert den Dienst nicht; Manuell speichern pausiert Recherche und Versand.</p>
+<div id="automationStatus" class="small" role="status" aria-live="polite">Manuell. Keine automatische Recherche und kein Versand eingerichtet.</div>
+</details></section>
 <section class="panel" id="mpPanel">
-<h2>02a · Magic Paws → Honky Tonk</h2>
-<p class="small"><b>Direktimport ohne KI und ohne White Lightning.</b> Meldungen prüfen, auswählen und ins bestehende Reportformat übernehmen. Originalsprache bleibt erhalten; keine automatische Übersetzung oder Analyse.</p>
-<p class="small">1. Mit GitHub-Token direkt die aktuelle private <code>latest_honkytonk_feed.json</code> laden oder 2. HTML-Bericht/JSON herunterladen und hier auswählen. Die bisherige <code>latest_MAGIC_PAWS_24h_rawdata_report.json</code> enthält nur Metadaten. PDF ist kein Importformat.</p>
-<div class="row"><div><label for="mpToken">GitHub-Token für MagicPaws</label><input id="mpToken" type="password" autocomplete="off" placeholder="Fine-grained PAT: MagicPaws contents:read"></div><div><label for="mpBranch">MagicPaws-Branch</label><input id="mpBranch" value="main"></div></div>
-<label><input id="mpRememberToken" type="checkbox" style="width:auto;margin-right:6px"> Token nur in diesem Browser merken</label>
-<button id="mpFetchLatest" class="cyan">Aktuelle Magic-Paws-JSON laden</button><button id="mpForgetToken" class="ghost">Token vergessen</button>
-<p class="small"><a href="https://github.com/mowlsint/MagicPaws/tree/main/reports/rawdata" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Magic-Paws-Rohdatenordner öffnen</a>. Der Token wird nicht in HonkyTonk gespeichert oder veröffentlicht; nur bei gesetztem Häkchen landet er lokal in diesem Browser.</p>
+<h2>02a · Lokaler HTML-/JSON-Rohimport</h2>
+<p class="small"><b>Direktimport ohne KI und ohne White Lightning.</b> Lokale HTML-Berichte und kompatible events[]-JSON prüfen, auswählen und ins bestehende Reportformat übernehmen. Originalsprache bleibt erhalten; keine automatische Übersetzung oder Analyse. HonkyTonk greift nicht auf MagicPaws zu.</p>
 <input id="mpFiles" type="file" multiple accept=".html,.htm,.json">
 <details><summary>HTML / JSON direkt einfügen</summary><textarea id="mpPaste" placeholder="HTML-Quelltext oder Magic-Paws events[] JSON"></textarea><button id="mpParse">Vorschau erstellen</button></details>
 <div class="row"><div><label for="mpHours">Importzeitraum</label><select id="mpHours"><option value="24">24 Stunden</option><option value="36">36 Stunden</option><option value="48">48 Stunden</option><option value="168">7 Tage</option><option value="192">8 Tage</option><option value="all">Alle gelieferten Ereignisse</option></select></div><div><label for="mpEnd">Endzeitpunkt UTC</label><input id="mpEnd" type="datetime-local" step="60"></div></div>
@@ -314,7 +337,16 @@ NEGATIVMELDUNGEN / SEARCH COVERAGE, ZWINGEND
 - Wenn in einem Pflichtbereich keine verwertbare aktuelle Meldung gefunden wird, erzeuge keine leere Hauptmeldung und keine Platzhalter-Headline.
 - Dokumentiere die Negativprüfung im Feld meta.search_coverage, z. B. „UKMTO geprüft, keine relevante Meldung im Zeitfenster“ oder „kein belastbarer aktueller Drohnen-/Spionagehinweis mit maritimem Bezug gefunden“.
 - Negativmeldungen sind wichtig, um Suchabdeckung sichtbar zu machen, gehören aber nicht in items[].`)}return blocks.join('\n')}
+function actualResearchWindow(){
+  const value=document.getElementById('period').value,hours=({'letzte 24 Stunden':30,'letzte 36 Stunden':36,'letzte 48 Stunden':55,'letzte 7 Tage':192,'Wochenübersicht letzte 8 Tage':192})[value];
+  if(!hours)return 'Freies Importfenster: Zeitgrenzen ausdrücklich prüfen.';
+  const date=document.getElementById('reportDate').value,end=date===todayISO()?new Date():new Date(date+'T23:59:59');
+  if(!Number.isFinite(end.getTime()))return 'Endzeit fehlt; keine Datumsgrenzen erfinden.';
+  return new Date(end.getTime()-hours*36e5).toISOString()+' bis '+end.toISOString()+' ('+hours+' Stunden Recherche; sichtbares Wording bleibt '+value+').';
+}
 function buildPrompt(){let date=document.getElementById('reportDate').value,period=document.getElementById('period').value,region=document.getElementById('region').value,audience=document.getElementById('audience').value;return `${promptRole(audience)}\n\nZeitraum: ${period}
+Tatsächliches Recherchefenster UTC: ${actualResearchWindow()}
+Filtere Publikations-/Entwicklungszeit gegen diese absoluten Grenzen; Puffer gehört zum Recherchefenster.
 Report-Datum / Endzeitpunkt der Recherche: ${date}, 23:59 lokale Zeit, sofern keine andere Uhrzeit angegeben ist
 Region/Fokus: ${region}\nAdressat/Modus: ${audience}${modePromptBlock(audience)}\n\nARBEITSPRINZIPIEN
 - Nutze neben allgemeinen Nachrichten gezielt Behördenmeldungen, Hafen-/Coast-Guard-Newsrooms, maritime Fachmedien, Intelligence-Firmen, MDA-Anbieter, Research-Institute, Versicherer/P&I und thematisch einschlägige Fachquellen.
@@ -900,8 +932,6 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
   'use strict';
   const STORAGE = 'mowlsint.honkytonk.index2.draft.v1';
   const TOKEN_STORAGE = 'mowlsint.honkytonk.index2.github_token.v1';
-  const LATEST_FEED_PATH = 'reports/rawdata/latest_honkytonk_feed.json';
-  const MAGICPAWS_REPO = 'mowlsint/MagicPaws';
   const LIMIT = 10 * 1024 * 1024;
   const MAX_EVENTS = 2000;
   const $ = id => document.getElementById(id);
@@ -1050,7 +1080,7 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
   function inWindow(row) {
     const end = dateUTC($('mpEnd').value); if (!end) return false;
     const time = new Date(row.report.mp.event_time).getTime();
-    return $('mpHours').value === 'all' || (time <= end.getTime() && time > end.getTime() - Number($('mpHours').value)*36e5);
+    return $('mpHours').value === 'all' || (time <= end.getTime() && time > end.getTime() - ({'24':30,'48':55,'168':192}[$('mpHours').value]||Number($('mpHours').value))*36e5);
   }
   function preview() {
     const end = dateUTC($('mpEnd').value);
@@ -1061,59 +1091,11 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
       const r = row.report;
       return `<div class="item"><label style="text-transform:none"><input type="checkbox" data-mp-row="${i}" style="width:auto" ${eligible&&row.selected?'checked':''} ${eligible?'':'disabled'}> ${esc(r?.headline || row.title)}</label><span>${esc(row.duplicate ? 'Exakte Dublette: bereits in diesen Eingaben' : row.error || (!eligible ? 'Außerhalb des Zeitfensters' : `${r.date} · ${CATS[r.category].label} · ${r.severity}`))}</span>${r?`<span>${esc(r.summary)}</span><span>${esc(r.mp.category_rule)} · ${esc(r.mp.warning.join('; '))}</span><span>${esc(r.sources[0])}</span>`:''}</div>`;
     }).join('') || '<span class="small">Keine Rohereignisse vorhanden.</span>';
-    state.audit = { input_events:state.rows.length, eligible:good, out_of_scope:outside, invalid, duplicates, end_utc:end?.toISOString() || '', hours:$('mpHours').value };
+    state.audit = { input_events:state.rows.length, eligible:good, out_of_scope:outside, invalid, duplicates, end_utc:end?.toISOString() || '', hours:$('mpHours').value, actual_hours:({'24':30,'48':55,'168':192}[$('mpHours').value]||Number($('mpHours').value)) };
     const newest = Math.max(...state.batches.map(b=>new Date(b.generated).getTime()));
     const age = (Date.now()-newest)/36e5;
     status(`${state.batches.length} Datei(en) · ${good} gültig · ${outside} außerhalb · ${invalid} ungültig · ${duplicates} Dubletten. ${Number.isFinite(age)&&age>30?'Achtung: neuester Export älter als 30 Stunden. ':''}${end?'':'Endzeitpunkt fehlt! '}Nur gelieferte Daten, keine zusätzliche Recherche. Kartierung ist keine Ortsverifikation.`);
     $('mpApply').disabled = state.busy || !state.rows.some(r=>!r.error&&!r.duplicate&&r.selected&&inWindow(r));
-  }
-  function tokenValue() {
-    return safeText($('mpToken')?.value).trim();
-  }
-  function rememberToken() {
-    try {
-      if ($('mpRememberToken')?.checked && tokenValue()) localStorage.setItem(TOKEN_STORAGE, tokenValue());
-      else localStorage.removeItem(TOKEN_STORAGE);
-    } catch {}
-  }
-  function loadRememberedToken() {
-    try {
-      const token = localStorage.getItem(TOKEN_STORAGE) || '';
-      if (token && $('mpToken')) {
-        $('mpToken').value = token;
-        $('mpRememberToken').checked = true;
-      }
-    } catch {}
-  }
-  async function fetchLatestFeed() {
-    if (state.busy) return;
-    const token = tokenValue();
-    if (!token) { status('GitHub-Token fehlt. Benötigt wird ein Fine-grained Token mit Contents: read für mowlsint/MagicPaws.', true); return; }
-    rememberToken();
-    const branch = encodeURIComponent(safeText($('mpBranch')?.value).trim() || 'main');
-    const url = 'https://api.github.com/repos/' + MAGICPAWS_REPO + '/contents/' + LATEST_FEED_PATH + '?ref=' + branch;
-    $('mpApply').disabled = true; if ($('mpFetchLatest')) $('mpFetchLatest').disabled = true;
-    try {
-      status('Lade private Magic-Paws-JSON aus GitHub ...');
-      const res = await fetch(url, { headers: { 'Accept':'application/vnd.github+json', 'Authorization':'Bearer ' + token, 'X-GitHub-Api-Version':'2022-11-28' }, cache:'no-store' });
-      const errorPayload = res.ok ? null : await res.clone().json().catch(() => null);
-      const githubMessage = safeText(errorPayload?.message);
-      if (res.status === 404) throw new Error('GitHub meldet 404. Bei privaten Repositories heißt das: Feed oder Branch fehlt, oder der Token darf MagicPaws nicht lesen. Im Token unter Resource owner „mowlsint“ das Repository „MagicPaws“ und unter Repository permissions „Contents: Read-only“ setzen.' + (githubMessage ? ' GitHub: ' + githubMessage : ''));
-      if (res.status === 401 || res.status === 403) throw new Error('GitHub lehnt den Zugriff ab. Token, Resource owner „mowlsint“, Repository „MagicPaws“ und Fine-grained „Contents: Read-only“ prüfen.' + (githubMessage ? ' GitHub: ' + githubMessage : ''));
-      if (!res.ok) throw new Error('GitHub meldet HTTP ' + res.status + (githubMessage ? ': ' + githubMessage : '.') );
-      const payload = await res.json();
-      if (!payload || typeof payload.content !== 'string') throw new Error('GitHub-Antwort enthält keinen Dateiinhalt.');
-      const raw = atob(payload.content.replace(/\s+/g, ''));
-      const bytes = Uint8Array.from(raw, c => c.charCodeAt(0));
-      const text = new TextDecoder('utf-8', { fatal:false }).decode(bytes);
-      if (await stageInputs([{ name: LATEST_FEED_PATH, size: bytes.byteLength, text: async () => text }])) {
-        status('Aktuelle Magic-Paws-JSON geladen. Bitte Vorschau prüfen und ausgewählte Meldungen anhängen.');
-      }
-    } catch (e) {
-      state.busy = false; $('mpApply').disabled = false; status('GitHub-Import abgebrochen: ' + e.message, true);
-    } finally {
-      if ($('mpFetchLatest')) $('mpFetchLatest').disabled = false;
-    }
   }
   async function stageInputs(files) {
     if (state.busy) return; state.busy = true; $('mpApply').disabled = true;
@@ -1135,8 +1117,8 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
       state.batches = batches; state.rows = rows;
       const latest = Math.max(...batches.map(b=>new Date(b.generated).getTime()));
       if (Number.isFinite(latest)) $('mpEnd').value = new Date(Math.ceil(latest/60000)*60000).toISOString().slice(0,16);
-    } catch(e) { state.busy = false; if ($('mpFetchLatest')) $('mpFetchLatest').disabled = false; status('Import abgebrochen; bestehender Report bleibt unverändert: '+e.message,true); return false; }
-    state.busy = false; if ($('mpFetchLatest')) $('mpFetchLatest').disabled = false; preview(); return true;
+    } catch(e) { state.busy = false;  status('Import abgebrochen; bestehender Report bleibt unverändert: '+e.message,true); return false; }
+    state.busy = false;  preview(); return true;
   }
   function apply() {
     if (state.busy) return;
@@ -1215,7 +1197,7 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
   collectPlaces = function() {
     const out=[];
     for(const r of reports){out.push(...(r.places||[]).map(p=>({...p,category:r.category})));
-      if(!r.mp)out.push(...extractPlaces([r.headline,r.summary,r.note,r.region,r.corridor,r.port].join(' ')).map(p=>({...p,category:r.category})));}
+      if(!r.mp&&!r.ht_automation)out.push(...extractPlaces([r.headline,r.summary,r.note,r.region,r.corridor,r.port].join(' ')).map(p=>({...p,category:r.category})));}
     return dedupePlaces(out);
   };
   boundsFor=function(scope){return scope==='world'?{minLon:-180,minLat:-90,maxLon:180,maxLat:90}:original.boundsFor(scope);};
@@ -1266,11 +1248,8 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
       if(r.severity==='unbekannt'){const sel=card.querySelectorAll('select')[1];const opt=new Option('unbekannt','unbekannt',true,true);sel.add(opt);}
     });
   };
-  loadRememberedToken();
-  $('mpFetchLatest').addEventListener('click',fetchLatestFeed);
-  $('mpForgetToken').addEventListener('click',()=>{try{localStorage.removeItem(TOKEN_STORAGE);}catch{} if($('mpToken'))$('mpToken').value=''; if($('mpRememberToken'))$('mpRememberToken').checked=false; status('GitHub-Token aus diesem Browser entfernt.');});
-  $('mpRememberToken').addEventListener('change',rememberToken);
-  $('mpToken').addEventListener('change',rememberToken);
+  // Delete obsolete remote-connector credentials without reading or using them.
+  try { localStorage.removeItem(TOKEN_STORAGE); } catch {}
   $('mpFiles').addEventListener('change',e=>{if(e.target.files.length)stageInputs([...e.target.files]);});
   $('mpParse').addEventListener('click',()=>stageInputs([{name:'Eingefügter Rohbericht',text:async()=>$('mpPaste').value,size:new Blob([$('mpPaste').value]).size}]));
   for(const id of ['mpHours','mpEnd'])$(id).addEventListener('change',preview);
@@ -1286,10 +1265,11 @@ function downloadBilingualText(){downloadText('de');downloadText('en')}
   window.addEventListener('pagehide',save);
   $('mpEnd').value=new Date().toISOString().slice(0,16);
   // Public testing hooks have no credentials and never request external data.
-  window.MagicPawsImport={parseInput,makeReport,category,places,canonical,dateUTC,stageInputs,fetchLatestFeed,apply,restoreText,draft,state};
+  window.MagicPawsImport={parseInput,makeReport,category,places,canonical,dateUTC,stageInputs,apply,restoreText,draft,state};
   renderReport();renderEditor();
 })();
 
 </script>
+<script src="automation-client.js"></script>
 </body>
 </html>

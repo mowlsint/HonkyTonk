@@ -1,2 +1,5 @@
 .cloudflare-pages/
 node_modules/
+.honkytonk-data/
+.honkytonk-output/
+.env

@@ -3,10 +3,15 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "scripts": {
     "build:cloudflare-pages": "node scripts/build-cloudflare-pages.mjs",
-    "test": "node --test tests/magicpaws-import.test.mjs"
-  }
+    "test": "node --test tests/*.test.mjs",
+    "automation:serve": "node scripts/honkytonk-automation.mjs serve",
+    "automation:plan": "node scripts/honkytonk-automation.mjs plan",
+    "automation:tick": "node scripts/honkytonk-automation.mjs tick",
+    "test:browser": "node tests/magicpaws-browser.mjs && node tests/automation-browser.mjs"
+  },
+  "dependencies": { "playwright": "1.62.1" }
 }

@@ -34,8 +34,8 @@ const feed=events=>JSON.stringify({schema:'magicpaws-honkytonk-feed-1',generated
 const file=text=>({name:'synthetic.json',text:async()=>text,size:Buffer.byteLength(text)});
 
 test('all inline scripts have valid syntax and old interface remains present',()=>{
-  for(const id of ['fileInput','reportEditor','archiveMarkdownInput','outputLanguage','mapMode','mpPanel','mpPreview','mpToken','mpFetchLatest']) assert.match(html,new RegExp('id="'+id+'"'));
-  assert.match(html,/function printReport\(/);assert.match(html,/function downloadHTMLReport\(/);assert.match(html,/async function fetchLatestFeed\(/);assert.doesNotMatch(html,/ghp_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/);
+  for(const id of ['fileInput','reportEditor','archiveMarkdownInput','outputLanguage','mapMode','mpPanel','mpPreview','automationPanel']) assert.match(html,new RegExp('id="'+id+'"'));
+  assert.match(html,/function printReport\(/);assert.match(html,/function downloadHTMLReport\(/);assert.doesNotMatch(html,/fetchLatestFeed|MAGICPAWS_REPO|api\.github\.com|id="mpToken"|ghp_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+/);
 });
 test('section 04 uses explicit click listeners rather than inline handlers',()=>{
   const section=html.match(/<section class="panel ki-input-panel">[\s\S]*?<\/section>/)?.[0] || '';
@@ -110,7 +110,7 @@ test('duplicate reports staged once, including DE/EN copies and tracking variant
   assert.equal(api.state.audit.eligible,1);assert.equal(api.state.audit.duplicates,1);
 });
 test('strict half-open window excludes future records and cutoff, retains newest',async()=>{
-  const {api}=harness();await api.stageInputs([file(feed([event(),event({ts:'2026-09-15T04:00:00Z',url:'https://example.org/old'}),event({ts:'2026-09-16T05:00:00Z',url:'https://example.org/future'})]))]);
+  const {api}=harness();await api.stageInputs([file(feed([event(),event({ts:'2026-09-14T22:00:00Z',url:'https://example.org/old'}),event({ts:'2026-09-16T05:00:00Z',url:'https://example.org/future'})]))]);
   assert.equal(api.state.audit.eligible,1);assert.equal(api.state.audit.out_of_scope,2);
 });
 test('repeated application does not duplicate or overwrite edited reports',async()=>{
