@@ -126,3 +126,84 @@ test('failed mixed batch is atomic and leaves report and earlier staged rows int
 test('zero results are not turned into a synthetic news item',async()=>{
   const {api,ctx}=harness();await api.stageInputs([file(feed([]))]);api.apply();assert.equal(ctx.reports.length,0);
 });
+
+// Exercise the production exporters together, with only the browser DOM mocked.
+function exportHarness() {
+  const elements=new Map(),downloads=[];
+  const style={textContent:html.match(/<style>([\s\S]*?)<\/style>/)[1],get outerHTML(){return '<style>'+this.textContent+'</style>';}};
+  const node=id=>{
+    if(!elements.has(id))elements.set(id,{value:'',innerHTML:'',checked:false,style:{},addEventListener(){},
+      get outerHTML(){return '<div id="'+id+'" class="report-inner">'+this.innerHTML+'</div>';}});
+    return elements.get(id);
+  };
+  for(const id of ['period','audience']){
+    const select=html.match(new RegExp('<select id="'+id+'">([\\s\\S]*?)</select>'))[1];
+    node(id).options=[...select.matchAll(/<option[^>]*>([^<]+)<\/option>/g)].map(m=>({textContent:m[1],value:m[1]}));
+  }
+  const document={getElementById:node,querySelectorAll:selector=>selector==='style'?[style]:[],querySelector:selector=>{
+    if(selector==='style')return style;
+    if(selector==='#reportView .summarybox')return {set innerHTML(value){node('reportView').innerHTML=node('reportView').innerHTML.replace(/(<div class="summarybox">)[\s\S]*?(<\/div>)/,(_,a,b)=>a+value+b);}};
+    return null;
+  }};
+  const ctx={console,document,URL,Blob,Date,Map,Set,crypto:webcrypto,location:{href:'https://honkytonk.test/index2.html'},addEventListener(){}};
+  ctx.window=ctx;
+  const script=scripts[0],boot=script.lastIndexOf("['reportDate','period','region','audience'");
+  assert.ok(boot>0);
+  runInNewContext(script.slice(0,boot),ctx);
+  ctx.download=(name,body,type)=>downloads.push({name,body,type});
+  node('reportDate').value='2026-10-04';node('period').value='letzte 48 Stunden';
+  node('region').value='Nordsee, Ostsee, Ärmelkanal, Atlantikzugänge, Mittelmeer, Schwarzmeerraum, globale maritime Brennpunkte';
+  node('audience').value='Behördenlage / LvU-tauglich';node('mapMode').value='auto';node('outputLanguage').value='en';
+  const run=code=>runInNewContext(code,ctx);
+  return {ctx,node,downloads,run};
+}
+
+test('PDF print HTML, HTML, Markdown and TXT localize settings and restore language',()=>{
+  const {ctx,node,downloads}=exportHarness();
+  for(const text of [ctx.buildCleanPrintHTML(),ctx.markdown('en'),ctx.textReport('en')]){
+    assert.match(text,/Time window: Last 48 hours/);
+    assert.match(text,/North Sea, Baltic Sea, English Channel, Atlantic approaches, Mediterranean Sea, Black Sea region, Global maritime hotspots/);
+    assert.match(text,/Audience \/ Mode: Authority briefing \/ LvU-compatible/);
+    assert.match(text,/Executive Summary/);
+    assert.doesNotMatch(text,/letzte 48 Stunden|Behördenlage|Nordsee|Lage Core/);
+  }
+  ctx.downloadHTMLReport();assert.match(downloads.at(-1).body,/Time window: Last 48 hours/);
+  assert.match(downloads.at(-1).body,/<html lang="en">/);
+  ctx.downloadBilingualMarkdown();ctx.downloadBilingualText();
+  for(const output of downloads.slice(1))assert.match(output.body,output.name.includes('_EN')?/Time window: Last 48 hours/:/Zeitraum: letzte 48 Stunden/);
+  assert.equal(node('period').value,'letzte 48 Stunden');assert.equal(node('outputLanguage').value,'en');
+  node('outputLanguage').value='de';ctx.markdown('en');assert.equal(node('outputLanguage').value,'de');
+  assert.match(ctx.buildCleanPrintHTML(),/Zeitraum: letzte 48 Stunden/);
+});
+
+test('every standard time window is localized in English exports',()=>{
+  const {ctx,node}=exportHarness();
+  const expected=['Last 24 hours','Last 36 hours','Last 48 hours','Weekly overview: last 8 days','Last 7 days','Custom / from import'];
+  node('period').options.forEach((option,i)=>{node('period').value=option.value;assert.ok(ctx.markdown('en').includes('Time window: '+expected[i]));});
+  assert.equal(ctx.settingLabel('period','2026-10-01 / 2026-10-04','en'),'2026-10-01 / 2026-10-04');
+});
+
+test('English exports translate generated warnings and map names without altering sources',()=>{
+  const {report}=harness().api.makeReport(event({severity:'',region:'Nordsee'}),batch);
+  report.places=[{name:'Nordsee',lat:56.2,lon:3.2,role:'corridor',precision:'regional',type:'sea'}];
+  const {ctx,run}=exportHarness();ctx.fixture=report;run('reports=[fixture]');
+  for(const text of [ctx.buildCleanPrintHTML(),ctx.markdown('en'),ctx.textReport('en')]){
+    assert.match(text,/Unverified Magic Paws raw import/);assert.match(text,/Severity unknown; manual review required/);
+    assert.match(text,/No reliable location to map/);assert.match(text,/North Sea/);
+    assert.doesNotMatch(text,/Ungeprüfter|Nicht belastbar|Gewichtung unbekannt|Evidenzeinstufung/);
+    assert.match(text,/A routine port update\./);
+  }
+  assert.match(report.evidence,/Ungeprüfter/);assert.equal(report.region,'Nordsee');
+  assert.equal(ctx.geoLabel('Port of Nordsee Logistics / Hamburg','en'),'Port of Nordsee Logistics / Hamburg');
+  assert.equal(ctx.geoLabel('Nordsee, Hamburg | Ostsee','en'),'North Sea, Hamburg | Baltic Sea');
+});
+
+test('English archived settings round-trip back into the German form options',()=>{
+  const {ctx,node}=exportHarness();
+  const settings=ctx.parseArchivedMarkdownSettings(ctx.markdown('en'));
+  node('period').value='letzte 24 Stunden';node('audience').value='OSINT-Analyst';
+  ctx.applyArchivedMarkdownSettings(settings);
+  assert.equal(node('period').value,'letzte 48 Stunden');assert.equal(node('audience').value,'Behördenlage / LvU-tauglich');
+  const legacy=ctx.parseArchivedMarkdownSettings('# Report (04.10.2026)\nPeriod: letzte 36 Stunden\nRegion/Fokus: Nordsee\nAdressat/Modus: OSINT-Analyst');
+  ctx.applyArchivedMarkdownSettings(legacy);assert.equal(node('period').value,'letzte 36 Stunden');assert.equal(node('region').value,'Nordsee');
+});
