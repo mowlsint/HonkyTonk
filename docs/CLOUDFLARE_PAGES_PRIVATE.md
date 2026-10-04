@@ -14,7 +14,7 @@ In Cloudflare: **Workers & Pages → Create application → Pages → Connect to
 | Framework preset | `None` |
 | Build command | `npm run build:cloudflare-pages` |
 | Build output directory | `.cloudflare-pages` |
-| Node.js version | `20` |
+| Node.js version | `24` |
 
 Die Veröffentlichung nimmt bewusst `index2.html` als App-Einstieg und erstellt daraus im Build `index.html`. Das bestehende `index.html` im Repository bleibt unverändert.
 
@@ -32,5 +32,6 @@ Die Access-Anwendung muss die gesamte Domain schützen, nicht nur einzelne Pfade
 ## Sicherheitshinweise
 
 - Die Seitenregeln (`noindex`, `robots.txt`, `no-store`, Sicherheitsheader) sind nur zusätzliche Schutzschichten. Der wirksame Login-Schutz ist Cloudflare Access.
-- Der GitHub-Token für den Magic-Paws-Abruf bleibt ausschließlich im Browser der jeweiligen Bedienperson und wird nicht in Cloudflare oder GitHub-Secrets kopiert.
-- Für eine spätere serverseitige KI-/GitHub-Anbindung kommen Tokens nur als Cloudflare-Secret in eine Pages Function oder einen Worker, nie in die HTML-Datei.
+- Der bisherige Magic-Paws-Netzabruf ist entfernt. Lokale Dateien bleiben importierbar; es gibt keinen MagicPaws-Token mehr in der Oberfläche.
+- Der optionale Hintergrundbetrieb verwendet einen eigenen Node-Controller und ein privates GitHub-Markdown-Archiv. Einrichtung und serverseitige Secrets sind in [AUTOMATION.md](AUTOMATION.md) beschrieben. Pages liefert weiterhin nur die Oberfläche; OpenAI-/GitHub-/Mailkeys gehören nicht in HTML oder den Pages-Build.
+

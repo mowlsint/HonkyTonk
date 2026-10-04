@@ -1,25 +1,16 @@
 # Daily Honky Tonk – separate Magic-Paws-Version
 
-`index.html` bleibt unverändert. `index2.html` basiert auf derselben Oberfläche und ergänzt den Block **02a · Magic Paws → Honky Tonk**. Bestehende White-Lightning-, Prompt-, Editor-, Archiv- und Druckfunktionen bleiben enthalten. Es gibt keinen neuen API-Schlüssel, keine KI-Aufrufe und keine zusätzlichen geplanten Jobs.
+`index.html` bleibt unverändert. `index2.html` enthält weiterhin den kompatiblen lokalen HTML-/JSON-Rohimport unter **02a** sowie White Lightning, Prompt, Editor, Archiv und Druckfunktionen. Der bisherige direkte Magic-Paws-Abruf und seine Tokenfelder wurden entfernt; HonkyTonk greift nicht auf MagicPaws zu. Veraltete lokale Abruf-Tokens werden beim Start gelöscht.
 
-## Sofort nutzbarer Ablauf nach Veröffentlichung von index2
+Die eigenständige optionale Automatik ist in [AUTOMATION.md](AUTOMATION.md) beschrieben. Diese Datei dokumentiert ausschließlich den lokalen Kompatibilitätsimport.
 
-1. In GitHub einen Fine-grained Personal Access Token für `mowlsint/MagicPaws` mit **Contents: read** verwenden.
-2. In `index2.html` unter **02a** den Token einfügen und **Aktuelle Magic-Paws-JSON laden** klicken. Der Token wird nicht im Repo gespeichert; nur das optionale Häkchen merkt ihn lokal in diesem Browser.
-3. UTC-Endzeit und Zeitfenster prüfen. Der neueste gelieferte Export setzt die Endzeit. Ein größeres Fenster holt keine fehlenden Tage nach.
-4. Meldungen auswählen und an den Report anhängen. Kein KI-Zwischenschritt nötig. Danach redaktionell bearbeiten und die vorhandenen Exporte verwenden.
-5. Fallback bleibt möglich: Im privaten Magic-Paws-Repo `reports/rawdata` den aktuellen HTML-Bericht oder `latest_honkytonk_feed.json` herunterladen und lokal auswählen.
+## Lokaler Import
 
-Der ergänzte Magic-Paws-Renderer erzeugt außerdem **privat** `reports/rawdata/latest_honkytonk_feed.json`. Sobald diese Änderung übernommen und der bestehende Morgenlauf regulär ausgeführt wurde, lässt sich diese kleinere JSON-Datei gleichwertig importieren. Es wurde kein Workflow gestartet oder neu geplant. Bei Ausfall des optionalen Sidecars wird die bestehende PDF-/Mail-Erstellung nicht absichtlich abgebrochen.
+1. Bereits lokal vorliegende kompatible HTML-Berichte oder events[]-JSON unter **02a** auswählen oder einfügen.
+2. UTC-Endzeit und Zeitfenster prüfen. Der neueste gelieferte Export setzt die Endzeit; mehrere lokale Tagesdateien können gemeinsam geladen werden.
+3. Meldungen auswählen und an den Report anhängen, danach redaktionell prüfen und die bestehenden Exporte verwenden.
 
-## Was automatisiert ist – und was nicht
-
-- HTML/JSON lesen, Datumsfilter, URL-Dubletten, konservative Kategorie-Vorschläge, vorhandene Koordinaten, bestehendes Reportlayout.
-- Halbautomatisch ist jetzt der private Klick-Abruf der aktuellen JSON per lokal eingegebenem GitHub-Token. Manuell bleibt die redaktionelle Kontrolle und das Anhängen der ausgewählten Meldungen.
-- Der Token gehört weiterhin nicht in diese HTML-Datei und wird nicht in Entwurfs-JSON exportiert. Optionales Merken nutzt nur den lokalen Browser-Speicher des jeweiligen Geräts.
-- Ein späterer unbeaufsichtigter Abruf ohne Benutzereingriff benötigt weiterhin einen geschützten Backend-/Feed-Zugang oder eine freigegebene öffentliche Datenmenge.
-- Keine globale Websuche, keine Übersetzung, keine neue Analyse. Rohtexte bleiben in ihrer Originalsprache. DE/EN schaltet die Oberfläche/Reportbeschriftung um, nicht automatisch die Sprache der Meldungen.
-- Der vorhandene Kartenhintergrund wird wie bisher von ArcGIS geladen; Offline-Karten sind noch kein Bestandteil dieser Änderung. Die Weltansicht umfasst jetzt auch Asien/Pazifik.
+Der lokale Import macht keine Web-/KI-Aufrufe und keine automatische Übersetzung oder Analyse. Rohtexte bleiben in ihrer Originalsprache. Die nominalen Fenster 24/48 Stunden/7 Tage filtern tatsächlich 30/55/192 Stunden. Das erweitert die Auswahl gelieferter Daten; fehlende Quellen werden erst durch die separate Automatik recherchiert. Der bestehende Kartenhintergrund wird wie bisher von ArcGIS geladen.
 
 ## Datenqualität und Sicherheit
 
@@ -35,9 +26,6 @@ Der ergänzte Magic-Paws-Renderer erzeugt außerdem **privat** `reports/rawdata/
 
 ## Validierung
 
-Node.js 24: `node --test tests/magicpaws-import.test.mjs`
+`npm test` prüft Adapter, Sprach-/Exportverhalten und Automatik. Der echte Browsertest läuft mit `npm ci --ignore-scripts`, `npx playwright install chromium --only-shell`, dann `npm run test:browser`. Die synthetischen Browserprüfungen decken lokalen Import, Originalsprache, Geo, Draft-Roundtrip, Archiv und vorhandene Exporte ab; die Automatikprüfung erzeugt zusätzlich echte DE/EN-Test-PDFs.
 
-Optionaler echter Browsertest: `npm install --no-save playwright`, `npx playwright install chromium`, dann `node tests/magicpaws-browser.mjs`.
-Ein privater lokaler Rohdatenbericht kann optional mit `HONKYTONK_SAMPLE=/pfad/report.html` geprüft werden. Niemals private Beispieldaten ins öffentliche Honky-Tonk-Repo committen.
-
-Der initiale Testlauf deckt Syntax und regelbasierte Adapterlogik ab. Der echte Browsertest konnte in der Erstellungsumgebung wegen fehlendem Chromium und gescheitertem Browserdownload nicht ausgeführt werden. Vor Freigabe bitte den beigefügten Browsertest und einen PDF-Druck mit echten Daten durchführen.
+Ein eigener lokaler Rohdatenbericht kann optional mit `HONKYTONK_SAMPLE=/pfad/report.html` geprüft werden. Private Beispieldaten gehören nicht in das öffentliche Code-Repository.

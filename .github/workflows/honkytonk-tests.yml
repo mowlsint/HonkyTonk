@@ -1,0 +1,24 @@
+name: HonkyTonk tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm run build:cloudflare-pages
+      - run: npx playwright install --with-deps chromium --only-shell
+      - run: npm run test:browser
+# Verification uses synthetic local data only. No scheduled research or mail,
+# no OpenAI/GitHub data tokens, no publishing and no deployment.

@@ -10,17 +10,18 @@ let playwright;
 try { playwright=require('playwright'); } catch { playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright'); }
 const html=readFileSync(new URL('../index2.html',import.meta.url),'utf8');
 const original=readFileSync(new URL('../index.html',import.meta.url),'utf8');
-const browser=await playwright.chromium.launch({headless:true});
+const browser=await playwright.chromium.launch({headless:true,...(process.env.HONKYTONK_CHROMIUM_PATH?{executablePath:process.env.HONKYTONK_CHROMIUM_PATH}:{})});
 try {
   const context=await browser.newContext({acceptDownloads:true});
   const page=await context.newPage();const errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',async route=>{
-    if(route.request().url()==='http://honkytonk.test/index2.html')return route.fulfill({body:html,contentType:'text/html'});
-    if(route.request().url()==='http://honkytonk.test/index.html')return route.fulfill({body:original,contentType:'text/html'});
+    if(route.request().url()==='http://localhost/index2.html')return route.fulfill({body:html,contentType:'text/html'});
+    if(route.request().url()==='http://localhost/index.html')return route.fulfill({body:original,contentType:'text/html'});
+    if(route.request().url()==='http://localhost/automation-client.js')return route.fulfill({body:readFileSync(new URL('../automation-client.js',import.meta.url),'utf8'),contentType:'text/javascript'});
     return route.abort();
   });
-  await page.goto('http://honkytonk.test/index2.html');
+  await page.goto('http://localhost/index2.html');
   const sample=`<!doctype html><html><body><h1>MAGIC PAWS // SITREP</h1><section class="metaGrid"><div class="metaCard"><div class="k">Erstellt</div><div class="v">2026-09-16 04:00 UTC</div></div></section><section class="brief">DO NOT IMPORT AI BRIEF<script>window.pwned=true;<\/script></section><section class="rawList"><article class="event"><div class="eventMetaTop"><span>2026-09-16 03:00 UTC</span><span class="severity">SEV 2</span></div><h3>Example port fire</h3><p class="excerpt">Synthetic source text only.</p><dl class="eventFacts"><div><dt>Source</dt><dd>Example</dd></div><div><dt>Geo</dt><dd>20.0000, 38.0000 · controlled_region_centroid</dd></div><div><dt>Region</dt><dd>RED SEA</dd></div><div><dt>Link</dt><dd><a href="https://example.org/news">source</a></dd></div></dl></article></section></body></html>`;
   await page.locator('#mpFiles').setInputFiles({name:'synthetic.html',mimeType:'text/html',buffer:Buffer.from(sample)});
   await page.locator('#mpApply').click();
@@ -45,10 +46,11 @@ try {
   const archive=await page.evaluate(txt=>parseArchivedMarkdown(txt,'archive.md'),md);
   assert.equal(archive.items.length,1);
   const print=await page.evaluate(()=>buildCleanPrintHTML());assert.match(print,/Operator edit/);assert.doesNotMatch(print,/id="mpPanel"/);
+  await page.getByText('Entwurf sichern / fortsetzen',{exact:true}).click();
   await page.locator('#mpAutosave').check();await page.waitForTimeout(450);
   assert.ok(await page.evaluate(()=>localStorage.getItem('mowlsint.honkytonk.index2.draft.v1')));
-  await page.goto('http://honkytonk.test/index.html');assert.equal(await page.evaluate(()=>reports.length),0);
-  await page.goto('http://honkytonk.test/index2.html');await page.locator('#mpRestore').click();assert.equal(await page.evaluate(()=>reports.length),1);
+  await page.goto('http://localhost/index.html');assert.equal(await page.evaluate(()=>reports.length),0);
+  await page.goto('http://localhost/index2.html');await page.getByText('Entwurf sichern / fortsetzen',{exact:true}).click();await page.locator('#mpRestore').click();assert.equal(await page.evaluate(()=>reports.length),1);
   if(process.env.HONKYTONK_SAMPLE){
     await page.evaluate(()=>{reports=[];});
     await page.locator('#mpFiles').setInputFiles(process.env.HONKYTONK_SAMPLE);

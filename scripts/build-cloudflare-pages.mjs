@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 const root = process.cwd();
 const output = resolve(root, '.cloudflare-pages');
 const source = resolve(root, 'index2.html');
-const assets = ['honkytonk.png', 'honkytonk_mini.png', 'honkytonk.ico'];
+const assets = ['honkytonk.png', 'honkytonk_mini.png', 'honkytonk.ico', 'automation-client.js'];
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
