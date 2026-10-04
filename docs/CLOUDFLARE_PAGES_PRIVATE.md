@@ -33,5 +33,5 @@ Die Access-Anwendung muss die gesamte Domain schützen, nicht nur einzelne Pfade
 
 - Die Seitenregeln (`noindex`, `robots.txt`, `no-store`, Sicherheitsheader) sind nur zusätzliche Schutzschichten. Der wirksame Login-Schutz ist Cloudflare Access.
 - Der bisherige Magic-Paws-Netzabruf ist entfernt. Lokale Dateien bleiben importierbar; es gibt keinen MagicPaws-Token mehr in der Oberfläche.
-- Der optionale Hintergrundbetrieb verwendet einen eigenen Node-Controller und ein privates GitHub-Markdown-Archiv. Einrichtung und serverseitige Secrets sind in [AUTOMATION.md](AUTOMATION.md) beschrieben. Pages liefert weiterhin nur die Oberfläche; OpenAI-/GitHub-/Mailkeys gehören nicht in HTML oder den Pages-Build.
+- Der optionale Hintergrundbetrieb verwendet einen separaten Cloudflare-Worker mit Workflows, Browser Run und einem privaten GitHub-Markdown-Archiv. Einrichtung und serverseitige Secrets sind in [CLOUDFLARE_AUTOMATION.md](CLOUDFLARE_AUTOMATION.md) beschrieben. Pages liefert weiterhin nur die Oberfläche; OpenAI-/GitHub-/Mailkeys gehören nicht in HTML oder den Pages-Build.
 

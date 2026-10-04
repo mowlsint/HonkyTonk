@@ -1,6 +1,6 @@
 # HonkyTonk: optionaler Hintergrundbetrieb
 
-Der bestehende manuelle Ablauf ist weiterhin Standard. Die neue, eingeklappte Einstellung „01a · HonkyTonk Automatisierung“ steuert einen eigenständigen Node-Dienst. Eine statische GitHub-/Cloudflare-Seite allein führt keine Hintergrundaufgaben aus. Der Dienst läuft unabhängig vom Browser und liest seinen Betriebsmodus vor jedem Lauf und jedem Versand erneut aus dem Markdown-Archiv.
+Der bestehende manuelle Ablauf ist weiterhin Standard. Die eingeklappte Einstellung „01a · HonkyTonk Automatisierung“ verbindet sich mit einem eigenständigen Controller. Für das bestehende Cloudflare-Pages-Projekt läuft dieser auf **Cloudflare Workers + Workflows + Browser Run**; die genaue Dashboard-Einrichtung steht in [CLOUDFLARE_AUTOMATION.md](CLOUDFLARE_AUTOMATION.md). Der Node-Dienst bleibt als lokale Entwicklung und alternative Bereitstellung erhalten. Beide Varianten arbeiten unabhängig vom Browser und lesen ihren Betriebsmodus vor jedem Lauf und Versand erneut aus dem privaten Markdown-Archiv.
 
 ## Betriebsmodi und Ausgabeprofile
 

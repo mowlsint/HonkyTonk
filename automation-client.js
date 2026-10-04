@@ -4,6 +4,8 @@
   const $ = id => document.getElementById(id);
   let config = null, revision = null, selectedReport = null, selectedRevision = null, editingId = null;
   let controller = '', token = '', poll = null;
+  const pendingJobs = new Map();
+  function watchJob(data, label) { if (data.workflow_id) pendingJobs.set(data.workflow_id, { label, runId: data.run_id }); }
   const defaults = () => ({ version: 1, mode: 'manual', profiles: [
     ['daily', '24 Stunden', 'daily'], ['twoDay', '48 Stunden', '48h'], ['weekly', '7 Tage', 'weekly']
   ].map(([id, name, cadence]) => ({ id, name, enabled: false, preset: id, language: 'both', model: 'gpt-6.1-sol',
@@ -41,6 +43,11 @@
     config.mode = $('automationMode').value;
   }
   async function refreshRuns() {
+    for (const [id, job] of pendingJobs) {
+      const progress = await api('jobs/' + id);
+      if (['complete', 'completed'].includes(progress.status)) { pendingJobs.delete(id); status(job.label + ' abgeschlossen. Archivierten Bericht und Status neu prüfen.'); }
+      else if (['errored', 'terminated'].includes(progress.status)) { pendingJobs.delete(id); status(job.label + ' angehalten: ' + (progress.error || progress.status), true); }
+    }
     const data = await api('runs'), list = $('automationRuns'); list.replaceChildren();
     for (const run of data.runs) {
       const row = document.createElement('div'); row.className = 'item';
@@ -50,7 +57,7 @@
         applyPayload(entry.report.payload, entry.report.profile, entry.report.profile.language === 'en' ? 'en' : 'de');
         $('automationDraftJson').value = JSON.stringify(entry.report.payload, null, 2);
         $('automationDraftInfo').textContent = `${run.id} · ${entry.report.profile.language} · Verteiler: ${entry.report.profile.recipients.join(', ') || 'leer'} · ${run.status}`;
-        $('automationRelease').disabled = !['awaiting_review', 'ready'].includes(run.status);
+        $('automationRelease').disabled = !['awaiting_review', 'ready'].includes(run.status) || [...pendingJobs.values()].some(job => job.runId === run.id);
         status('Archivierten Bericht geladen. Entwurf und Verteiler vor Freigabe prüfen.');
       })); row.append(button); }
       list.append(row);
@@ -90,26 +97,27 @@
     // Polling shows progress only; all scheduled work is performed server-side.
     poll = setInterval(() => { if ($('automationDetails').open) act(refreshRuns); }, 15000);
   }));
-  $('automationDisconnect').addEventListener('click', () => { token = ''; $('automationAdminToken').value = ''; clearInterval(poll); status('Verbindung getrennt. Der gespeicherte Servermodus bleibt aktiv. Zum Pausieren Manuell speichern.'); });
+  $('automationDisconnect').addEventListener('click', () => { token = ''; $('automationAdminToken').value = ''; clearInterval(poll); pendingJobs.clear(); status('Verbindung getrennt. Der gespeicherte Servermodus bleibt aktiv. Zum Pausieren Manuell speichern.'); });
   $('automationProfile').addEventListener('change', () => { collectProfile(); fillProfile(); });
   $('automationAdd').addEventListener('click', () => { collectProfile(); const p = structuredClone(profile() || defaults().profiles[0]); p.id = 'profile-' + crypto.randomUUID().slice(0, 8); p.name = 'Neue Ausgabe'; p.enabled = false; p.recipients = []; config.profiles.push(p); fillProfileList(p.id); });
   $('automationSave').addEventListener('click', () => act(async () => { collectProfile(); const saved = await api('config', 'PUT', { config, revision }); config = saved.config; revision = saved.revision; fillProfileList(profile()?.id); status(config.mode === 'manual' ? 'Manuell gespeichert: automatische Recherche und Versand pausiert.' : 'Automatikprofile auf dem Controller gespeichert.'); }));
   $('automationPreview').addEventListener('click', () => act(async () => { const data = await api('preview', 'POST', { profile_id: profile().id }); $('automationPlan').textContent = JSON.stringify(data, null, 2); status('Plan ohne KI-Aufruf und ohne Versand erstellt. Er verwendet das zuletzt gespeicherte Profil.'); }));
-  $('automationRun').addEventListener('click', () => act(async () => { await api('run', 'POST', { profile_id: profile().id }); status('Entwurf im Hintergrund gestartet. Er wird erst nach Freigabe versandt.'); await refreshRuns(); }));
-  $('automationRetry').addEventListener('click', () => act(async () => { await api('run', 'POST', { profile_id: profile().id, retry: true }); status('Fehlgeschlagenen Lauf als Entwurf erneut gestartet; gespeicherte Recherche wird wiederverwendet.'); }));
+  $('automationRun').addEventListener('click', () => act(async () => { const data = await api('run', 'POST', { profile_id: profile().id }); watchJob(data, 'Entwurf'); status(data.workflow_id || data.status === 'started' ? 'Entwurf im Hintergrund gestartet. Er wird erst nach Freigabe versandt.' : 'Geplante Ausgabe bereits vorhanden: ' + data.status + '. Bericht im Archiv prüfen.'); await refreshRuns(); }));
+  $('automationRetry').addEventListener('click', () => act(async () => { const data = await api('run', 'POST', { profile_id: profile().id, retry: true }); watchJob(data, 'Wiederholung'); status('Wiederholung angefordert; gespeicherte Recherche wird wiederverwendet. Status im Archiv prüfen.'); }));
   $('automationArchiveImports').addEventListener('click', () => act(async () => { const data = await api('sources', 'POST', { profile_id: profile().id, items: imports }); status(`${data.saved} White-Lightning-Blöcke archiviert; ${data.rejected.length} zurückgewiesen.${data.rejected.length ? ' ' + data.rejected.map(r => r.item + ': ' + r.reason).join(' | ') : ''}`); }));
   $('automationRefresh').addEventListener('click', () => act(refreshRuns));
   $('automationDraftJson').addEventListener('input', () => { $('automationRelease').disabled = true; status('JSON geändert. Entwurf speichern und neu gerenderte Ausgabe prüfen.'); });
   $('automationDraftSave').addEventListener('click', () => act(async () => {
     if (!selectedReport) throw new Error('Zuerst einen Hintergrundbericht laden.');
     const payload = JSON.parse($('automationDraftJson').value), entry = await api('reports/' + selectedReport.id, 'PUT', { payload, revision: selectedRevision });
+    if (entry.workflow_id) { watchJob(entry, 'Entwurfsänderung'); selectedReport = null; selectedRevision = null; $('automationRelease').disabled = true; status('Änderung im Hintergrund gestartet. Danach Bericht erneut laden und Exporte prüfen.'); await refreshRuns(); return; }
     selectedReport = entry.report; selectedRevision = entry.revision;
     applyPayload(entry.report.payload, entry.report.profile, entry.report.profile.language === 'en' ? 'en' : 'de');
     status('Entwurf validiert, Exporte neu erstellt. Ausgabe vor Freigabe prüfen.'); await refreshRuns();
   }));
   $('automationRelease').addEventListener('click', () => act(async () => {
     if (!selectedReport || $('automationDraftJson').value !== JSON.stringify(selectedReport.payload, null, 2)) throw new Error('Entwurf geändert; vor Freigabe speichern und erneut laden.');
-    await api('release', 'POST', { run_id: selectedReport.id, revision: selectedRevision });
-    $('automationRelease').disabled = true; status('Freigegebene Ausgabe an ihren gespeicherten Verteiler versandt.'); await refreshRuns();
+    const result = await api('release', 'POST', { run_id: selectedReport.id, revision: selectedRevision }); watchJob(result, 'Versand');
+    $('automationRelease').disabled = true; status(result.workflow_id ? 'Freigabe im Hintergrund gestartet. Versandstatus im Archiv prüfen.' : 'Freigegebene Ausgabe an ihren gespeicherten Verteiler versandt.'); await refreshRuns();
   }));
 })();

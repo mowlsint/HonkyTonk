@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { hash } from './core.mjs';
 
 export class ResendMailer {
