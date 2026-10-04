@@ -1,5 +1,6 @@
+import { Buffer } from 'node:buffer';
 import { MODEL_PROFILES, windowFor, scheduledEnd, localDate, runId, planResearch, dedupeSources, sourceDocument, hash, markdownDocument, iso } from './core.mjs';
-import { ConflictError, loadConfig, loadRecord, saveRecord, readArchive } from './archive.mjs';
+import { ConflictError, loadConfig, loadRecord, saveRecord, readArchive } from './records.mjs';
 import { validateReport } from './openai.mjs';
 
 export const runPath = id => `state/runs/${id}.md`;
@@ -8,8 +9,9 @@ const guardId = id => { if (!/^[a-zA-Z0-9_-]{1,120}$/.test(id)) throw new Error(
 const sameProfile = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 export class HonkyTonkRunner {
-  constructor({ archive, researcher, renderer, mailer, now = () => new Date() }) {
+  constructor({ archive, researcher, renderer, mailer, now = () => new Date(), stage = async (_name, action) => action(), autoDispatch = true, runtime = {} }) {
     this.archive = archive; this.researcher = researcher; this.renderer = renderer; this.mailer = mailer; this.now = now;
+    this.stage = stage; this.autoDispatch = autoDispatch; this.runtime = runtime;
   }
   async preview(profile, end = scheduledEnd(profile, this.now())) {
     if (!end) throw new Error('First scheduled output is still in the future');
@@ -39,53 +41,73 @@ export class HonkyTonkRunner {
   async generate(profile, { end = scheduledEnd(profile, this.now()), draft = false, retry = false } = {}) {
     await this.checkActive(profile, draft);
     if (!end) throw new Error('First scheduled output is still in the future');
-    const id = runId(profile, end), path = runPath(id), previous = await loadRecord(this.archive, path);
-    if (previous && !(retry && previous.data.status === 'failed')) return previous.data;
-    let run = { kind: 'run', id, profile: structuredClone(profile), window: { ...windowFor(profile, end), report_date: localDate(end, profile.schedule.timezone) }, status: 'generating', started_at: iso(this.now()), phase: 'archive', forced_draft: draft };
-    let revision;
-    try { revision = await saveRecord(this.archive, path, run, previous?.revision || null); }
-    catch (e) { if (e instanceof ConflictError) return { id, status: 'busy' }; throw e; }
-    const update = async change => { run = { ...run, ...change }; revision = await saveRecord(this.archive, path, run, revision); };
+    const id = runId(profile, end), path = runPath(id);
+    const claim = await this.stage('claim-run', async () => {
+      const previous = await loadRecord(this.archive, path);
+      if (previous && !(retry && previous.data.status === 'failed')) return { existing: previous.data };
+      const run = { kind: 'run', id, profile: structuredClone(profile), window: { ...windowFor(profile, end), report_date: localDate(end, profile.schedule.timezone) }, status: 'generating', started_at: iso(this.now()), phase: 'archive', forced_draft: draft, ...this.runtime };
+      try { return { run, revision: await saveRecord(this.archive, path, run, previous?.revision || null) }; }
+      catch (e) { if (e instanceof ConflictError) return { existing: { id, status: 'busy' } }; throw e; }
+    });
+    if (claim.existing) return claim.existing;
+    let { run, revision } = claim;
+    const update = async (name, change) => {
+      const saved = await this.stage('status-' + name, async () => {
+        const next = { ...run, ...change };
+        return { run: next, revision: await saveRecord(this.archive, path, next, revision) };
+      });
+      run = saved.run; revision = saved.revision;
+    };
     try {
-      await this.researcher.checkConfigured?.(); await this.renderer.checkConfigured?.();
-      const plan = await this.preview(profile, end), collected = [...plan.sources], checks = [];
-      for (const job of plan.jobs) {
+      await this.stage('preflight', async () => { await this.researcher.checkConfigured?.(); await this.renderer.checkConfigured?.(); return true; });
+      const plan = await this.stage('research-plan', () => this.preview(profile, end)), collected = [...plan.sources];
+      for (const [index, job] of plan.jobs.entries()) {
         await this.checkActive(profile, draft);
-        await update({ phase: 'research' });
-        const result = await this.researcher.research(profile, job, plan.candidates);
-        for (const source of result.sources) {
-          const sourcePath = `sources/web/${source.id}.md`;
-          if (!await this.archive.read(sourcePath)) {
-            try { await this.archive.write(sourcePath, sourceDocument(source)); }
+        await update('research-' + index, { phase: 'research' });
+        const result = await this.stage('research-' + index, async () => {
+          const result = await this.researcher.research(profile, job, plan.candidates);
+          for (const source of result.sources) {
+            const sourcePath = `sources/web/${source.id}.md`;
+            if (!await this.archive.read(sourcePath)) {
+              try { await this.archive.write(sourcePath, sourceDocument(source)); }
+              catch (e) { if (!(e instanceof ConflictError)) throw e; }
+            }
+          }
+          const coverageId = hash(JSON.stringify(job)).slice(0, 32), coveragePath = `state/coverage/${coverageId}.md`;
+          if (!await this.archive.read(coveragePath)) {
+            try { await saveRecord(this.archive, coveragePath, { kind: 'coverage', id: coverageId, ...job, status: 'complete', checks: result.checks, limitations_de: result.limitations_de, limitations_en: result.limitations_en, source_ids: result.sources.map(s => s.id), response_id: result.response_id, searched_at: iso(this.now()) }); }
             catch (e) { if (!(e instanceof ConflictError)) throw e; }
           }
-        }
-        const coverageId = hash(JSON.stringify(job)).slice(0, 32), coveragePath = `state/coverage/${coverageId}.md`;
-        if (!await this.archive.read(coveragePath)) {
-          try { await saveRecord(this.archive, coveragePath, { kind: 'coverage', id: coverageId, ...job, status: 'complete', checks: result.checks, limitations_de: result.limitations_de, limitations_en: result.limitations_en, source_ids: result.sources.map(s => s.id), response_id: result.response_id, searched_at: iso(this.now()) }); }
-          catch (e) { if (!(e instanceof ConflictError)) throw e; }
-        }
-        collected.push(...result.sources); checks.push(...result.checks);
+          return result;
+        });
+        collected.push(...result.sources);
       }
-      const archiveData = await readArchive(this.archive), sources = dedupeSources([...collected, ...planResearch(profile, run.window, archiveData.coverage, archiveData.sources).sources]);
-      // Include genuine old checks (including zero findings) in the synthesis.
-      plan.checks = archiveData.coverage.filter(c => c.scope === plan.scope && c.status === 'complete' && Date.parse(c.end) >= Date.parse(plan.window.start) && Date.parse(c.start) <= Date.parse(plan.window.end)).flatMap(c => c.checks.filter(check => profile.topics.includes(check.topic)).map(check => ({ ...check, start: c.start, end: c.end, reused: !plan.jobs.some(j => j.start === c.start && j.end === c.end) })));
+      const evidence = await this.stage('source-snapshot', async () => {
+        const archiveData = await readArchive(this.archive), sources = dedupeSources([...collected, ...planResearch(profile, run.window, archiveData.coverage, archiveData.sources).sources]);
+        // Include genuine old checks (including zero findings) in the synthesis.
+        const checks = archiveData.coverage.filter(c => c.scope === plan.scope && c.status === 'complete' && Date.parse(c.end) >= Date.parse(plan.window.start) && Date.parse(c.start) <= Date.parse(plan.window.end)).flatMap(c => c.checks.filter(check => profile.topics.includes(check.topic)).map(check => ({ ...check, start: c.start, end: c.end, reused: !plan.jobs.some(j => j.start === c.start && j.end === c.end) })));
+        return { sources, checks };
+      });
+      const { sources } = evidence; plan.checks = evidence.checks;
       await this.checkActive(profile, draft);
-      await update({ phase: 'synthesis' });
-      const result = await this.researcher.synthesise(profile, plan, sources);
+      await update('synthesis', { phase: 'synthesis' });
+      const result = await this.stage('synthesis', () => this.researcher.synthesise(profile, plan, sources));
       validateReport(result.payload, sources, run.window);
-      await update({ phase: 'render' });
-      const artifacts = await this.createArtifacts(id, result.payload, profile);
-      const report = { kind: 'report', id, status: 'complete', profile: run.profile, window: run.window, scope: plan.scope, source_ids: sources.map(s => s.id),
-        reused_report_ids: plan.previous_reports.map(r => r.id), payload: result.payload, artifacts, model: profile.model,
-        prompt_version: result.prompt_version || MODEL_PROFILES[profile.model].version, response_id: result.response_id, created_at: iso(this.now()) };
-      const reportFile = reportPath(id), oldReport = await loadRecord(this.archive, reportFile);
-      const firstArtifact = await loadRecord(this.archive, Object.values(artifacts)[0]);
-      const reportRevision = await this.archive.write(reportFile, markdownDocument({ kind: 'report', id, window_start: run.window.start, window_end: run.window.end, period: run.window.label, model: profile.model }, firstArtifact.data.markdown, report), oldReport?.revision || null);
+      await this.checkActive(profile, draft);
+      await update('render', { phase: 'render' });
+      const artifacts = await this.stage('render-artifacts', () => this.createArtifacts(id, result.payload, profile));
+      const reportRevision = await this.stage('archive-report', async () => {
+        const report = { kind: 'report', id, status: 'complete', profile: run.profile, window: run.window, scope: plan.scope, source_ids: sources.map(s => s.id),
+          reused_report_ids: plan.previous_reports.map(r => r.id), payload: result.payload, artifacts, model: profile.model,
+          prompt_version: result.prompt_version || MODEL_PROFILES[profile.model].version, response_id: result.response_id, created_at: iso(this.now()) };
+        const reportFile = reportPath(id), oldReport = await loadRecord(this.archive, reportFile);
+        const firstArtifact = await loadRecord(this.archive, Object.values(artifacts)[0]);
+        return this.archive.write(reportFile, markdownDocument({ kind: 'report', id, window_start: run.window.start, window_end: run.window.end, period: run.window.label, model: profile.model }, firstArtifact.data.markdown, report), oldReport?.revision || null);
+      });
       const { config } = await loadConfig(this.archive);
       const ready = !draft && config.mode === 'automatic';
-      await update({ status: ready ? 'ready' : 'awaiting_review', phase: 'complete', report_path: reportFile, report_revision: reportRevision, completed_at: iso(this.now()), source_count: sources.length, search_jobs: plan.jobs.length, reused_sources: plan.sources.length });
-      if (ready) await this.dispatch(id, reportRevision);
+      await update('complete', { status: ready ? 'ready' : 'awaiting_review', phase: 'complete', report_path: reportPath(id), report_revision: reportRevision, completed_at: iso(this.now()), source_count: sources.length, search_jobs: plan.jobs.length, reused_sources: plan.sources.length });
+      if (ready && this.autoDispatch) await this.dispatch(id, reportRevision);
       return (await loadRecord(this.archive, path)).data;
     } catch (error) {
       // Dispatch failures have an outbox record of their own; don't label a
@@ -93,7 +115,7 @@ export class HonkyTonkRunner {
       if (run.status === 'ready') {
         const current = await loadRecord(this.archive, path);
         if (current.data.status === 'ready') await saveRecord(this.archive, path, { ...current.data, error: error.message }, current.revision);
-      } else await update({ status: 'failed', error: error.message, failed_at: iso(this.now()) });
+      } else await update('failed', { status: 'failed', error: error.message, failed_at: iso(this.now()) });
       throw error;
     }
   }

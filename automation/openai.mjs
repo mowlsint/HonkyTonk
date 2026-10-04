@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { MODEL_PROFILES, TOPICS, canonicalURL, hash, iso, dedupeSources } from './core.mjs';
 
 const str = { type: 'string' }, strings = { type: 'array', items: str }, bool = { type: 'boolean' };

@@ -11,7 +11,19 @@
     "automation:serve": "node scripts/honkytonk-automation.mjs serve",
     "automation:plan": "node scripts/honkytonk-automation.mjs plan",
     "automation:tick": "node scripts/honkytonk-automation.mjs tick",
-    "test:browser": "node tests/magicpaws-browser.mjs && node tests/automation-browser.mjs"
+    "test:browser": "node tests/magicpaws-browser.mjs && node tests/automation-browser.mjs && node tests/cloudflare-browser.mjs",
+    "build:cloudflare-worker": "node scripts/build-cloudflare-worker.mjs",
+    "check:cloudflare-worker": "npm run build:cloudflare-worker && wrangler deploy --config wrangler.worker.jsonc --dry-run --outdir .wrangler/dry-run",
+    "deploy:cloudflare-worker": "npm run build:cloudflare-worker && wrangler deploy --config wrangler.worker.jsonc",
+    "dev:cloudflare-worker": "npm run build:cloudflare-worker && wrangler dev --config wrangler.worker.jsonc",
+    "test:cloudflare-runtime": "node tests/cloudflare-runtime.mjs"
   },
-  "dependencies": { "playwright": "1.62.1" }
+  "dependencies": {
+    "@cloudflare/playwright": "1.3.6",
+    "playwright": "1.62.1"
+  },
+  "devDependencies": {
+    "wrangler": "4.147.0",
+    "miniflare": "5.20261001.0-alpha"
+  }
 }
