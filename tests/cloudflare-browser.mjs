@@ -30,7 +30,7 @@ const assetReads = [], env = { BROWSER: {}, ASSETS: { async fetch(request) {
 const mapImage = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jD5sAAAAASUVORK5CYII=', 'base64');
 const launchOptions = { headless: true, ...(process.env.HONKYTONK_CHROMIUM_PATH ? { executablePath: process.env.HONKYTONK_CHROMIUM_PATH } : {}) };
 const renderer = new CloudflareRenderer(env, { launchBrowser: () => chromium.launch(launchOptions), configureContext: async context => {
-  await context.route('https://services.arcgisonline.com/**', route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
+  await context.route(/https:\/\/(services|server)\.arcgisonline\.com\//, route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
 } });
 const mail = [], runner = new HonkyTonkRunner({ archive, renderer, now: () => now,
   researcher: { checkConfigured() {}, research: async (_profile, job) => ({ sources: [source], checks: job.topics.map(topic => ({ topic, checked: true, finding: 'findings', note_de: 'Test.', note_en: 'Test.' })), limitations_de: [], limitations_en: [], response_id: 'synthetic-search' }), synthesise: async (p, plan, sources) => ({ payload: fixtureReport(p, plan.window, sources), response_id: 'synthetic-report' }) },
@@ -61,7 +61,7 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 let browser;
 try {
   browser = await chromium.launch(launchOptions); const context = await browser.newContext({ viewport: { width: 1500, height: 1000 } });
-  await context.route('https://services.arcgisonline.com/**', route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
+  await context.route(/https:\/\/(services|server)\.arcgisonline\.com\//, route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
   const page = await context.newPage(), errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto(origin); await page.locator('#automationDetails > summary').click(); await page.locator('#automationAdminToken').fill(env.HONKYTONK_ADMIN_TOKEN); await page.locator('#automationConnect').click();
   await page.waitForFunction(() => document.getElementById('automationStatus').textContent.startsWith('Verbunden.'));
