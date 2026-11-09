@@ -158,6 +158,60 @@ function exportHarness() {
   return {ctx,node,downloads,run};
 }
 
+test('both page variants have valid inline JavaScript',()=>{
+  const legacy=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+  for(const script of [...legacy.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)])new Script(script[1]);
+});
+test('local map aligns map image bounds and marker coordinates without clipping distant forced-view points',()=>{
+  const {ctx,node}=exportHarness();
+  const place={name:'Wiesbaden',lat:50.0826,lon:8.2415,type:'city',precision:'approximate',role:'event_location',geo_source:'source'};
+  const pts=[place];
+  assert.equal(ctx.scopeFor(pts),'local');
+  const b=ctx.boundsFor('local',pts),ratio=(b.maxLon-b.minLon)/(b.maxLat-b.minLat);
+  assert.ok(Math.abs(ratio-1200/520)<1e-9);
+  const marker=ctx.placeXY(place,b);assert.ok(Math.abs(marker.x-50)<1e-6&&Math.abs(marker.y-50)<1e-6);
+  assert.match(ctx.mapUrl(b,'local'),/World_Topo_Map/);
+  const rendered=ctx.renderMap(pts);assert.match(rendered,/class="marker"/);
+  assert.match(rendered,/crossorigin="anonymous"/);
+  assert.match(rendered,/onerror=/);
+  const sea={name:'Nordsee',lat:56.2,lon:3.2,type:'sea',precision:'regional',role:'corridor',geo_source:'local_gazetteer'};
+  assert.equal(ctx.scopeFor([sea]),'europe');
+  const world=ctx.boundsFor('world');
+  assert.equal((world.maxLon-world.minLon)/(world.maxLat-world.minLat),2);
+  assert.match(ctx.mapUrl(world,'world'),/size=1200%2C600/);
+  node('mapMode').value='europe';
+  const abroad={name:'Santos',lat:-23.96,lon:-46.33,type:'city',role:'event_location',precision:'approximate',geo_source:'source'};
+  assert.doesNotMatch(ctx.renderMap([abroad]),/class="marker"/);
+});
+test('unverified coordinates and place names cannot silently acquire an exact event point',()=>{
+  const {ctx}=exportHarness();
+  const missing=ctx.normalizePlaces([{name:'Wiesbaden',role:'event_location',precision:'exact',geo_source:'source'}])[0];
+  assert.equal(missing.lat,undefined);assert.equal(missing.precision,'unknown');
+  assert.equal(ctx.shouldPlotPlace(missing),false);
+  assert.equal(ctx.parseCoord('53.3north'),undefined);
+  assert.equal(ctx.parseCoord(''),undefined);
+  assert.equal(ctx.parseCoord('0'),0);
+  const named=ctx.normalizePlaces(['Wiesbaden'])[0];
+  assert.equal(named.precision,'regional');
+  assert.equal(named.geo_source,'local_gazetteer');
+  assert.ok(ctx.shouldPlotPlace(named));
+});
+test('research prompt uses exact 24/36/48 hour periods and gives inland regions priority',()=>{
+  const {ctx,node}=exportHarness();node('reportDate').value='2026-10-04';
+  for(const [label,h] of [['letzte 24 Stunden',24],['letzte 36 Stunden',36],['letzte 48 Stunden',48],['letzte 7 Tage',168]]){
+    node('period').value=label;const s=ctx.actualResearchWindow();const [a,b]=s.split(' bis ');
+    assert.equal((Date.parse(b)-Date.parse(a))/3600000,h);
+  }
+  node('region').value='Hessen, Schwerpunkt Wiesbaden';
+  node('period').value='letzte 48 Stunden';
+  const prompt=ctx.buildPrompt();
+  assert.match(prompt,/REGIONALER BINNENSCHIFFFAHRTS-FOKUS/);
+  assert.match(prompt,/ELWIS/);assert.match(prompt,/Kein stiller Recherchepuffer/);
+  assert.doesNotMatch(prompt,/Puffer gehört zum Recherchefenster/);
+  node('period').value='Wochenübersicht letzte 8 Tage';
+  assert.match(ctx.actualResearchWindow(),/UTC, inklusive oberer Grenze/);
+});
+
 test('PDF print HTML, HTML, Markdown and TXT localize settings and restore language',()=>{
   const {ctx,node,downloads}=exportHarness();
   for(const text of [ctx.buildCleanPrintHTML(),ctx.markdown('en'),ctx.textReport('en')]){
