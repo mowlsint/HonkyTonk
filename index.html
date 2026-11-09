@@ -724,7 +724,7 @@ function scopeFor(places){
   const spanLat=Math.max(...lat)-Math.min(...lat),spanLon=Math.max(...lon)-Math.min(...lon);
   const allRegional=pts.every(p=>String(p.precision).toLowerCase()==='regional');
   // A lone regional sea/country centroid is NOT a point event to zoom into.
-  const broadRegion=allRegional&&pts.length===1&&['sea','region','country','chokepoint'].includes(String(pts[0].type||'').toLowerCase());
+  const broadRegion=allRegional&&pts.length===1&&(['sea','country','chokepoint'].includes(String(pts[0].type||'').toLowerCase())||/(nordsee|north sea|ostsee|baltic sea|ärmelkanal|english channel|nordatlantik|north atlantic|schwarzes meer|black sea|mittelmeer|mediterranean|karibik|golf|sea|meer|ocean|kanal|strait|straße|skagerrak|kattegat)/i.test(String(pts[0].name||'')));
   if(!broadRegion&&spanLat<=22&&spanLon<=35)return'local';
   return pts.every(p=>p.lon>=-25&&p.lon<=45&&p.lat>=25&&p.lat<=72)?'europe':'world';
 }
