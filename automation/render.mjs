@@ -32,7 +32,7 @@ export class ExistingLayoutRenderer {
       const origin = `http://127.0.0.1:${server.address().port}`;
       await context.route('**/*', route => {
         const u = new URL(route.request().url());
-        if (u.origin === origin || (u.origin === 'https://services.arcgisonline.com' && u.pathname === '/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/export') || u.protocol === 'data:') return route.continue();
+        if (u.origin === origin || ((u.origin === 'https://services.arcgisonline.com' && u.pathname === '/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/export') || (u.origin === 'https://server.arcgisonline.com' && u.pathname === '/ArcGIS/rest/services/World_Topo_Map/MapServer/export')) || u.protocol === 'data:') return route.continue();
         return route.abort();
       });
       if (this.configureContext) await this.configureContext(context);
