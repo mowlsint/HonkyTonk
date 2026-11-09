@@ -22,7 +22,7 @@ await saveConfig(archive, config, null);
 const source = fixtureSource({ scope: scopeKey(profile) });
 const mapStub = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jD5sAAAAASUVORK5CYII=', 'base64');
 const renderer = new ExistingLayoutRenderer(undefined, async context => {
-  await context.route('https://services.arcgisonline.com/**', route => route.fulfill({ body: mapStub, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
+  await context.route(/https:\/\/(services|server)\.arcgisonline\.com\//, route => route.fulfill({ body: mapStub, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
 });
 const mail = [];
 const runner = new HonkyTonkRunner({ archive, renderer, now: () => now,
@@ -41,7 +41,7 @@ try {
   const uiContext = await browser.newContext({ viewport: { width: 1500, height: 1000 } });
   const page = await uiContext.newPage();
   const errors = []; page.on('pageerror', error => errors.push(error.message));
-  await page.route('https://services.arcgisonline.com/**', route => route.fulfill({ body: mapStub, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
+  await page.route(/https:\/\/(services|server)\.arcgisonline\.com\//, route => route.fulfill({ body: mapStub, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
   await page.goto(origin);
   await page.waitForFunction(() => !!window.HonkyTonkAutomation);
   assert.equal(await page.locator('#automationDetails').getAttribute('open'), null);
