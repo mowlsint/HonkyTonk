@@ -199,8 +199,8 @@ test('unverified coordinates and place names cannot silently acquire an exact ev
 test('research prompt uses exact 24/36/48 hour periods and gives inland regions priority',()=>{
   const {ctx,node}=exportHarness();node('reportDate').value='2026-10-04';
   for(const [label,h] of [['letzte 24 Stunden',24],['letzte 36 Stunden',36],['letzte 48 Stunden',48],['letzte 7 Tage',168]]){
-    node('period').value=label;const s=ctx.actualResearchWindow();const [a,b]=s.split(' bis ');
-    assert.equal((Date.parse(b)-Date.parse(a))/3600000,h);
+    node('period').value=label;const s=ctx.actualResearchWindow();const dates=s.match(/20\d{2}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z/g);
+    assert.equal(dates?.length,2);assert.equal((Date.parse(dates[1])-Date.parse(dates[0]))/3600000,h);
   }
   node('region').value='Hessen, Schwerpunkt Wiesbaden';
   node('period').value='letzte 48 Stunden';
