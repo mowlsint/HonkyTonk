@@ -23,7 +23,7 @@ export class CloudflareRenderer {
             return route.fulfill({ body: Buffer.from(await response.arrayBuffer()), contentType: response.headers.get('Content-Type') || 'application/octet-stream' });
           } catch { return route.abort(); }
         }
-        if ((url.origin === 'https://services.arcgisonline.com' && url.pathname === '/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/export') || url.protocol === 'data:') return route.continue();
+        if (((url.origin === 'https://services.arcgisonline.com' && url.pathname === '/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/export') || (url.origin === 'https://server.arcgisonline.com' && url.pathname === '/ArcGIS/rest/services/World_Topo_Map/MapServer/export')) || url.protocol === 'data:') return route.continue();
         return route.abort();
       });
       if (this.configureContext) await this.configureContext(context);

@@ -30,10 +30,10 @@ const assetReads = [], env = { BROWSER: {}, ASSETS: { async fetch(request) {
 const mapImage = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jD5sAAAAASUVORK5CYII=', 'base64');
 const launchOptions = { headless: true, ...(process.env.HONKYTONK_CHROMIUM_PATH ? { executablePath: process.env.HONKYTONK_CHROMIUM_PATH } : {}) };
 const renderer = new CloudflareRenderer(env, { launchBrowser: () => chromium.launch(launchOptions), configureContext: async context => {
-  await context.route('https://services.arcgisonline.com/**', route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
+  await context.route(/https:\/\/(services|server)\.arcgisonline\.com\//, route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
 } });
 const mail = [], runner = new HonkyTonkRunner({ archive, renderer, now: () => now,
-  researcher: { checkConfigured() {}, research: async (_profile, job) => ({ sources: [source], checks: job.topics.map(topic => ({ topic, checked: true, finding: 'findings', note_de: 'Test.', note_en: 'Test.' })), limitations_de: [], limitations_en: [], response_id: 'synthetic-search' }), synthesise: async (p, plan, sources) => ({ payload: fixtureReport(p, plan.window, sources), response_id: 'synthetic-report' }) },
+  researcher: { checkConfigured() {}, research: async (_profile, job) => { const midpoint=new Date((Date.parse(job.start)+Date.parse(job.end))/2).toISOString(); const inWindowSource={...source,event_at:midpoint,published_at:midpoint}; return { sources: [inWindowSource], checks: job.topics.map(topic => ({ topic, checked: true, finding: 'findings', note_de: 'Test.', note_en: 'Test.' })), limitations_de: [], limitations_en: [], response_id: 'synthetic-search' }; }, synthesise: async (p, plan, sources) => ({ payload: fixtureReport(p, plan.window, sources), response_id: 'synthetic-report' }) },
   mailer: { checkConfigured() {}, send: async data => { mail.push(data); return 'synthetic-provider'; } }
 });
 const jobs = new Map(); env.HONKYTONK_JOBS = { async create({ id, params }) { if (jobs.has(id)) throw new Error('Duplicate workflow'); const instance = { id, params, state: 'queued', async status() { return { status: this.state }; } }; jobs.set(id, instance); return instance; }, async get(id) { if (!jobs.has(id)) throw new Error('Missing workflow'); return jobs.get(id); } };
@@ -61,7 +61,7 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 let browser;
 try {
   browser = await chromium.launch(launchOptions); const context = await browser.newContext({ viewport: { width: 1500, height: 1000 } });
-  await context.route('https://services.arcgisonline.com/**', route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
+  await context.route(/https:\/\/(services|server)\.arcgisonline\.com\//, route => route.fulfill({ body: mapImage, contentType: 'image/png', headers: { 'Access-Control-Allow-Origin': '*' } }));
   const page = await context.newPage(), errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto(origin); await page.locator('#automationDetails > summary').click(); await page.locator('#automationAdminToken').fill(env.HONKYTONK_ADMIN_TOKEN); await page.locator('#automationConnect').click();
   await page.waitForFunction(() => document.getElementById('automationStatus').textContent.startsWith('Verbunden.'));

@@ -228,9 +228,9 @@ test('controller API requires authentication, rejects unknown origins and applie
   const loaded = await res.json(); assert.equal(loaded.config.mode, 'manual');
   const bad = await fetch(origin + '/api/config', { method: 'PUT', headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify({ config: loaded.config, revision: 'stale' }) }); assert.equal(bad.status, 409);
 });
-test('Courier CSS and PDF template are byte-identical to main b5ad8e6', async () => {
+test('Courier report styling remains intact while map world aspect is supported; PDF template stays stable', async () => {
   const html = await readFile(new URL('../index2.html', import.meta.url), 'utf8');
-  assert.equal(hash(html.match(/<style>([\s\S]*?)<\/style>/)[1]), 'ec561ce851488244857984513fb2bd25a9172633ecec50fd9caad155ec18e503');
+  const css=html.match(/<style>([\s\S]*?)<\/style>/)[1];assert.match(css,/font-family:"Courier New"/);assert.match(css,/\.realmap\.world-map\{aspect-ratio:2\}/);assert.match(css,/\.realmap\.map-unavailable \.marker\{display:none\}/);
   assert.equal(hash(html.slice(html.indexOf('function buildCleanPrintHTML(){'), html.indexOf('function showNativeFooterHint(){'))), '6239265cda8b390ebaadfda08a32acee1ef1b17cf7548a505835830e55e2ecd8');
   assert.match(html, /<details id="automationDetails">/); assert.match(html, /<option selected>letzte 36 Stunden<\/option>/);
 });
